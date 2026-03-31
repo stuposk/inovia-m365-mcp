@@ -59,7 +59,93 @@ Každý zamestnanec si nastaví vlastný `AZURE_USER_EMAIL` — svoj @inovia.sk 
 
 ---
 
-## Nastavenie pre zamestnancov
+## Nastavenie pre zamestnancov — Claude Cowork
+
+> Toto je odporúčaný spôsob pre neprogramátorov. Vyžaduje nainštalovaný **Claude Desktop** aj **Claude Cowork**.
+
+### Predpoklady
+
+- [Node.js 20+](https://nodejs.org)
+- [Claude Desktop](https://claude.ai/download) — premosťuje lokálny server do Cowork
+- [Claude Cowork](https://claude.ai/cowork) — hlavné pracovné rozhranie
+
+### Krok 1 — Stiahni a zostav projekt
+
+```bash
+git clone https://github.com/stuposk/inovia-m365-mcp inovia-m365-mcp
+cd inovia-m365-mcp
+npm install
+npm run build
+```
+
+### Krok 2 — Vytvor konfiguračný súbor
+
+```bash
+cp .env.example .env
+```
+
+Otvor `.env` a doplň hodnoty od IT administrátora:
+```
+AZURE_CLIENT_ID=xxxx-xxxx-xxxx-xxxx
+AZURE_TENANT_ID=xxxx-xxxx-xxxx-xxxx
+AZURE_CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxx
+AZURE_USER_EMAIL=meno.priezvisko@inovia.sk
+```
+
+### Krok 3 — Zaregistruj server v Claude Desktop
+
+Otvor (alebo vytvor) konfiguračný súbor Claude Desktop:
+
+- **Mac:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+
+Pridaj tento obsah (uprav cestu podľa toho, kde si projekt stiahol):
+
+```json
+{
+  "mcpServers": {
+    "inovia-m365": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/CESTA/K/inovia-m365-mcp/dist/server.js"]
+    }
+  }
+}
+```
+
+Príklad na Mac (ak si stiahol do Documents):
+```json
+{
+  "mcpServers": {
+    "inovia-m365": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["/Users/tvoje-meno/Documents/inovia-m365-mcp/dist/server.js"]
+    }
+  }
+}
+```
+
+### Krok 4 — Reštartuj Claude Desktop
+
+Zavri a znovu otvor Claude Desktop. Server sa automaticky premostí do Claude Cowork.
+
+### Krok 5 — Nainštaluj skill
+
+```bash
+mkdir -p ~/.claude/skills/daily-briefing
+cp skill/daily-briefing/SKILL.md ~/.claude/skills/daily-briefing/SKILL.md
+```
+
+### Krok 6 — Otestuj v Cowork
+
+1. Otvor Claude Cowork
+2. Napíš `/daily-briefing`
+3. Prehľad sa zobrazí automaticky
+
+---
+
+## Nastavenie pre zamestnancov — Claude Code (pre vývojárov)
 
 ### Predpoklady
 
