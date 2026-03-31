@@ -1,6 +1,6 @@
 import { Client } from "@microsoft/microsoft-graph-client";
 import "node-fetch";
-import { getAccessToken } from "./auth.js";
+import { getAccessToken, getUserEmail } from "./auth.js";
 
 let _client: Client | null = null;
 
@@ -10,9 +10,6 @@ export function getGraphClient(): Client {
   _client = Client.initWithMiddleware({
     authProvider: {
       getAccessToken: async () => getAccessToken(),
-    },
-    fetchOptions: {
-      // node-fetch is needed in Node.js environments
     },
   });
 
@@ -43,8 +40,8 @@ export interface MailMessage {
 
 export async function getTodayEvents(): Promise<CalendarEvent[]> {
   const client = getGraphClient();
+  const userEmail = getUserEmail();
 
-  // Use Europe/Bratislava timezone
   const tz = "Europe/Bratislava";
   const now = new Date();
   const formatter = new Intl.DateTimeFormat("sv-SE", {
@@ -53,12 +50,12 @@ export async function getTodayEvents(): Promise<CalendarEvent[]> {
     month: "2-digit",
     day: "2-digit",
   });
-  const todayStr = formatter.format(now); // "YYYY-MM-DD"
+  const todayStr = formatter.format(now);
   const startDateTime = `${todayStr}T00:00:00`;
   const endDateTime = `${todayStr}T23:59:59`;
 
   const response = await client
-    .api("/me/calendarView")
+    .api(`/users/${userEmail}/calendarView`)
     .header("Prefer", `outlook.timezone="${tz}"`)
     .query({
       startDateTime,
@@ -87,15 +84,15 @@ export async function getTodayEvents(): Promise<CalendarEvent[]> {
 
 export async function getNewMessages(limit: number): Promise<MailMessage[]> {
   const client = getGraphClient();
+  const userEmail = getUserEmail();
 
   const response = await client
-    .api("/me/mailFolders/inbox/messages")
+    .api(`/users/${userEmail}/mailFolders/inbox/messages`)
     .query({
       $filter: "isRead eq false",
       $orderby: "receivedDateTime desc",
       $top: limit,
-      $select:
-        "id,subject,from,receivedDateTime,bodyPreview,isRead",
+      $select: "id,subject,from,receivedDateTime,bodyPreview,isRead",
     })
     .get();
 

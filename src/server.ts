@@ -2,14 +2,18 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { getAccessToken } from "./auth.js";
+import { runSetupIfNeeded } from "./setup.js";
 import { registerCalendarTool } from "./tools/calendar.js";
 import { registerMailTool } from "./tools/mail.js";
 
 async function main(): Promise<void> {
   // Load .env if present (for local development)
-  const envPath = new URL("../../.env", import.meta.url).pathname;
   try {
     const { readFileSync } = await import("fs");
+    const { resolve, dirname } = await import("path");
+    const { fileURLToPath } = await import("url");
+    const __dirname = dirname(fileURLToPath(import.meta.url));
+    const envPath = resolve(__dirname, "../.env");
     const env = readFileSync(envPath, "utf8");
     for (const line of env.split("\n")) {
       const trimmed = line.trim();
@@ -39,6 +43,9 @@ async function main(): Promise<void> {
 
   registerCalendarTool(server);
   registerMailTool(server);
+
+  // Run interactive onboarding on first launch (before MCP transport starts)
+  await runSetupIfNeeded();
 
   // Eagerly authenticate before connecting so auth errors surface immediately
   // and the device-code prompt appears before MCP handshake
