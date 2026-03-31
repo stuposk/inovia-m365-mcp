@@ -38,21 +38,20 @@ export interface MailMessage {
   isRead: boolean;
 }
 
-export async function getTodayEvents(): Promise<CalendarEvent[]> {
+export async function getEvents(from?: string, to?: string): Promise<CalendarEvent[]> {
   const client = getGraphClient();
   const userEmail = getUserEmail();
 
   const tz = "Europe/Bratislava";
-  const now = new Date();
   const formatter = new Intl.DateTimeFormat("sv-SE", {
     timeZone: tz,
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
   });
-  const todayStr = formatter.format(now);
-  const startDateTime = `${todayStr}T00:00:00`;
-  const endDateTime = `${todayStr}T23:59:59`;
+  const todayStr = formatter.format(new Date());
+  const startDateTime = `${from ?? todayStr}T00:00:00`;
+  const endDateTime = `${to ?? todayStr}T23:59:59`;
 
   const response = await client
     .api(`/users/${userEmail}/calendarView`)
