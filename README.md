@@ -26,23 +26,36 @@ Tento krok treba spraviť raz pre celú firmu.
 3. Vyplň:
    - Name: `inovia-m365-mcp`
    - Supported account types: **Accounts in this organizational directory only (inovia.sk only)**
-   - Redirect URI: Platform = **Mobile and desktop applications**, URI = `http://localhost`
+   - Redirect URI: nechaj prázdne
 4. Klikni **Register**
 5. Poznač si:
    - **Application (client) ID** → toto je `AZURE_CLIENT_ID`
    - **Directory (tenant) ID** → toto je `AZURE_TENANT_ID`
 
-### 2. Nastavenie oprávnení
+### 2. Vytvor Client Secret
 
-1. V registrácii aplikácie choď na **API permissions → Add a permission → Microsoft Graph → Delegated permissions**
+1. V registrácii aplikácie choď na **Certificates & secrets → Client secrets → New client secret**
+2. Vyplň popis (napr. `inovia-m365-mcp`) a zvol platnosť (napr. 24 mesiacov)
+3. Klikni **Add**
+4. **Okamžite si skopíruj hodnotu** zo stĺpca *Value* — po opustení stránky ju už neuvidíš
+5. Toto je `AZURE_CLIENT_SECRET`
+
+### 3. Nastavenie oprávnení
+
+1. V registrácii aplikácie choď na **API permissions → Add a permission → Microsoft Graph → Application permissions**
 2. Pridaj tieto oprávnenia:
    - `Calendars.Read`
    - `Mail.Read`
-   - `User.Read`
-   - `offline_access`
-3. Klikni **Grant admin consent for inovia.sk** (dôležité — inak by každý zamestnanec musel súhlasiť manuálne)
+3. Klikni **Grant admin consent for inovia.sk** (dôležité — bez toho aplikácia nebude fungovať)
 
-Zdieľaj hodnoty `AZURE_CLIENT_ID` a `AZURE_TENANT_ID` so zamestnancami.
+### 4. Zdieľaj hodnoty so zamestnancami
+
+Každému zamestnancovi pošli:
+- `AZURE_CLIENT_ID`
+- `AZURE_TENANT_ID`
+- `AZURE_CLIENT_SECRET`
+
+Každý zamestnanec si nastaví vlastný `AZURE_USER_EMAIL` — svoj @inovia.sk e-mail.
 
 ---
 
@@ -56,7 +69,7 @@ Zdieľaj hodnoty `AZURE_CLIENT_ID` a `AZURE_TENANT_ID` so zamestnancami.
 ### Krok 1 — Stiahni a zostav projekt
 
 ```bash
-git clone <repo-url> inovia-m365-mcp
+git clone https://github.com/stuposk/inovia-m365-mcp inovia-m365-mcp
 cd inovia-m365-mcp
 npm install
 npm run build
@@ -69,10 +82,12 @@ Skopíruj `.env.example` do `.env`:
 cp .env.example .env
 ```
 
-Otvor `.env` v textovom editore a doplň hodnoty od IT administrátora:
+Otvor `.env` v textovom editore a doplň hodnoty od IT administrátora + svoj e-mail:
 ```
 AZURE_CLIENT_ID=xxxx-xxxx-xxxx-xxxx
 AZURE_TENANT_ID=xxxx-xxxx-xxxx-xxxx
+AZURE_CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxx
+AZURE_USER_EMAIL=meno.priezvisko@inovia.sk
 ```
 
 ### Krok 3 — Zaregistruj MCP server v Claude Code
@@ -95,25 +110,11 @@ mkdir -p ~/.claude/skills/daily-briefing
 cp skill/daily-briefing/SKILL.md ~/.claude/skills/daily-briefing/SKILL.md
 ```
 
-### Krok 5 — Prvé prihlásenie
+### Krok 5 — Otestuj
 
 1. Otvor Claude Code
 2. Napíš `/daily-briefing`
-3. V termináli sa zobrazí správa s odkazom a kódom, napr.:
-
-```
-============================================================
-INOVIA M365 — Microsoft Login Required
-============================================================
-To sign in, use a web browser to open the page
-https://microsoft.com/devicelogin and enter the code ABC123DEF
-============================================================
-```
-
-4. Otvor tento odkaz v prehliadači, zadaj kód a prihlás sa svojím @inovia.sk účtom
-5. Po prihlásení sa vráť do Claude Code — prehľad sa zobrazí automaticky
-
-Každé ďalšie spustenie `/daily-briefing` bude okamžité — prihlásenie si pamätá.
+3. Prehľad sa zobrazí automaticky — žiadne prihlasovanie nie je potrebné
 
 ---
 
@@ -123,8 +124,9 @@ Každé ďalšie spustenie `/daily-briefing` bude okamžité — prihlásenie si
 inovia-m365-mcp/
 ├── src/
 │   ├── server.ts          # MCP server (vstupný bod)
-│   ├── auth.ts            # Autentifikácia cez Microsoft (MSAL)
+│   ├── auth.ts            # Autentifikácia cez Microsoft (MSAL client credentials)
 │   ├── graph.ts           # Volania Microsoft Graph API
+│   ├── setup.ts           # Validácia konfigurácie pri štarte
 │   └── tools/
 │       ├── calendar.ts    # Nástroj get_today_events
 │       └── mail.ts        # Nástroj get_new_messages
@@ -139,17 +141,14 @@ inovia-m365-mcp/
 
 ## Riešenie problémov
 
-**"Missing AZURE_CLIENT_ID or AZURE_TENANT_ID"**
-→ Skontroluj, či máš vytvorený `.env` súbor so správnymi hodnotami.
+**"Chýbajú premenné v .env: AZURE_CLIENT_SECRET"** (alebo iná premenná)
+→ Skontroluj, či máš v `.env` všetky štyri hodnoty: `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_CLIENT_SECRET`, `AZURE_USER_EMAIL`.
 
-**Po prihlásení sa nič nestane**
-→ Počkaj niekoľko sekúnd — MCP server sa inicializuje po úspešnom prihlásení.
+**"Access token could not be acquired"**
+→ Skontroluj, či IT admin udelil admin consent pre oprávnenia `Calendars.Read` a `Mail.Read` (Application permissions).
 
-**"Authentication failed"**
-→ Vymaž prihlásenie a skús znova:
-```bash
-rm ~/.inovia-m365-mcp/token-cache.json
-```
+**"Resource not found" alebo prázdny kalendár**
+→ Skontroluj, či je `AZURE_USER_EMAIL` správny @inovia.sk e-mail.
 
 **Nevidím `/daily-briefing` príkaz**
 → Skontroluj, či je SKILL.md na správnom mieste: `~/.claude/skills/daily-briefing/SKILL.md`
