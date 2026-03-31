@@ -4,6 +4,23 @@ Prehľad plánovaných funkcií zoskupených podľa oblasti. Aktuálne implement
 
 ---
 
+## #1 — Remote server s Microsoft OAuth autorizáciou
+
+Priorita: **vysoká** — predpoklad pre nasadenie pre celý tím.
+
+Aktuálne beží server lokálne na počítači každého používateľa. Cieľom je presunutie na zdieľaný remote server (napr. Azure App Service), kde každý kolega uvidí len svoje vlastné dáta.
+
+**Čo treba spraviť:**
+- [ ] Pridať HTTP/SSE transport do MCP servera (aktuálne len stdio)
+- [ ] Pridať Microsoft OAuth flow — kolega sa prihlási svojim `@inovia.sk` účtom
+- [ ] Server overí Microsoft token a použije email z tokenu (nie z `.env`)
+- [ ] Nasadiť na Azure App Service
+- [ ] Aktualizovať README s inštrukciami pre pripojenie cez Cowork (URL miesto lokálnej cesty)
+
+**Výsledok:** Kolegovia si nainštalujú Claude Cowork, zadajú URL servera, prihlásia sa Microsoft účtom → hotovo. Žiadna inštalácia Node.js, žiadny terminál.
+
+---
+
 ## Kalendár (`Calendars.ReadWrite`)
 
 - ✅ Zobraziť dnešné stretnutia (`/daily-briefing`)
