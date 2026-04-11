@@ -43,7 +43,7 @@ async function loadEnv(): Promise<void> {
 function createMcpServer(email: string): McpServer {
   const serviceUrl = process.env.SERVICE_URL ?? "";
   const server = new McpServer(
-    { name: "inovia-m365", version: "1.0.0" },
+    { name: "inovia-m365", version: "26.04.01" },
     {
       instructions:
         `Tools for inovia.sk Microsoft 365 workspace — calendar, inbox, and company directory for ${email}. ` +
@@ -65,7 +65,7 @@ function createOnboardingServer(): McpServer {
   const loginUrl = `${serviceUrl}/auth/login`;
 
   const server = new McpServer(
-    { name: "inovia-m365", version: "1.0.0" },
+    { name: "inovia-m365", version: "26.04.01" },
     {
       instructions:
         "The user has not yet authenticated their Microsoft 365 account. " +

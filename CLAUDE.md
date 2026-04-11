@@ -28,8 +28,19 @@ gcloud run deploy inovia-m365-mcp --image=$IMAGE --region=europe-west1 --platfor
 Po deployi nahraj plugin na GitHub Release:
 
 ```bash
-gh release upload v1.0.0 ./inovia.zip --clobber
+gh release upload v26.04.01 ./inovia.zip --clobber
 ```
+
+## Verzionovanie
+
+Formát: `YY.MM.VV` — rok, mesiac, poradové číslo release v danom mesiaci (2 cifry).
+Príklad: `26.04.01` = prvý release v apríli 2026, `26.04.02` = druhý release v apríli.
+
+Pri každom release aktualizuj:
+- `package.json` — `version` a `releaseDate`
+- `src/server.ts` — `version` (2 miesta)
+- `CHANGELOG.md` — nový záznam
+- GitHub Release tag: `v26.04.01`
 
 ## Štruktúra projektu
 
