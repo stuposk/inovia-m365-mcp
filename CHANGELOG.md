@@ -1,5 +1,12 @@
 # Changelog
 
+## 26.04.04 — 2026-04-12
+
+### Zmenené
+- Auth callback stránka: krok 4 zmenený z "ranný prehľad" na `/inovia` so zoznamom funkcií
+
+---
+
 ## 26.04.03 — 2026-04-12
 
 ### Zmenené

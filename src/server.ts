@@ -18,7 +18,7 @@ import { registerUserTools } from "./tools/users.js";
 import { registerMarketingTool } from "./tools/marketing.js";
 import { registerCapabilitiesTool } from "./tools/capabilities.js";
 
-const VERSION = "26.04.03";
+const VERSION = "26.04.04";
 const REPO_URL = "https://github.com/stuposk/inovia-m365-mcp";
 
 async function loadEnv(): Promise<void> {
@@ -239,7 +239,7 @@ function authCallbackHtml(email: string, personalUrl: string): string {
       </li>
       <li class="step">
         <span class="step-num">4</span>
-        <span class="step-body">Napíš <strong>ranný prehľad</strong> a Claude zobrazí prehľad dňa</span>
+        <span class="step-body">Napíš <code>/inovia</code> a Claude zobrazí zoznam dostupných funkcií</span>
       </li>
     </ol>
 
