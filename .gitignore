@@ -3,3 +3,4 @@ dist/
 .env
 *.token-cache.json
 .claude/
+*.plugin
