@@ -31,6 +31,18 @@ Po deployi nahraj plugin na GitHub Release:
 gh release upload v26.04.01 ./inovia.zip --clobber
 ```
 
+## Pravidlo: pri každom novom nástroji musia ísť von vždy 3 veci naraz
+
+Kedykoľvek pridáme nový MCP nástroj (endpoint), **vždy** musia byť súčasťou toho istého releasu:
+
+1. **Server** — nový tool zaregistrovaný v `src/server.ts`, implementácia v `src/tools/` a `src/graph.ts`
+2. **Skill pre Claude Code** — nový `skill/<nazov>/SKILL.md`
+3. **Skill pre Cowork plugin** — nový `plugin/skills/<nazov>/SKILL.md` (s `tools:` frontmatter)
+
+Po dokončení: build → deploy → rebuild `inovia.zip` → upload na GitHub Release.
+
+---
+
 ## Verzionovanie
 
 Formát: `YY.MM.VV` — rok, mesiac, poradové číslo release v danom mesiaci (2 cifry).
