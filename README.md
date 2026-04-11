@@ -1,15 +1,17 @@
 # inovia-m365-mcp
 
-Microsoft 365 MCP server pre inovia.sk — ranný prehľad kalendára a doručenej pošty v Claude Code a Cowork.
+Microsoft 365 MCP server pre inovia.sk — firemné nástroje priamo v Claude Code a Cowork.
 
 ---
 
 ## Čo to robí
 
-Napíš `/daily-briefing` a Claude:
-1. Načíta dnešné udalosti z tvojho Outlook kalendára
-2. Načíta neprečítané e-maily z tvojho inboxu
-3. Zobrazí prehľad v peknom formáte
+| Skill | Spustenie | Čo robí |
+|---|---|---|
+| **Ranný prehľad** | `/daily-briefing` alebo „ranný prehľad" | Dnešné stretnutia z Outlooku + neprečítané e-maily |
+| **Hľadanie kolegu** | `/find-colleague` alebo „kto je..." | Kontakt, oddelenie, manažér, tím |
+
+Ďalšie plánované funkcie: pozri [ROADMAP.md](ROADMAP.md).
 
 ---
 
@@ -25,14 +27,13 @@ Najjednoduchší spôsob — žiadna inštalácia Node.js ani terminál.
 
 ### Krok 2 — Pripoj svoj účet
 
-Po inštalácii napíš čokoľvek — Claude ťa prevedie prihlásením. Alebo priamo:
-
 1. Otvor v prehliadači: `https://inovia-m365-mcp-521967815165.europe-west1.run.app/auth/login`
 2. Prihlás sa svojím `@inovia.sk` Microsoft účtom
 3. Skopíruj svoju osobnú URL adresu MCP servera zo stránky
-4. V Cowork: **Personal plugins → Inovia → Connectors → inovia-m365** → zmeň URL na osobnú
+4. V Cowork: **Customize → Add custom connector**
+5. Zadaj názov `inovia-m365` a skopírovanú URL → klikni **Add**
 
-Platnosť prihlásenia je **30 dní**. Po vypršaní zopakuj kroky 1–4.
+Platnosť prihlásenia je **30 dní**. Po vypršaní zopakuj kroky 1–5.
 
 ---
 
@@ -49,23 +50,24 @@ claude mcp add inovia-m365 --transport http https://inovia-m365-mcp-521967815165
 1. Otvor v prehliadači: `https://inovia-m365-mcp-521967815165.europe-west1.run.app/auth/login`
 2. Prihlás sa svojím `@inovia.sk` Microsoft účtom
 3. Skopíruj svoju osobnú URL adresu MCP servera
-4. Aktualizuj MCP konfiguráciu s osobnou URL:
+4. Aktualizuj MCP konfiguráciu:
 
 ```bash
 claude mcp remove inovia-m365
 claude mcp add inovia-m365 --transport http <tvoja-osobná-url>
 ```
 
-### Krok 3 — Nainštaluj skill
+### Krok 3 — Nainštaluj skilly
 
 ```bash
-mkdir -p ~/.claude/skills/daily-briefing
-cp plugin/skills/daily-briefing/SKILL.md ~/.claude/skills/daily-briefing/SKILL.md
+mkdir -p ~/.claude/skills/daily-briefing ~/.claude/skills/find-colleague
+cp skill/daily-briefing/SKILL.md ~/.claude/skills/daily-briefing/SKILL.md
+cp skill/find-colleague/SKILL.md ~/.claude/skills/find-colleague/SKILL.md
 ```
 
 ### Krok 4 — Otestuj
 
-Napíš `/daily-briefing` v Claude Code.
+Napíš `/daily-briefing` alebo `/find-colleague` v Claude Code.
 
 ---
 
@@ -102,16 +104,17 @@ Tento krok treba spraviť raz pre celú firmu.
 2. Pridaj:
    - `Calendars.Read`
    - `Mail.Read`
+   - `User.Read.All`
 3. Klikni **Grant admin consent for inovia.sk**
 
 ### 5. Nasadenie na Cloud Run
 
 ```bash
-gcloud run deploy inovia-m365-mcp \
-  --source . \
-  --region europe-west1 \
-  --platform managed \
-  --allow-unauthenticated
+PROJECT_ID=<tvoj-project-id>
+IMAGE=europe-west1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/inovia-m365-mcp:latest
+
+gcloud builds submit --region=europe-west1 --tag=$IMAGE .
+gcloud run deploy inovia-m365-mcp --image=$IMAGE --region=europe-west1 --platform=managed --allow-unauthenticated
 ```
 
 Pridaj tieto premenné v Cloud Run → **Variables & Secrets**:
@@ -175,16 +178,21 @@ inovia-m365-mcp/
 │   ├── graph.ts           # Microsoft Graph API volania
 │   ├── setup.ts           # Validácia konfigurácie
 │   └── tools/
-│       ├── calendar.ts    # Nástroj get_today_events
-│       └── mail.ts        # Nástroj get_new_messages
-├── plugin/
-│   ├── README.md          # Plugin dokumentácia
-│   └── skills/
-│       └── daily-briefing/
-│           └── SKILL.md   # Skill pre Cowork
-├── skill/
-│   └── daily-briefing/
-│       └── SKILL.md       # Skill pre Claude Code
+│       ├── calendar.ts    # get_today_events
+│       ├── mail.ts        # get_new_messages
+│       └── users.ts       # find_colleague, get_department_members, get_org_chart
+├── skill/                 # Skilly pre Claude Code
+│   ├── daily-briefing/
+│   └── find-colleague/
+├── plugin/                # Claude Cowork plugin
+│   ├── .claude-plugin/
+│   │   └── plugin.json    # Plugin manifest
+│   ├── skills/            # Skilly pre Cowork
+│   │   ├── daily-briefing/
+│   │   └── find-colleague/
+│   └── README.md
+├── CHANGELOG.md
+├── ROADMAP.md
 └── Dockerfile
 ```
 
@@ -202,4 +210,4 @@ inovia-m365-mcp/
 → Skontroluj, či IT admin nastavil správne `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_CLIENT_SECRET` a udelil admin consent.
 
 **"Resource not found" alebo prázdny kalendár**
-→ Skontroluj, či admin consent zahŕňa `Calendars.Read` a `Mail.Read` (Application permissions).
+→ Skontroluj, či admin consent zahŕňa `Calendars.Read`, `Mail.Read` a `User.Read.All` (Application permissions).
