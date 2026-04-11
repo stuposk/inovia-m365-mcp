@@ -43,8 +43,14 @@ gh release upload v26.04.01 ./inovia.zip --clobber
 Kedykoľvek pridáme nový MCP nástroj (endpoint), **vždy** musia byť súčasťou toho istého releasu:
 
 1. **Server** — nový tool zaregistrovaný v `src/server.ts`, implementácia v `src/tools/` a `src/graph.ts`
-2. **Skill pre Claude Code** — nový `skill/<nazov>/SKILL.md`
-3. **Skill pre Cowork plugin** — nový `plugin/skills/<nazov>/SKILL.md` (s `tools:` frontmatter)
+2. **Skill pre Claude Code** — `skill/inovia/SKILL.md` (aktualizuj ak sa mení správanie)
+3. **Skill pre Cowork plugin** — `plugin/skills/inovia/SKILL.md` (musí byť vždy zhodný s Claude Code verziou)
+
+**Dôležité:** `skill/inovia/SKILL.md` a `plugin/skills/inovia/SKILL.md` musia byť vždy identické — okrem `tools:` frontmatter riadku ktorý je len v plugin verzii. Ak zmeníš jedno, zmeň aj druhé.
+
+Ak pridáš capability s `hasContext: true`:
+- Vytvor `data/skills/<id>/guide.md` s detailnými inštrukciami
+- Pridaj `get_skill_context` do `tools:` zoznamu v `plugin/skills/inovia/SKILL.md` (ak tam ešte nie je)
 
 Po dokončení: build → deploy → rebuild `inovia.zip` → upload na GitHub Release.
 
