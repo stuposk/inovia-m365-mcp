@@ -50,9 +50,10 @@ Príklad: `26.04.01` = prvý release v apríli 2026, `26.04.02` = druhý release
 
 Pri každom release aktualizuj:
 - `package.json` — `version` a `releaseDate`
-- `src/server.ts` — `version` (2 miesta)
+- `src/server.ts` — `VERSION` konštanta
+- `plugin/.claude-plugin/plugin.json` — `version` + `skills` zoznam
 - `CHANGELOG.md` — nový záznam
-- GitHub Release tag: `v26.04.01`
+- GitHub Release tag: `vYY.MM.VV`
 
 ## Štruktúra projektu
 
