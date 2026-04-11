@@ -1,5 +1,13 @@
 # Changelog
 
+## 26.04.06 — 2026-04-12
+
+### Zmenené
+- Skill `/inovia`: pred každým zápisom (udalosť, email...) sa Claude musí opýtať na potvrdenie
+- Skill `/inovia`: zosilnený zákaz Google Kalendára a iných externých nástrojov
+
+---
+
 ## 26.04.05 — 2026-04-12
 
 ### Zmenené
