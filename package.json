@@ -1,7 +1,7 @@
 {
   "name": "inovia-m365-mcp",
-  "version": "26.04.01",
-  "releaseDate": "2026-04-11",
+  "version": "26.04.02",
+  "releaseDate": "2026-04-12",
   "description": "Microsoft 365 MCP server for inovia.sk — daily calendar and inbox briefing",
   "type": "module",
   "main": "dist/server.js",

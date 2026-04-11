@@ -15,8 +15,10 @@ import { runSetupIfNeeded } from "./setup.js";
 import { registerCalendarTool } from "./tools/calendar.js";
 import { registerMailTool } from "./tools/mail.js";
 import { registerUserTools } from "./tools/users.js";
+import { registerMarketingTool } from "./tools/marketing.js";
+import { registerCapabilitiesTool } from "./tools/capabilities.js";
 
-const VERSION = "26.04.01";
+const VERSION = "26.04.02";
 const REPO_URL = "https://github.com/stuposk/inovia-m365-mcp";
 
 async function loadEnv(): Promise<void> {
@@ -56,9 +58,11 @@ function createMcpServer(email: string): McpServer {
         `If tools stop working, the session token may have expired — visit ${serviceUrl}/auth/login to renew.`,
     }
   );
+  registerCapabilitiesTool(server);
   registerCalendarTool(server, email);
   registerMailTool(server, email);
   registerUserTools(server);
+  registerMarketingTool(server);
   return server;
 }
 

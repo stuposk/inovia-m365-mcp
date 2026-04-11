@@ -1,5 +1,19 @@
 # Changelog
 
+## 26.04.02 — 2026-04-12
+
+### Pridané
+- Generický `/inovia` skill nahradil samostatné skilly — plugin sa nebude musieť aktualizovať pri každom novom nástroji
+- `get_capabilities` tool — server dynamicky vracia zoznam dostupných funkcií s promptmi
+- `get_marketing_guide` tool — číta `data/marketing/guide.md` a vracia obsah s verziou
+- Marketingový komunikačný manuál INOVIA v1.0 (tone of voice, blacklist, LLM prompt)
+- Nový dizajn auth callback stránky (card layout, Powered by Unite)
+
+### Zmenené
+- Plugin obsahuje jediný skill `inovia` namiesto `daily-briefing` + `find-colleague`
+
+---
+
 ## 26.04.01 — 2026-04-11
 
 ### Pridané

@@ -4,3 +4,6 @@ dist/
 *.token-cache.json
 .claude/
 *.plugin
+inovia.zip
+inovia-m365.zip
+data/marketing/*.pdf
