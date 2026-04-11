@@ -2,7 +2,7 @@
   "mcpServers": {
     "inovia-m365": {
       "type": "http",
-      "url": "https://inovia-mcp-521967815165.europe-west1.run.app/mcp"
+      "url": "https://inovia-m365-mcp-521967815165.europe-west1.run.app/mcp"
     }
   }
 }

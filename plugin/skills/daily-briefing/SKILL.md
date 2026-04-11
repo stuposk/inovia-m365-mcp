@@ -1,6 +1,6 @@
 ---
 name: daily-briefing
-description: Ranný prehľad dňa pre zamestnancov INOVIA.sk — dnešné stretnutia z Outlooku a neprečítané e-maily z Microsoft 365. Spusti na začiatku pracovného dňa. Triggers: "ranný prehľad", "čo mám dnes", "daily briefing", "čo ma dnes čaká", "rozcvička", "prehľad dňa".
+description: Ranný prehľad dňa — dnešné stretnutia z Outlooku a neprečítané e-maily z Microsoft 365.
 tools: [mcp__inovia-m365__get_today_events, mcp__inovia-m365__get_new_messages]
 ---
 

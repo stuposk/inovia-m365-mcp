@@ -1,18 +1,15 @@
-# inovia-m365 Plugin
+# INOVIA Plugin pre Claude Cowork
 
-Microsoft 365 integrácia pre Claude Cowork — ranný prehľad dňa, kalendár a e-maily pre zamestnancov INOVIA.sk.
+Firemné nástroje pre zamestnancov INOVIA.sk priamo v Claude Cowork.
 
 ## Čo plugin obsahuje
 
 **Skill: Ranný prehľad (daily-briefing)**
 Načíta dnešné stretnutia z Outlooku a neprečítané e-maily. Spusti napísaním „ranný prehľad" alebo „čo mám dnes".
 
-**MCP server: inovia-m365**
-Napojenie na Microsoft 365 cez remote server na Google Cloud Run.
-
 ## Inštalácia
 
-1. Stiahni súbor **[inovia-m365.plugin](https://github.com/stuposk/inovia-m365-mcp/releases/latest/download/inovia-m365.plugin)**
+1. Stiahni súbor **[inovia.zip](https://github.com/stuposk/inovia-m365-mcp/releases/latest/download/inovia.zip)**
 2. V Claude Cowork klikni na **Customize → Browse plugins → Upload plugin**
 3. Vyber stiahnutý súbor
 4. Napíš čokoľvek — Claude ťa prevedie prihlásením

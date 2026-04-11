@@ -1,9 +1,9 @@
 {
-  "name": "inovia-m365",
-  "version": "0.1.0",
-  "description": "Microsoft 365 integrácia pre INOVIA – kalendár, emaily a denný prehľad dňa",
+  "name": "inovia",
+  "version": "1.0.0",
+  "description": "INOVIA workplace assistant — firemné nástroje pre zamestnancov priamo v Claude Cowork",
   "author": {
-    "name": "Michal Stupák"
+    "name": "INOVIA"
   },
-  "repository": "https://github.com/stuposk/inovia-m365-mcp"
+  "homepage": "https://github.com/stuposk/inovia-m365-mcp"
 }

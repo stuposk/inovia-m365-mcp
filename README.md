@@ -19,7 +19,7 @@ Najjednoduchší spôsob — žiadna inštalácia Node.js ani terminál.
 
 ### Krok 1 — Stiahni a nainštaluj plugin
 
-1. Stiahni súbor **[inovia-m365.plugin](https://github.com/stuposk/inovia-m365-mcp/releases/latest/download/inovia-m365.plugin)**
+1. Stiahni súbor **[inovia.zip](https://github.com/stuposk/inovia-m365-mcp/releases/latest/download/inovia.zip)**
 2. V Claude Cowork klikni na **Customize → Browse plugins → Upload plugin**
 3. Vyber stiahnutý súbor
 
