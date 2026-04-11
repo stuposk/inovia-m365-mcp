@@ -8,7 +8,7 @@ function getSkillContextPath(id: string): string {
   const __dirname = dirname(fileURLToPath(import.meta.url));
   // Sanitize id — only allow alphanumeric and hyphens
   const safeId = id.replace(/[^a-z0-9-]/gi, "");
-  return resolve(__dirname, `../../data/skills/${safeId}.md`);
+  return resolve(__dirname, `../../data/skills/${safeId}/guide.md`);
 }
 
 export function registerSkillContextTool(server: McpServer): void {

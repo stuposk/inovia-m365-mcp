@@ -1,5 +1,13 @@
 # Changelog
 
+## 26.04.08 — 2026-04-12
+
+### Zmenené
+- Konvencia pre data súbory: `data/<topic>/guide.md` — zjednotené s marketing štruktúrou
+- `data/skills/daily-briefing.md` → `data/skills/daily-briefing/guide.md`
+
+---
+
 ## 26.04.07 — 2026-04-12
 
 ### Pridané
