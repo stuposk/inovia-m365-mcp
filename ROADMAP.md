@@ -4,52 +4,43 @@ Prehľad plánovaných funkcií zoskupených podľa oblasti. Aktuálne implement
 
 ---
 
-## #1 — Remote server s Microsoft OAuth autorizáciou
+## Infraštruktúra
 
-Priorita: **vysoká** — predpoklad pre nasadenie pre celý tím.
-
-Aktuálne beží server lokálne na počítači každého používateľa. Cieľom je presunutie na zdieľaný remote server (napr. Azure App Service), kde každý kolega uvidí len svoje vlastné dáta.
-
-**Čo treba spraviť:**
-- [ ] Pridať HTTP/SSE transport do MCP servera (aktuálne len stdio)
-- [ ] Pridať Microsoft OAuth flow — kolega sa prihlási svojim `@inovia.sk` účtom
-- [ ] Server overí Microsoft token a použije email z tokenu (nie z `.env`)
-- [ ] Nasadiť na Azure App Service
-- [ ] Aktualizovať README s inštrukciami pre pripojenie cez Cowork (URL miesto lokálnej cesty)
-
-**Výsledok:** Kolegovia si nainštalujú Claude Cowork, zadajú URL servera, prihlásia sa Microsoft účtom → hotovo. Žiadna inštalácia Node.js, žiadny terminál.
+- ✅ Remote server s Microsoft OAuth autorizáciou (Cloud Run)
+- ✅ Per-user JWT session tokeny (30 dní)
+- ✅ Onboarding flow — Claude prevedie novým používateľom prihlásením
+- ✅ Claude Cowork plugin (`inovia.zip`)
 
 ---
 
-## Kalendár (`Calendars.ReadWrite`)
+## Kalendár (`Calendars.Read`)
 
 - ✅ Zobraziť dnešné stretnutia (`/daily-briefing`)
-- [ ] Zobraziť týždenný prehľad stretnutí
-- [ ] Vytvoriť udalosť / pozvánku
-- [ ] Presunúť alebo zrušiť stretnutie
-- [ ] Skontrolovať, či kolegovia majú voľný čas (free/busy)
+- ✅ Zobraziť stretnutia pre ľubovoľný dátumový rozsah
+- [ ] Skontrolovať voľný čas kolegu (free/busy)
 - [ ] Navrhnúť optimálny čas stretnutia pre viacerých ľudí
+- [ ] Vytvoriť udalosť / pozvánku (`Calendars.ReadWrite`)
+- [ ] Presunúť alebo zrušiť stretnutie (`Calendars.ReadWrite`)
 
-## Maily — čítanie (`Mail.Read`, `Mail.ReadWrite`)
+## Maily — čítanie (`Mail.Read`)
 
 - ✅ Zobraziť neprečítané e-maily (`/daily-briefing`)
 - [ ] Prečítať celý obsah mailu (nie len náhľad)
 - [ ] Vyhľadať maily podľa odosielateľa / témy / dátumu
-- [ ] Označiť maily ako prečítané
-- [ ] Presunúť mail do priečinka / archivácia
+- [ ] Označiť maily ako prečítané (`Mail.ReadWrite`)
 
-## Maily — písanie a odosielanie (`Mail.ReadWrite`, `Mail.Send`)
+## Maily — písanie a odosielanie (`Mail.Send`)
 
 - [ ] Pripraviť návrh odpovede na mail
-- [ ] Odoslať odpoveď priamo z Claude Code
-- [ ] Vytvoriť nový mail (draft alebo rovno odoslať)
-- [ ] Hromadná odpoveď na sériu mailov v jednom vlákne
+- [ ] Odoslať odpoveď priamo z Claude
+- [ ] Vytvoriť nový mail (draft alebo odoslať)
 
 ## Používatelia (`User.Read.All`)
 
-- [ ] Vyhľadať kolegu podľa mena → zistiť jeho e-mail
-- [ ] Zobraziť org chart / kto komu reportuje
-- [ ] Automaticky doplniť príjemcov podľa mena
+- ✅ Vyhľadať kolegu podľa mena alebo oddelenia
+- ✅ Zobraziť org chart — manažér a priame podriadené
+- [ ] Automaticky doplniť príjemcov podľa mena (pri písaní mailu)
+- [ ] Free/busy lookup pre konkrétneho kolegu
 
 ---
 
@@ -58,8 +49,8 @@ Aktuálne beží server lokálne na počítači každého používateľa. Cieľo
 | Skill | Čo robí | Závisí od |
 |---|---|---|
 | `/daily-briefing` | Ranný prehľad — kalendár + neprečítané maily | ✅ hotové |
-| `/mail-review` | Prečíta dnešné maily, zhrnie každý, navrhne odpovede | celý obsah mailu, označiť ako prečítané |
-| `/send-reply` | Odošle pripravenú odpoveď na konkrétny mail | Mail.Send nástroj |
+| `/find-colleague` | Vyhľadá kolegu, zobrazí kontakt a org chart | ✅ hotové |
+| `/mail-review` | Prečíta dnešné maily, zhrnie každý, navrhne odpovede | celý obsah mailu |
+| `/send-reply` | Odošle pripravenú odpoveď na konkrétny mail | Mail.Send |
 | `/schedule-meeting` | Naplánuje stretnutie s kolegom (skontroluje free/busy) | free/busy, vytvorenie udalosti |
 | `/weekly-prep` | Prehľad týždňa — stretnutia + nevybavené maily | týždenný kalendár |
-| `/find-colleague` | Vyhľadá e-mail/kontakt podľa mena | User.Read.All nástroj |

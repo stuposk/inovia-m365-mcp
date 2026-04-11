@@ -81,6 +81,83 @@ export async function getEvents(email: string, from?: string, to?: string): Prom
   return events;
 }
 
+export interface UserProfile {
+  id: string;
+  displayName: string;
+  email: string;
+  jobTitle: string | null;
+  department: string | null;
+  officeLocation: string | null;
+  mobilePhone: string | null;
+  businessPhone: string | null;
+}
+
+const USER_SELECT = "id,displayName,mail,userPrincipalName,jobTitle,department,officeLocation,mobilePhone,businessPhones";
+
+function mapUser(u: any): UserProfile {
+  return {
+    id: u.id,
+    displayName: u.displayName ?? "",
+    email: u.mail ?? u.userPrincipalName ?? "",
+    jobTitle: u.jobTitle ?? null,
+    department: u.department ?? null,
+    officeLocation: u.officeLocation ?? null,
+    mobilePhone: u.mobilePhone ?? null,
+    businessPhone: (u.businessPhones ?? [])[0] ?? null,
+  };
+}
+
+export async function findUsers(query: string): Promise<UserProfile[]> {
+  const client = getGraphClient();
+  const response = await client
+    .api("/users")
+    .query({
+      $search: `"displayName:${query}" OR "mail:${query}" OR "department:${query}"`,
+      $select: USER_SELECT,
+      $top: 15,
+    })
+    .header("ConsistencyLevel", "eventual")
+    .get();
+  return (response.value ?? []).map(mapUser);
+}
+
+export async function getUsersByDepartment(department: string): Promise<UserProfile[]> {
+  const client = getGraphClient();
+  const response = await client
+    .api("/users")
+    .query({
+      $filter: `department eq '${department.replace(/'/g, "''")}'`,
+      $select: USER_SELECT,
+      $top: 50,
+    })
+    .get();
+  return (response.value ?? []).map(mapUser);
+}
+
+export async function getUserOrgChart(userEmail: string): Promise<{
+  user: UserProfile;
+  manager: UserProfile | null;
+  directReports: UserProfile[];
+}> {
+  const client = getGraphClient();
+
+  const [userRes, managerRes, reportsRes] = await Promise.allSettled([
+    client.api(`/users/${userEmail}`).query({ $select: USER_SELECT }).get(),
+    client.api(`/users/${userEmail}/manager`).query({ $select: USER_SELECT }).get(),
+    client.api(`/users/${userEmail}/directReports`).query({ $select: USER_SELECT }).get(),
+  ]);
+
+  const user = userRes.status === "fulfilled" ? mapUser(userRes.value) : null;
+  if (!user) throw new Error(`Používateľ nenájdený: ${userEmail}`);
+
+  const manager = managerRes.status === "fulfilled" ? mapUser(managerRes.value) : null;
+  const directReports = reportsRes.status === "fulfilled"
+    ? (reportsRes.value.value ?? []).map(mapUser)
+    : [];
+
+  return { user, manager, directReports };
+}
+
 export async function getNewMessages(email: string, limit: number): Promise<MailMessage[]> {
   const client = getGraphClient();
   const userEmail = email;

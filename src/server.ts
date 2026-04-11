@@ -14,6 +14,7 @@ import {
 import { runSetupIfNeeded } from "./setup.js";
 import { registerCalendarTool } from "./tools/calendar.js";
 import { registerMailTool } from "./tools/mail.js";
+import { registerUserTools } from "./tools/users.js";
 
 async function loadEnv(): Promise<void> {
   try {
@@ -45,13 +46,16 @@ function createMcpServer(email: string): McpServer {
     { name: "inovia-m365", version: "1.0.0" },
     {
       instructions:
-        `Tools for inovia.sk Microsoft 365 workspace — calendar and inbox for ${email}. ` +
-        "Use get_today_events to fetch calendar events, get_new_messages to fetch unread emails. " +
+        `Tools for inovia.sk Microsoft 365 workspace — calendar, inbox, and company directory for ${email}. ` +
+        "Use get_today_events to fetch calendar events, get_new_messages to fetch unread emails, " +
+        "find_colleague to search the company directory, get_department_members to list a team, " +
+        "get_org_chart to show manager and direct reports for any colleague. " +
         `If tools stop working, the session token may have expired — visit ${serviceUrl}/auth/login to renew.`,
     }
   );
   registerCalendarTool(server, email);
   registerMailTool(server, email);
+  registerUserTools(server);
   return server;
 }
 
