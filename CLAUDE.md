@@ -33,6 +33,13 @@ gh release upload v26.04.01 ./inovia.zip --clobber
 
 ## Pravidlo: pri každom novom nástroji musia ísť von vždy 3 veci naraz
 
+**README.md je živý dokument** — aktualizuj ho vždy keď sa pridá nový skill, nástroj alebo sa zmení postup pre používateľov. Kontroluj najmä:
+- Tabuľku skillov v sekcii "Čo to robí"
+- Sekciu "Štruktúra projektu"
+- Sekciu "Riešenie problémov" ak pribúdajú nové závislosti (napr. nové API oprávnenia)
+
+
+
 Kedykoľvek pridáme nový MCP nástroj (endpoint), **vždy** musia byť súčasťou toho istého releasu:
 
 1. **Server** — nový tool zaregistrovaný v `src/server.ts`, implementácia v `src/tools/` a `src/graph.ts`
