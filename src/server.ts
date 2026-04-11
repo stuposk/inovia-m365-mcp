@@ -124,9 +124,12 @@ function authCallbackHtml(email: string, personalUrl: string): string {
   <div class="url-box" id="url">${personalUrl}</div>
   <button onclick="navigator.clipboard.writeText(document.getElementById('url').textContent).then(()=>this.textContent='Skopírované ✓')">Kopírovať</button>
 
+  <h2 style="margin-top:32px">Ako začať</h2>
   <ol class="steps">
-    <li><strong>Claude Code:</strong> spusti <code>claude mcp add inovia-m365 --transport http &lt;url&gt;</code></li>
-    <li><strong>Claude Cowork:</strong> Nastavenia → MCP servery → vlož URL</li>
+    <li>Stiahni <a href="https://github.com/stuposk/inovia-m365-mcp/releases" target="_blank"><strong>inovia-m365.plugin</strong></a> z GitHub Releases</li>
+    <li>V Claude Cowork klikni <strong>Customize → Browse plugins → Upload plugin</strong> a vyber súbor</li>
+    <li>Vlož URL vyššie: <strong>Nastavenia → MCP servery</strong></li>
+    <li>Napíš <strong>/daily-briefing</strong> a Claude zobrazí prehľad dňa</li>
   </ol>
 
   <p class="note">URL je platná 30 dní. Po vypršaní sa vráť na <a href="/auth/login">prihlásenie</a>.</p>

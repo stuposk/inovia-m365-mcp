@@ -17,13 +17,15 @@ Napíš `/daily-briefing` a Claude:
 
 Najjednoduchší spôsob — žiadna inštalácia Node.js ani terminál.
 
-### Krok 1 — Nainštaluj plugin
+### Krok 1 — Stiahni a nainštaluj plugin
 
-Nainštaluj plugin z: `https://github.com/stuposk/inovia-m365-mcp/tree/main/plugin`
+1. Stiahni súbor **`inovia-m365.plugin`** z [GitHub Releases](https://github.com/stuposk/inovia-m365-mcp/releases)
+2. V Claude Cowork klikni na **Customize → Browse plugins → Upload plugin**
+3. Vyber stiahnutý súbor
 
 ### Krok 2 — Pripoj svoj účet
 
-Po inštalácii Claude automaticky vysvetlí, čo treba spraviť. Alebo priamo:
+Po inštalácii napíš čokoľvek — Claude ťa prevedie prihlásením. Alebo priamo:
 
 1. Otvor v prehliadači: `https://inovia-m365-mcp-521967815165.europe-west1.run.app/auth/login`
 2. Prihlás sa svojím `@inovia.sk` Microsoft účtom
