@@ -1,0 +1,9 @@
+{
+  "name": "inovia-m365",
+  "version": "0.1.0",
+  "description": "Microsoft 365 integrácia pre INOVIA – kalendár, emaily a denný prehľad dňa",
+  "author": {
+    "name": "Michal Stupák"
+  },
+  "repository": "https://github.com/stuposk/inovia-m365-mcp"
+}
