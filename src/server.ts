@@ -49,20 +49,20 @@ function createMcpServer(): McpServer {
 }
 
 async function startHttp(port: number): Promise<void> {
-  // Validate config and auth eagerly so the container fails fast on misconfiguration
-  await runSetupIfNeeded();
-  try {
-    await getAccessToken();
-  } catch (err: any) {
-    process.stderr.write(`[inovia-m365-mcp] Authentication error: ${err.message}\n`);
-    process.exit(1);
-  }
-
   // Stateless transport: each POST to /mcp is a self-contained MCP exchange.
   // This matches Cloud Run's stateless request model.
   const httpServer = createServer(async (req, res) => {
     if (req.url !== "/mcp") {
       res.writeHead(404, { "Content-Type": "text/plain" }).end("Not found");
+      return;
+    }
+
+    // Validate auth per-request so the container starts even before env vars are configured
+    try {
+      await getAccessToken();
+    } catch (err: any) {
+      res.writeHead(503, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: `Authentication failed: ${err.message}` }));
       return;
     }
 
@@ -82,6 +82,7 @@ async function startHttp(port: number): Promise<void> {
     }
   });
 
+  // Listen first — Cloud Run requires the port to be bound quickly at startup
   httpServer.listen(port, "0.0.0.0", () => {
     process.stderr.write(`[inovia-m365-mcp] HTTP server listening on 0.0.0.0:${port}\n`);
   });
