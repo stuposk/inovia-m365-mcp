@@ -87,7 +87,7 @@ function createOnboardingServer(): McpServer {
               "2. Sign in with your @inovia.sk Microsoft account\n" +
               "3. Copy the personal MCP URL shown on the page\n" +
               "4. In Claude Code: run `claude mcp add inovia-m365 --transport http <your-personal-url>`\n" +
-              "   In Cowork: go to Settings → MCP servers and replace the current URL",
+              "   In Cowork: Personal plugins → Inovia → Connectors → inovia-m365 → update the URL",
           }),
         },
       ],
@@ -124,12 +124,12 @@ function authCallbackHtml(email: string, personalUrl: string): string {
   <div class="url-box" id="url">${personalUrl}</div>
   <button onclick="navigator.clipboard.writeText(document.getElementById('url').textContent).then(()=>this.textContent='Skopírované ✓')">Kopírovať</button>
 
-  <h2 style="margin-top:32px">Ako začať</h2>
+  <h2 style="margin-top:32px">Ako nastaviť connector</h2>
   <ol class="steps">
-    <li>Stiahni <a href="https://github.com/stuposk/inovia-m365-mcp/releases/latest/download/inovia.zip"><strong>inovia-m365.plugin</strong></a></li>
-    <li>V Claude Cowork klikni <strong>Customize → Browse plugins → Upload plugin</strong> a vyber súbor</li>
-    <li>Vlož URL vyššie: <strong>Nastavenia → MCP servery</strong></li>
-    <li>Napíš <strong>/daily-briefing</strong> a Claude zobrazí prehľad dňa</li>
+    <li>Ak ešte nemáš plugin: stiahni <a href="https://github.com/stuposk/inovia-m365-mcp/releases/latest/download/inovia.zip"><strong>inovia.zip</strong></a> a nainštaluj cez <strong>Customize → Browse plugins → Upload plugin</strong></li>
+    <li>V Cowork klikni <strong>Customize → Add custom connector</strong></li>
+    <li>Zadaj názov <code>inovia-m365</code> a URL skopírovanú vyššie → klikni Add</li>
+    <li>Napíš <strong>ranný prehľad</strong> a Claude zobrazí prehľad dňa</li>
   </ol>
 
   <p class="note">URL je platná 30 dní. Po vypršaní sa vráť na <a href="/auth/login">prihlásenie</a>.</p>

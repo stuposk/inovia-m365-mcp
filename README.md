@@ -30,7 +30,7 @@ Po inštalácii napíš čokoľvek — Claude ťa prevedie prihlásením. Alebo 
 1. Otvor v prehliadači: `https://inovia-m365-mcp-521967815165.europe-west1.run.app/auth/login`
 2. Prihlás sa svojím `@inovia.sk` Microsoft účtom
 3. Skopíruj svoju osobnú URL adresu MCP servera zo stránky
-4. V Cowork: **Nastavenia → MCP servery** → vlož URL (nahradí pôvodnú)
+4. V Cowork: **Personal plugins → Inovia → Connectors → inovia-m365** → zmeň URL na osobnú
 
 Platnosť prihlásenia je **30 dní**. Po vypršaní zopakuj kroky 1–4.
 
