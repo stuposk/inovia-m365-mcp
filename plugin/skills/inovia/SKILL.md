@@ -12,7 +12,8 @@ Bez ohľadu na požiadavku, vždy začni volaním `get_capabilities`. Získaš z
 **Krok 2 — rozmysli sa a konaj**
 Na základe požiadavky používateľa a zoznamu capabilities:
 - Vyber capability ktorá najlepšie zodpovedá požiadavke (nemusí byť doslovná zhoda — uvažuj o zámere)
-- Vykonaj `prompt` z danej capability — obsahuje presné inštrukcie čo zavolať a ako prezentovať výsledok
+- Ak má capability `hasContext: true` → zavolaj `get_skill_context(id)` a riaď sa inštrukciami z vráteného súboru
+- Ak nemá `hasContext` → vykonaj `prompt` z capability priamo
 - Ak sa požiadavka týka viacerých capabilities, skombinuj ich
 - Ak nie je jasné čo chce — zobraz zoznam (`name` + `description`) a opýtaj sa
 

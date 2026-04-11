@@ -1,5 +1,12 @@
 # Changelog
 
+## 26.04.09 — 2026-04-12
+
+### Zmenené
+- Skill `/inovia`: Krok 2 explicitne spracúva `hasContext` — ak `true`, zavolá `get_skill_context(id)` pred konaním
+
+---
+
 ## 26.04.08 — 2026-04-12
 
 ### Zmenené
