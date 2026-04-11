@@ -126,7 +126,7 @@ function authCallbackHtml(email: string, personalUrl: string): string {
 
   <h2 style="margin-top:32px">Ako začať</h2>
   <ol class="steps">
-    <li>Stiahni <a href="https://github.com/stuposk/inovia-m365-mcp/releases" target="_blank"><strong>inovia-m365.plugin</strong></a> z GitHub Releases</li>
+    <li>Stiahni <a href="https://github.com/stuposk/inovia-m365-mcp/releases/latest/download/inovia-m365.plugin"><strong>inovia-m365.plugin</strong></a></li>
     <li>V Claude Cowork klikni <strong>Customize → Browse plugins → Upload plugin</strong> a vyber súbor</li>
     <li>Vlož URL vyššie: <strong>Nastavenia → MCP servery</strong></li>
     <li>Napíš <strong>/daily-briefing</strong> a Claude zobrazí prehľad dňa</li>

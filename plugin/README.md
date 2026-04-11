@@ -12,7 +12,7 @@ Napojenie na Microsoft 365 cez remote server na Google Cloud Run.
 
 ## Inštalácia
 
-1. Stiahni súbor **`inovia-m365.plugin`** z [GitHub Releases](https://github.com/stuposk/inovia-m365-mcp/releases)
+1. Stiahni súbor **[inovia-m365.plugin](https://github.com/stuposk/inovia-m365-mcp/releases/latest/download/inovia-m365.plugin)**
 2. V Claude Cowork klikni na **Customize → Browse plugins → Upload plugin**
 3. Vyber stiahnutý súbor
 4. Napíš čokoľvek — Claude ťa prevedie prihlásením
