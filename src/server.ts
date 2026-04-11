@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { createServer } from "node:http";
 import { getAccessToken } from "./auth.js";
 import { runSetupIfNeeded } from "./setup.js";
 import { registerCalendarTool } from "./tools/calendar.js";
 import { registerMailTool } from "./tools/mail.js";
 
-async function main(): Promise<void> {
-  // Load .env if present (for local development)
+async function loadEnv(): Promise<void> {
   try {
     const { readFileSync } = await import("fs");
     const { resolve, dirname } = await import("path");
@@ -29,7 +30,9 @@ async function main(): Promise<void> {
   } catch {
     // .env not found — rely on environment variables set externally
   }
+}
 
+function createMcpServer(): McpServer {
   const server = new McpServer(
     { name: "inovia-m365", version: "1.0.0" },
     {
@@ -40,24 +43,72 @@ async function main(): Promise<void> {
         "Both require the user to be authenticated with their @inovia.sk Microsoft account.",
     }
   );
-
   registerCalendarTool(server);
   registerMailTool(server);
+  return server;
+}
 
-  // Run interactive onboarding on first launch (before MCP transport starts)
+async function startHttp(port: number): Promise<void> {
+  // Validate config and auth eagerly so the container fails fast on misconfiguration
   await runSetupIfNeeded();
+  try {
+    await getAccessToken();
+  } catch (err: any) {
+    process.stderr.write(`[inovia-m365-mcp] Authentication error: ${err.message}\n`);
+    process.exit(1);
+  }
 
-  // Eagerly authenticate before connecting so auth errors surface immediately
-  // and the device-code prompt appears before MCP handshake
+  // Stateless transport: each POST to /mcp is a self-contained MCP exchange.
+  // This matches Cloud Run's stateless request model.
+  const httpServer = createServer(async (req, res) => {
+    if (req.url !== "/mcp") {
+      res.writeHead(404, { "Content-Type": "text/plain" }).end("Not found");
+      return;
+    }
+
+    const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
+    const server = createMcpServer();
+
+    res.on("close", () => { transport.close(); });
+
+    try {
+      await server.connect(transport);
+      await transport.handleRequest(req, res);
+    } catch (err: any) {
+      if (!res.headersSent) {
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: err.message }));
+      }
+    }
+  });
+
+  httpServer.listen(port, "0.0.0.0", () => {
+    process.stderr.write(`[inovia-m365-mcp] HTTP server listening on 0.0.0.0:${port}\n`);
+  });
+}
+
+async function startStdio(): Promise<void> {
+  await runSetupIfNeeded();
   try {
     await getAccessToken();
   } catch (err: any) {
     process.stderr.write(`\n[inovia-m365-mcp] Authentication error: ${err.message}\n`);
     process.exit(1);
   }
-
+  const server = createMcpServer();
   const transport = new StdioServerTransport();
   await server.connect(transport);
+}
+
+async function main(): Promise<void> {
+  await loadEnv();
+
+  const port = process.env.PORT ? parseInt(process.env.PORT, 10) : undefined;
+  if (port) {
+    await startHttp(port);
+  } else {
+    await startStdio();
+  }
 }
 
 main().catch((err) => {
