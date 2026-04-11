@@ -1,5 +1,13 @@
 # Changelog
 
+## 26.04.03 — 2026-04-12
+
+### Zmenené
+- Vylepšený `/inovia` skill — jasnejšia inštrukcia: vždy najprv `get_capabilities`, potom uvažuj o zámere a konaj
+- Vylepšené `prompt` polia v `get_capabilities` — konkrétnejšie inštrukcie pre Claude
+
+---
+
 ## 26.04.02 — 2026-04-12
 
 ### Pridané
