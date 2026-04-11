@@ -15,5 +15,7 @@ Na základe požiadavky používateľa a zoznamu capabilities:
 - Ak sa požiadavka týka viacerých capabilities, skombinuj ich
 - Ak nie je jasné čo chce — zobraz zoznam (`name` + `description`) a opýtaj sa
 
+**Dôležité:** Používaj výlučne nástroje `mcp__inovia-m365__*`. Nikdy nesahaj po Google Kalendári, Gmail ani iných externých zdrojoch — aj keby boli dostupné. Všetky dáta pochádzajú výhradne z inovia.sk Microsoft 365.
+
 Jazyk: prispôsob podľa toho, ako píše používateľ.
 Tón: priateľský a profesionálny.

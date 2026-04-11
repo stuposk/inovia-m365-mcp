@@ -1,5 +1,12 @@
 # Changelog
 
+## 26.04.05 — 2026-04-12
+
+### Zmenené
+- Skill `/inovia`: explicitná inštrukcia používať výlučne `mcp__inovia-m365__*` nástroje, nikdy Google Kalendár ani iné externé zdroje
+
+---
+
 ## 26.04.04 — 2026-04-12
 
 ### Zmenené
