@@ -2,24 +2,40 @@
 
 ## Pred každým buildom a deployom
 
-Vždy pred `npm run build` alebo `gcloud run deploy` najprv obnov plugin súbor:
+Vždy pred deployom najprv obnov plugin ZIP (musí byť `.zip`):
 
 ```bash
-cd plugin && zip -r ../inovia-m365.plugin . -x ".*" "*/.*" && cd ..
+cd plugin && zip -r ../inovia.zip . -x ".*" "*/.*" && cd ..
 ```
 
-Potom build a deploy:
+Potom build TypeScript:
 
 ```bash
 npm run build
-gcloud run deploy inovia-m365-mcp --source . --region europe-west1 --platform managed --allow-unauthenticated
+```
+
+Deploy na Cloud Run — **nepoužívaj `--source .`** (ignoruje Dockerfile, použije Buildpacks).
+Namiesto toho:
+
+```bash
+PROJECT_ID=cs-poc-dygqbmfisiqcp6qp4ctkddq
+IMAGE=europe-west1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/inovia-m365-mcp:latest
+
+gcloud builds submit --region=europe-west1 --tag=$IMAGE .
+gcloud run deploy inovia-m365-mcp --image=$IMAGE --region=europe-west1 --platform=managed --allow-unauthenticated
+```
+
+Po deployi nahraj plugin na GitHub Release:
+
+```bash
+gh release upload v1.0.0 ./inovia.zip --clobber
 ```
 
 ## Štruktúra projektu
 
 - `src/` — TypeScript zdrojový kód MCP servera
 - `plugin/` — Claude Cowork plugin (skills + README)
-- `inovia-m365.plugin` — ZIP archív pluginu pre GitHub Releases (generovaný, nie commitovať)
+- `inovia.zip` — ZIP archív pluginu pre GitHub Releases (generovaný, nie commitovať)
 - `Dockerfile` — pre Cloud Run deployment
 
 ## Dôležité premenné (Cloud Run)
