@@ -19,7 +19,8 @@ export function registerCapabilitiesTool(server: McpServer): void {
           id: "daily-briefing",
           name: "Ranný prehľad",
           description: "Dnešné stretnutia z Outlooku a neprečítané e-maily z inboxu",
-          prompt: "Zavolaj get_today_events (bez parametrov) a get_new_messages (limit=15). Prezentuj s pozdravom podľa dennej doby. Sekcia Kalendár: každé stretnutie s časom, online stretnutia označ. Sekcia E-maily: odosielateľ — predmet. Záver: 1–2 vety so zhrnutím dňa.",
+          prompt: "Zavolaj get_skill_context('daily-briefing') pre detailné inštrukcie a postupuj podľa nich.",
+          hasContext: true,
         },
         {
           id: "find-colleague",

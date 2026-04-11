@@ -1,5 +1,14 @@
 # Changelog
 
+## 26.04.07 — 2026-04-12
+
+### Pridané
+- `get_skill_context(id)` tool — Claude načíta detailné inštrukcie z `data/skills/<id>.md`
+- `data/skills/daily-briefing.md` — obnovené detailné inštrukcie pre ranný prehľad
+- Capabilities: príznak `hasContext: true` pre capability s kontextovým súborom
+
+---
+
 ## 26.04.06 — 2026-04-12
 
 ### Zmenené
