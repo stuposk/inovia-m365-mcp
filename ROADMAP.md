@@ -44,6 +44,15 @@ Prehľad plánovaných funkcií zoskupených podľa oblasti. Aktuálne implement
 
 ---
 
+## Personalizácia (`Firestore`)
+
+- [ ] `get_preferences` / `set_preferences` — per-user nastavenia uložené vo Firestore
+- [ ] Konfigurovateľný ranný prehľad: počet udalostí, počet mailov, sekcia urgent
+- [ ] Skill context súbory (`data/skills/<id>.md`) s detailnými inštrukciami per capability
+- [ ] `get_skill_context(id)` tool — Claude si načíta inštrukcie podľa aktívnej capability
+
+---
+
 ## Plánované skill-y
 
 | Skill | Čo robí | Závisí od |
