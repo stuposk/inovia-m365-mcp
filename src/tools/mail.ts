@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { getNewMessages } from "../graph.js";
 
-export function registerMailTool(server: McpServer): void {
+export function registerMailTool(server: McpServer, email: string): void {
   server.tool(
     "get_new_messages",
     "Returns unread emails in the signed-in user's inbox, newest first. " +
@@ -18,7 +18,7 @@ export function registerMailTool(server: McpServer): void {
         .describe("Number of unread messages to fetch (1–50)"),
     },
     async ({ limit }) => {
-      const messages = await getNewMessages(limit);
+      const messages = await getNewMessages(email, limit);
 
       if (messages.length === 0) {
         return {

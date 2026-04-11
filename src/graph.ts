@@ -1,6 +1,6 @@
 import { Client } from "@microsoft/microsoft-graph-client";
 import "node-fetch";
-import { getAccessToken, getUserEmail } from "./auth.js";
+import { getAccessToken } from "./auth.js";
 
 let _client: Client | null = null;
 
@@ -38,9 +38,9 @@ export interface MailMessage {
   isRead: boolean;
 }
 
-export async function getEvents(from?: string, to?: string): Promise<CalendarEvent[]> {
+export async function getEvents(email: string, from?: string, to?: string): Promise<CalendarEvent[]> {
   const client = getGraphClient();
-  const userEmail = getUserEmail();
+  const userEmail = email;
 
   const tz = "Europe/Bratislava";
   const formatter = new Intl.DateTimeFormat("sv-SE", {
@@ -81,9 +81,9 @@ export async function getEvents(from?: string, to?: string): Promise<CalendarEve
   return events;
 }
 
-export async function getNewMessages(limit: number): Promise<MailMessage[]> {
+export async function getNewMessages(email: string, limit: number): Promise<MailMessage[]> {
   const client = getGraphClient();
-  const userEmail = getUserEmail();
+  const userEmail = email;
 
   const response = await client
     .api(`/users/${userEmail}/mailFolders/inbox/messages`)

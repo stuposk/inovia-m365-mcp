@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { getEvents } from "../graph.js";
 
-export function registerCalendarTool(server: McpServer): void {
+export function registerCalendarTool(server: McpServer, email: string): void {
   server.tool(
     "get_today_events",
     "Returns calendar events for the signed-in user (Europe/Bratislava timezone). " +
@@ -14,7 +14,7 @@ export function registerCalendarTool(server: McpServer): void {
       to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("End date (YYYY-MM-DD), default: today"),
     },
     async ({ from, to }) => {
-      const events = await getEvents(from, to);
+      const events = await getEvents(email, from, to);
 
       if (events.length === 0) {
         return {

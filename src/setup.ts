@@ -1,5 +1,5 @@
 export async function runSetupIfNeeded(): Promise<void> {
-  const required = ["AZURE_CLIENT_ID", "AZURE_TENANT_ID", "AZURE_CLIENT_SECRET", "AZURE_USER_EMAIL"];
+  const required = ["AZURE_CLIENT_ID", "AZURE_TENANT_ID", "AZURE_CLIENT_SECRET"];
   const missing = required.filter((k) => !process.env[k]);
 
   if (missing.length === 0) return;
