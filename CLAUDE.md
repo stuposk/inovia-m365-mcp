@@ -5,7 +5,7 @@
 Vždy pred deployom najprv obnov plugin ZIP (musí byť `.zip`):
 
 ```bash
-cd plugin && zip -r ../inovia.zip . -x ".*" "*/.*" && cd ..
+cd plugin && zip -r ../inovia.zip . -x ".DS_Store" "*/.DS_Store" && cd ..
 ```
 
 Potom build TypeScript:
