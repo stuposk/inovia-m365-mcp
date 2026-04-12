@@ -89,4 +89,31 @@ Tento profil používaj na personalizáciu odpovedí. Oslovuj ma krstným menom.
 
 Sekciu `## Osobné preferencie` **vždy zachovaj** — aj keď používateľ nič nenastavil, nechaj ju prázdnu (bez odrážok). Môže si ju doplniť neskôr.
 
+---
+
+## Nastavenie projektu v Cowork
+
+Po zobrazení profilu pokračuj s týmto návodom krok za krokom:
+
+**1. Vytvor projekt Inovia (ak ešte nemáš)**
+- V ľavom paneli klikni na **Projects → New project**
+- Pomenuj ho **Inovia**
+
+**2. Vlož profil do Project Instructions**
+- Otvor projekt Inovia
+- Vpravo hore klikni na ikonu **Instructions** (ceruzka)
+- Skopíruj a vlož celý blok profilu, ktorý si dostal vyššie
+- Klikni **Save**
+
+**3. Vytvor priečinok Inovia na počítači**
+- Na svojom počítači vytvor priečinok, napríklad `~/Documents/Inovia` alebo na mieste kde pracuješ so súbormi
+- Tento priečinok budeš používať na zdieľanie súborov s asistentom
+
+**4. Pridaj priečinok ako Context**
+- V projekte Inovia klikni vpravo na **Context → +**
+- Vyber **On your computer** a nájdi priečinok Inovia
+- Potvrď
+
+Po dokončení si asistent zapamätá tvoj profil a bude mať prístup k súborom v priečinku.
+
 Tón: priateľský, nie formálny.
