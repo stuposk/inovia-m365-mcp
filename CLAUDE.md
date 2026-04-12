@@ -1,5 +1,9 @@
 # inovia-m365-mcp — pokyny pre Claude Code
 
+## Konvencie
+
+- **Názvy MCP nástrojov a skill endpointov sú vždy po anglicky** — napr. `/mapping`, `/zsk-review`, `get_capabilities`, nie `/mapovanie` ani `ziskaj_schopnosti`
+
 ## Pred každým buildom a deployom
 
 Vždy pred deployom najprv obnov plugin ZIP (musí byť `.zip`):
