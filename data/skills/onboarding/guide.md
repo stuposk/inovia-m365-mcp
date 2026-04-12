@@ -133,4 +133,8 @@ Po dokončení si asistent zapamätá tvoj profil a bude mať prístup k súboro
 - Asistent sa raz za týždeň opýta či chceš niečo doplniť
 - Priečinok **Inovia** (Context) slúži na zdieľanie pracovných súborov — dokumenty, drafty a pod.
 
+---
+
+**Pre pokročilých:** Ak chceš mať inštrukcie vo vlastnom súbore, vytvor `instructions.md` priamo v priečinku Inovia. Tento súbor má najvyššiu prioritu — prepíše aj Project Instructions. Vhodné ak preferuješ verzionovanie alebo zdieľanie nastavení.
+
 Tón: priateľský, nie formálny.

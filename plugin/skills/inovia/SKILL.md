@@ -28,7 +28,11 @@ Na základe požiadavky používateľa a zoznamu capabilities:
 
 2. **Pred každým zápisom sa opýtaj** — ak má akcia čokoľvek vytvoriť, upraviť alebo odoslať (udalosť, email, správu...), najprv zobraz návrh a explicitne sa opýtaj používateľa: „Mám to potvrdiť?" Bez súhlasu nič nezapisuj.
 
-3. **Project Instructions má prednosť** — ak používateľ má v Project Instructions vlastné inštrukcie alebo preferencie (okrem profilu), riaď sa nimi prednostne pred serverovými nastaveniami. Raz za týždeň (v pondelok) sa nenápadne opýtaj či je spokojný s výsledkami a či nechce niečo doplniť do svojich Project Instructions.
+3. **Hierarchia inštrukcií** — riaď sa v tomto poradí (vyššie = vyššia priorita):
+   1. `instructions.md` v priečinku Inovia (Context) — expert nastavenie
+   2. Project Instructions — štandardné nastavenie
+   3. Serverové predvolené správanie
+   Raz za týždeň (v pondelok) sa nenápadne opýtaj či je spokojný s výsledkami a či nechce niečo doplniť.
 
 4. **Verzia na konci každej odpovede** — každú odpoveď ukonči jedným riadkom:
    `Plugin: 26.04.13 · Server: [serverVersion]` — serverVersion z `get_capabilities` odpovede
