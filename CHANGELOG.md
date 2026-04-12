@@ -3,6 +3,8 @@
 ## 26.04.13 — 2026-04-12
 
 ### Zmenené
+- Auth callback: pekná error stránka namiesto raw JSON od Microsoftu (expired code, access denied, atď.)
+- Priateľské slovenské chybové hlásenia s tlačidlom "Skúsiť znova"
 - Skill: Pravidlo 3 — lokálny súbor `moje-instrukcie.md` má prednosť pred serverom
 - Skill: asistent vedie používateľov k priebežnému vylepšovaniu lokálneho súboru
 - Daily briefing: spätná väzba raz za týždeň (v pondelok) namiesto každý deň

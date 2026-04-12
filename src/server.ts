@@ -110,6 +110,86 @@ function createOnboardingServer(): McpServer {
   return server;
 }
 
+function authErrorHtml(reason: string): string {
+  return `<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>inovia M365 — Prihlásenie zlyhalo</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      color: #1a1a2e;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 10px 40px rgba(0,0,0,0.08);
+      padding: 40px 44px;
+      width: 100%;
+      max-width: 520px;
+      text-align: center;
+    }
+    .error-icon { margin: 0 auto 20px; width: 56px; height: 56px; }
+    h1 { font-size: 1.45rem; font-weight: 700; color: #111827; margin-bottom: 12px; letter-spacing: -0.3px; }
+    .reason {
+      font-size: 0.95rem; color: #4b5563; line-height: 1.6; margin-bottom: 32px;
+    }
+    .btn {
+      display: inline-block;
+      background: #0078d4; color: #ffffff; text-decoration: none;
+      border-radius: 9px; padding: 12px 28px;
+      font-size: 0.95rem; font-weight: 600; font-family: inherit;
+      transition: background 0.15s ease;
+    }
+    .btn:hover { background: #005ea2; }
+    footer { margin-top: 24px; text-align: center; font-size: 0.78rem; color: #9ca3af; line-height: 1.8; }
+    footer a { color: #9ca3af; text-decoration: none; }
+    footer a:hover { color: #6b7280; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <svg class="error-icon" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="28" fill="#fef2f2"/>
+      <circle cx="28" cy="28" r="20" fill="#ef4444"/>
+      <path d="M22 22L34 34M34 22L22 34" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <h1>Prihlásenie zlyhalo</h1>
+    <p class="reason">${reason}</p>
+    <a href="/auth/login" class="btn">Skúsiť znova</a>
+  </div>
+  <footer>
+    v${VERSION} &middot; <a href="${REPO_URL}" target="_blank" rel="noopener">github.com/stuposk/inovia-m365-mcp</a><br>
+    Powered by <a href="https://unite.sk" target="_blank" rel="noopener">Unite</a>
+  </footer>
+</body>
+</html>`;
+}
+
+function friendlyAuthError(err: any): string {
+  const msg: string = err?.message ?? "";
+  if (msg.includes("AADSTS70008") || msg.includes("expired")) {
+    return "Prihlasovací odkaz expiroval. Stáva sa to ak ste čakali príliš dlho pred potvrdením. Skúste sa prihlásiť znova — tentoraz pokračujte ihneď po kliknutí.";
+  }
+  if (msg.includes("AADSTS65001") || msg.includes("consent")) {
+    return "Aplikácia nemá povolenie pre váš účet. Kontaktujte správcu IT.";
+  }
+  if (msg.includes("inovia.sk")) {
+    return msg; // already a friendly message from exchangeCodeForEmail
+  }
+  return "Nastala neočakávaná chyba pri prihlásení. Skúste to prosím znova.";
+}
+
 function authCallbackHtml(email: string, personalUrl: string): string {
   return `<!DOCTYPE html>
 <html lang="sk">
@@ -295,8 +375,11 @@ async function startHttp(port: number): Promise<void> {
       const error = url.searchParams.get("error");
 
       if (error || !code) {
-        res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
-        res.end(`OAuth chyba: ${error ?? "chýba kód"}`);
+        const reason = error === "access_denied"
+          ? "Prihlásenie bolo zrušené. Ak chcete pokračovať, skúste znova."
+          : "Neplatný prihlasovací odkaz. Skúste sa prihlásiť znova.";
+        res.writeHead(400, { "Content-Type": "text/html; charset=utf-8" });
+        res.end(authErrorHtml(reason));
         return;
       }
 
@@ -309,8 +392,8 @@ async function startHttp(port: number): Promise<void> {
         res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
         res.end(authCallbackHtml(email, personalUrl));
       } catch (err: any) {
-        res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
-        res.end(`Prihlásenie zlyhalo: ${err.message}`);
+        res.writeHead(403, { "Content-Type": "text/html; charset=utf-8" });
+        res.end(authErrorHtml(friendlyAuthError(err)));
       }
       return;
     }
