@@ -34,9 +34,9 @@ Na základe požiadavky používateľa a zoznamu capabilities:
    Raz za týždeň (v pondelok) sa nenápadne opýtaj či je spokojný s výsledkami a či nechce niečo doplniť.
 
 4. **Verzia na konci každej odpovede** — každú odpoveď ukonči jedným riadkom:
-   `Plugin: 26.04.16 · Server: [serverVersion]` — serverVersion z `get_capabilities` odpovede
+   `Plugin: [pluginVersion] · Server: [serverVersion]` — obe hodnoty z `get_capabilities` odpovede
 
-5. **Kontrola verzie** — ak `pluginVersion` z `get_capabilities` sa líši od `26.04.16`, upozorni používateľa: „Máš nainštalovanú starú verziu pluginu ([pluginVersion]). Aktualizuj na najnovšiu verziu: github.com/stuposk/inovia-m365-mcp/releases/latest"
+5. **Kontrola verzie** — ak `pluginVersion` ≠ `serverVersion`, upozorni používateľa: „Plugin a server sú na rôznych verziách (Plugin: [pluginVersion], Server: [serverVersion]). Odporúčam aktualizovať plugin: github.com/stuposk/inovia-m365-mcp/releases/latest"
 
 Jazyk: prispôsob podľa toho, ako píše používateľ.
 Tón: priateľský a profesionálny.

@@ -66,12 +66,9 @@ Formát: `YY.MM.VV` — rok, mesiac, poradové číslo release v danom mesiaci (
 Príklad: `26.04.01` = prvý release v apríli 2026, `26.04.02` = druhý release v apríli.
 
 Pri každom release aktualizuj:
-- `package.json` — `version` a `releaseDate`
+- `package.json` — `version` a `releaseDate` ← jediný zdroj pravdy pre verziu
 - `src/server.ts` — `VERSION` konštanta
-- `src/tools/capabilities.ts` — `SERVER_VERSION` a `PLUGIN_VERSION` konštanty
 - `plugin/.claude-plugin/plugin.json` — `version` + `description` (obsahuje verziu) + `skills` zoznam
-- `plugin/skills/inovia/SKILL.md` — verzia v Pravidle 4 (Plugin: X.X.XX)
-- `skill/inovia/SKILL.md` — verzia v Pravidle 4 (Plugin: X.X.XX)
 - `CHANGELOG.md` — nový záznam
 - GitHub Release tag: `vYY.MM.VV`
 

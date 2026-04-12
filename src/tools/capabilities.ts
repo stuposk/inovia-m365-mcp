@@ -1,15 +1,24 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { existsSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
+const __rootdir = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+
 function marketingGuideExists(): boolean {
-  const __dirname = dirname(fileURLToPath(import.meta.url));
-  return existsSync(resolve(__dirname, "../../data/skills/marketing/guide.md"));
+  return existsSync(resolve(__rootdir, "data/skills/marketing/guide.md"));
 }
 
-const SERVER_VERSION = "26.04.16";
-const PLUGIN_VERSION = "26.04.16";
+function readVersion(): string {
+  try {
+    const pkg = JSON.parse(readFileSync(resolve(__rootdir, "package.json"), "utf8"));
+    return pkg.version ?? "unknown";
+  } catch {
+    return "unknown";
+  }
+}
+
+const VERSION = readVersion();
 
 export function registerCapabilitiesTool(server: McpServer, email: string): void {
   server.tool(
@@ -57,8 +66,8 @@ export function registerCapabilitiesTool(server: McpServer, email: string): void
         content: [{
           type: "text",
           text: JSON.stringify({
-            serverVersion: SERVER_VERSION,
-            pluginVersion: PLUGIN_VERSION,
+            serverVersion: VERSION,
+            pluginVersion: VERSION,
             currentUser: { email },
             capabilities,
           }),
