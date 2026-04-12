@@ -1,69 +1,73 @@
 # Onboarding — inštrukcie
 
-Spýtaj sa používateľa na údaje v príjemnom rozhovore (nie ako formulár). Celý onboarding má byť rýchly — maximálne 5–6 výmen správ.
+Veď používateľa krok za krokom — **jedna otázka naraz**. Neklades viac otázok naraz. Počkaj na odpoveď, potom pokračuj ďalej.
 
 ---
 
-## Časť 1 — Profil
+## Krok 1 — Meno a priezvisko
 
-Email máš k dispozícii z `currentUser.email` — predvyplň ho a len potvrď.
-
-### Otázky
-
-1. **Meno a priezvisko** — celé meno (napr. Michal Stupak)
-2. **Email** — predvyplnený z `currentUser.email`, len potvrď alebo oprav
-3. **Organizačná jednotka** — vyber jednu z nasledujúceho zoznamu:
-
-   - **RIS** — Regionálne inovačné systémy
-   - **Mapovanie**
-   - **RCPIE** — Regionálne centrá
-   - **HUBY** — Inovačné huby
-   - **Platformy**
-   - **Riadenie projektu**
-   - **Riadenie INOVIA**
-
-4. **Pozícia** — vyber podľa organizačnej jednotky:
-
-   | OJ | Pozície |
-   |---|---|
-   | RIS | Inovačný manager, Asistentka inovačného managera, Marketingový manager, Event manager, Grafické práce |
-   | Mapovanie | — |
-   | RCPIE | Žilina BIM, Žilina študenti, Martin BIM, Čadca BIM, Dolný Kubín BIM, Liptovský Mikuláš BIM |
-   | HUBY | Medicína, Green transition, IKT a robotika |
-   | Platformy | Startupy, Podpora študentov, Sociálne inovácie, Mladí vedci, Veda a výskum do praxe |
-   | Riadenie projektu | Projektový manager, Finančný manager, Manager pre VO |
-   | Riadenie INOVIA | Prevádzkový riaditeľ, Finančný riaditeľ |
-
-5. **Lokalita** — kde pracuješ (napr. Bratislava, Žilina, Martin, Čadca...)
-
-### Generovanie skratky
+Opýtaj sa na celé meno. Príklad: „Ahoj! Začneme nastavením tvojho profilu. Ako sa voláš?"
 
 Po zadaní mena automaticky vygeneruj skratku:
 - Pravidlo: prvé 2 písmená mena + prvé 2 písmená priezviska, každé začína veľkým písmenom
 - Príklady: Michal Stupak → **MiSt**, Samo Skokna → **SaSk**, Jana Kováčová → **JaKo**
-- Zobraz skratku používateľovi a opýtaj sa či súhlasí alebo chce zmeniť
+- Zobraz skratku a opýtaj sa či súhlasí alebo chce zmeniť
+
+## Krok 2 — Email
+
+Email máš z `currentUser.email` — predvyplň ho a opýtaj sa či ho chce potvrdiť alebo zmeniť.
+
+## Krok 3 — Organizačná jednotka
+
+Ponúkni výber — zobraz číslovaný zoznam:
+
+1. RIS — Regionálne inovačné systémy
+2. Mapovanie
+3. RCPIE — Regionálne centrá
+4. HUBY — Inovačné huby
+5. Platformy
+6. Riadenie projektu
+7. Riadenie INOVIA
+
+## Krok 4 — Pozícia
+
+Zobraz pozície pre zvolenú OJ:
+
+| OJ | Pozície |
+|---|---|
+| RIS | Inovačný manager, Asistentka inovačného managera, Marketingový manager, Event manager, Grafické práce |
+| Mapovanie | — |
+| RCPIE | Žilina BIM, Žilina študenti, Martin BIM, Čadca BIM, Dolný Kubín BIM, Liptovský Mikuláš BIM |
+| HUBY | Medicína, Green transition, IKT a robotika |
+| Platformy | Startupy, Podpora študentov, Sociálne inovácie, Mladí vedci, Veda a výskum do praxe |
+| Riadenie projektu | Projektový manager, Finančný manager, Manager pre VO |
+| Riadenie INOVIA | Prevádzkový riaditeľ, Finančný riaditeľ |
+
+## Krok 5 — Lokalita
+
+Opýtaj sa kde pracuje. Príklady: Bratislava, Žilina, Martin, Čadca...
+
+## Krok 6 — Osobné preferencie
+
+Opýtaj sa: „Chceš nastaviť aj osobné preferencie? Napríklad ako má asistent písať alebo čo preferuješ."
+
+Uveď príklady:
+- „Rád používam emoji — Claude ich môže vedome využívať v mojich textoch"
+- „Namiesto dlhej pomlčky (—) používaj krátku (-)"
+- „Píš mi vždy po anglicky"
+- „Buď viac priamy, menej formálny"
+
+Ak nechce, pokračuj bez preferencií.
 
 ---
 
-## Časť 2 — Osobné preferencie
+## Výstup — hotový súbor
 
-Po vyplnení profilu sa opýtaj: **„Chceš nastaviť aj osobné preferencie pre INOVIA asistenta?"**
+Po dokončení všetkých krokov povedz:
 
-Vysvetli príkladmi — čo môže obsahovať:
-- Štýl komunikácie: „Rád používam emoji — Claude ich môže vedome využívať v mojich textoch"
-- Formátovanie: „Namiesto dlhej pomlčky (—) používaj krátku (-)"
-- Jazyk: „Píš mi vždy po anglicky" alebo „Preferujem slovenčinu"
-- Tón: „Buď viac priamy, menej formálny"
-- Čokoľvek iné čo asistentovi pomôže lepšie pracovať s daným človekom
+**„Super, profil je pripravený! Skopíruj tento text do Cowork → tvoj projekt → Project Instructions:"**
 
-Ak používateľ nechce nastavovať preferencie, pokračuj bez nich.
-
----
-
-## Výstup — Cowork Project Instructions
-
-Po dokončení vygeneruj tento blok a povedz používateľovi:
-**„Skopíruj tento text do Cowork → tvoj projekt → Project Instructions:"**
+Potom vypíš hotový vyplnený súbor v kódom bloku (aby sa dal ľahko skopírovať):
 
 ```
 ## Môj profil — INOVIA
@@ -79,7 +83,10 @@ Tento profil používaj na personalizáciu odpovedí. Oslovuj ma krstným menom.
 
 ## Osobné preferencie
 
-[Tu vypíš preferencie ako odrážky — alebo vynechaj túto sekciu ak používateľ nenastavil žiadne]
+- [preferencia 1]
+- [preferencia 2]
 ```
+
+Sekciu `## Osobné preferencie` **vždy zachovaj** — aj keď používateľ nič nenastavil, nechaj ju prázdnu (bez odrážok). Môže si ju doplniť neskôr.
 
 Tón: priateľský, nie formálny.
