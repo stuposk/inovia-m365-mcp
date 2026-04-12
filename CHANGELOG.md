@@ -1,5 +1,15 @@
 # Changelog
 
+## 26.04.13 — 2026-04-12
+
+### Zmenené
+- Skill: Pravidlo 3 — lokálny súbor `moje-instrukcie.md` má prednosť pred serverom
+- Skill: asistent vedie používateľov k priebežnému vylepšovaniu lokálneho súboru
+- Daily briefing: spätná väzba raz za týždeň (v pondelok) namiesto každý deň
+- Onboarding: krok 6 — vytvorenie `moje-instrukcie.md` v priečinku Inovia
+
+---
+
 ## 26.04.12 — 2026-04-11
 
 ### Zmenené

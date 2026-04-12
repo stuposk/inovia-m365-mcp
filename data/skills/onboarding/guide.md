@@ -121,4 +121,16 @@ Po dokončení si asistent zapamätá tvoj profil a bude mať prístup k súboro
 - Môžeš napríklad nastaviť: `/inovia ranný prehľad` každý pracovný deň o 8:00
 - Cowork ti potom každé ráno automaticky spustí prehľad kalendára a emailov
 
+**6. Prispôsob asistenta podľa seba (odporúčané)**
+- Klikni znova na **Instructions** a pod profil dopíš vlastné inštrukcie — čo funguje, čo nie, čo chceš zmeniť
+- **Tieto inštrukcie majú prednosť pred serverovými nastaveniami**
+- Príklad čo môžeš doplniť:
+  ```
+  - Ranný prehľad chcem stručný, max 10 riadkov
+  - E-maily od HR ignoruj
+  - Vždy píš v slovenčine
+  ```
+- Asistent sa raz za týždeň opýta či chceš niečo doplniť
+- Priečinok **Inovia** (Context) slúži na zdieľanie pracovných súborov — dokumenty, drafty a pod.
+
 Tón: priateľský, nie formálny.

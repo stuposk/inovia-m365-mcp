@@ -8,8 +8,8 @@ function marketingGuideExists(): boolean {
   return existsSync(resolve(__dirname, "../../data/marketing/guide.md"));
 }
 
-const SERVER_VERSION = "26.04.12";
-const PLUGIN_VERSION = "26.04.12";
+const SERVER_VERSION = "26.04.13";
+const PLUGIN_VERSION = "26.04.13";
 
 export function registerCapabilitiesTool(server: McpServer, email: string): void {
   server.tool(
