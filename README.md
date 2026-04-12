@@ -6,10 +6,12 @@ Microsoft 365 MCP server pre inovia.sk — firemné nástroje priamo v Claude Co
 
 ## Čo to robí
 
-| Skill | Spustenie | Čo robí |
-|---|---|---|
-| **Ranný prehľad** | `/daily-briefing` alebo „ranný prehľad" | Dnešné stretnutia z Outlooku + neprečítané e-maily |
-| **Hľadanie kolegu** | `/find-colleague` alebo „kto je..." | Kontakt, oddelenie, manažér, tím |
+Napíš `/inovia` a Claude zobrazí čo vie robiť. Aktuálne dostupné funkcie:
+
+- **Ranný prehľad** — dnešné stretnutia z Outlooku + neprečítané e-maily
+- **Hľadanie kolegu** — kontakt, oddelenie, manažér, tím
+- **Kalendár pre obdobie** — stretnutia pre ľubovoľný deň alebo týždeň
+- **Marketing a komunikácia** — tvorba obsahu podľa komunikačného manuálu INOVIA
 
 Ďalšie plánované funkcie: pozri [ROADMAP.md](ROADMAP.md).
 
@@ -57,17 +59,16 @@ claude mcp remove inovia-m365
 claude mcp add inovia-m365 --transport http <tvoja-osobná-url>
 ```
 
-### Krok 3 — Nainštaluj skilly
+### Krok 3 — Nainštaluj skill
 
 ```bash
-mkdir -p ~/.claude/skills/daily-briefing ~/.claude/skills/find-colleague
-cp skill/daily-briefing/SKILL.md ~/.claude/skills/daily-briefing/SKILL.md
-cp skill/find-colleague/SKILL.md ~/.claude/skills/find-colleague/SKILL.md
+mkdir -p ~/.claude/skills/inovia
+cp skill/inovia/SKILL.md ~/.claude/skills/inovia/SKILL.md
 ```
 
 ### Krok 4 — Otestuj
 
-Napíš `/daily-briefing` alebo `/find-colleague` v Claude Code.
+Napíš `/inovia` v Claude Code.
 
 ---
 
@@ -178,18 +179,27 @@ inovia-m365-mcp/
 │   ├── graph.ts           # Microsoft Graph API volania
 │   ├── setup.ts           # Validácia konfigurácie
 │   └── tools/
-│       ├── calendar.ts    # get_today_events
-│       ├── mail.ts        # get_new_messages
-│       └── users.ts       # find_colleague, get_department_members, get_org_chart
-├── skill/                 # Skilly pre Claude Code
-│   ├── daily-briefing/
-│   └── find-colleague/
-├── plugin/                # Claude Cowork plugin
+│       ├── capabilities.ts    # get_capabilities — dynamický zoznam funkcií
+│       ├── skill-context.ts   # get_skill_context — inštrukcie z data/skills/
+│       ├── calendar.ts        # get_today_events
+│       ├── mail.ts            # get_new_messages
+│       ├── users.ts           # find_colleague, get_department_members, get_org_chart
+│       └── marketing.ts       # get_marketing_guide
+├── data/
+│   ├── marketing/
+│   │   └── guide.md           # Komunikačný manuál INOVIA
+│   └── skills/
+│       └── daily-briefing/
+│           └── guide.md       # Inštrukcie pre ranný prehľad
+├── skill/
+│   └── inovia/
+│       └── SKILL.md           # Skill pre Claude Code
+├── plugin/                    # Claude Cowork plugin
 │   ├── .claude-plugin/
-│   │   └── plugin.json    # Plugin manifest
-│   ├── skills/            # Skilly pre Cowork
-│   │   ├── daily-briefing/
-│   │   └── find-colleague/
+│   │   └── plugin.json        # Plugin manifest
+│   ├── skills/
+│   │   └── inovia/
+│   │       └── SKILL.md       # Skill pre Cowork
 │   └── README.md
 ├── CHANGELOG.md
 ├── ROADMAP.md
