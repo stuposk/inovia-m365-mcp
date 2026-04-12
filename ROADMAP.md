@@ -108,21 +108,21 @@ Na základe záznamu zo stretnutia:
 Každá organizačná jednotka má svoje vlastné procesy, formuláre a termíny. Asistent poskytne odpovede na otázky typu:
 - „Kde nájdem výkaz práce?"
 - „Ako vyplniť cestovný príkaz?"
-- „Kedy máme prodary v RC Žilina?"
+- „Kedy máme porady v RC Žilina?"
 - „Kde sú kľúčové súbory pre naše oddelenie?"
 
 ### Prístup — rovnaký ako marketing
 
 Každá OJ dostane vlastný súbor `data/skills/agenda/<oj>/guide.md` s:
 - Odkazmi na formuláre a šablóny (výkazy, cestovné, reporty)
-- Termínmi a opakujúcimi sa udalosťami (prodary, deadliny, meetingy)
+- Termínmi a opakujúcimi sa udalosťami (porady, deadliny, meetingy)
 - Odkazmi na kľúčové SharePoint/Teams priečinky
 
 Asistent sa riadi podľa OJ z profilu používateľa (`Organizačná jednotka` z Project Instructions).
 
 ### Čo je potrebné pripraviť
 
-- [ ] `data/skills/agenda/rcpie/guide.md` — Regionálne centrá (prodary, výkazy, kľúčové súbory)
+- [ ] `data/skills/agenda/rcpie/guide.md` — Regionálne centrá (porady, výkazy, kľúčové súbory)
 - [ ] `data/skills/agenda/ris/guide.md` — RIS (výkazy, reporty, termíny)
 - [ ] `data/skills/agenda/huby/guide.md` — HUBY
 - [ ] `data/skills/agenda/platformy/guide.md` — Platformy
