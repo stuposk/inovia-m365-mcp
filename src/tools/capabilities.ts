@@ -8,6 +8,9 @@ function marketingGuideExists(): boolean {
   return existsSync(resolve(__dirname, "../../data/marketing/guide.md"));
 }
 
+const SERVER_VERSION = "26.04.12";
+const PLUGIN_VERSION = "26.04.12";
+
 export function registerCapabilitiesTool(server: McpServer, email: string): void {
   server.tool(
     "get_capabilities",
@@ -16,10 +19,10 @@ export function registerCapabilitiesTool(server: McpServer, email: string): void
     async () => {
       const capabilities = [
         {
-          id: "setup",
-          name: "Nastavenie profilu",
-          description: "Vyplň svoj profil — meno, pozícia, oddelenie, skratka. Výstup uložíš do Cowork Project Instructions.",
-          prompt: "Zavolaj get_skill_context('setup') pre detailné inštrukcie a postupuj podľa nich.",
+          id: "onboarding",
+          name: "Onboarding — vytvorenie profilu",
+          description: "Vytvor svoj profil — meno, pozícia, oddelenie, skratka, osobné preferencie. Výstup uložíš do Cowork Project Instructions.",
+          prompt: "Zavolaj get_skill_context('onboarding') pre detailné inštrukcie a postupuj podľa nich.",
           hasContext: true,
         },
         {
@@ -53,6 +56,8 @@ export function registerCapabilitiesTool(server: McpServer, email: string): void
         content: [{
           type: "text",
           text: JSON.stringify({
+            serverVersion: SERVER_VERSION,
+            pluginVersion: PLUGIN_VERSION,
             currentUser: { email },
             capabilities,
           }),

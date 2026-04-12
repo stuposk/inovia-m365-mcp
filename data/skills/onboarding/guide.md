@@ -1,8 +1,12 @@
-# Nastavenie profilu — inštrukcie
+# Onboarding — inštrukcie
 
-## Postup
+Spýtaj sa používateľa na údaje v príjemnom rozhovore (nie ako formulár). Celý onboarding má byť rýchly — maximálne 5–6 výmen správ.
 
-Spýtaj sa používateľa na nasledujúce údaje v príjemnom rozhovore (nie ako formulár). Email máš k dispozícii z `currentUser.email` — predvyplň ho a len potvrď.
+---
+
+## Časť 1 — Profil
+
+Email máš k dispozícii z `currentUser.email` — predvyplň ho a len potvrď.
 
 ### Otázky
 
@@ -32,16 +36,33 @@ Spýtaj sa používateľa na nasledujúce údaje v príjemnom rozhovore (nie ako
 
 5. **Lokalita** — kde pracuješ (napr. Bratislava, Žilina, Martin, Čadca...)
 
-## Generovanie skratky
+### Generovanie skratky
 
 Po zadaní mena automaticky vygeneruj skratku:
 - Pravidlo: prvé 2 písmená mena + prvé 2 písmená priezviska, každé začína veľkým písmenom
 - Príklady: Michal Stupak → **MiSt**, Samo Skokna → **SaSk**, Jana Kováčová → **JaKo**
 - Zobraz skratku používateľovi a opýtaj sa či súhlasí alebo chce zmeniť
 
+---
+
+## Časť 2 — Osobné preferencie
+
+Po vyplnení profilu sa opýtaj: **„Chceš nastaviť aj osobné preferencie pre INOVIA asistenta?"**
+
+Vysvetli príkladmi — čo môže obsahovať:
+- Štýl komunikácie: „Rád používam emoji — Claude ich môže vedome využívať v mojich textoch"
+- Formátovanie: „Namiesto dlhej pomlčky (—) používaj krátku (-)"
+- Jazyk: „Píš mi vždy po anglicky" alebo „Preferujem slovenčinu"
+- Tón: „Buď viac priamy, menej formálny"
+- Čokoľvek iné čo asistentovi pomôže lepšie pracovať s daným človekom
+
+Ak používateľ nechce nastavovať preferencie, pokračuj bez nich.
+
+---
+
 ## Výstup — Cowork Project Instructions
 
-Po vyplnení všetkých údajov vygeneruj tento blok a povedz používateľovi:
+Po dokončení vygeneruj tento blok a povedz používateľovi:
 **„Skopíruj tento text do Cowork → tvoj projekt → Project Instructions:"**
 
 ```
@@ -55,6 +76,10 @@ Pozícia: [pozícia]
 Lokalita: [lokalita]
 
 Tento profil používaj na personalizáciu odpovedí. Oslovuj ma krstným menom.
+
+## Osobné preferencie
+
+[Tu vypíš preferencie ako odrážky — alebo vynechaj túto sekciu ak používateľ nenastavil žiadne]
 ```
 
-Tón: priateľský, nie formálny. Celý onboarding má byť rýchly — maximálne 5 výmen.
+Tón: priateľský, nie formálny.

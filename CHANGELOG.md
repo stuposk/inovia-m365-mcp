@@ -1,5 +1,25 @@
 # Changelog
 
+## 26.04.12 — 2026-04-11
+
+### Zmenené
+- `setup` capability premenovaná na `onboarding`
+- Onboarding guide rozšírený o Časť 2 — Osobné preferencie (emoji, formátovanie, jazyk...)
+- `get_capabilities` vracia `serverVersion` + `pluginVersion`
+- Skill: Krok 1 — odstránená zmienka o `currentUser.email` (zbytočná)
+- Skill: Pravidlo 3 — každá odpoveď musí končiť `Plugin: X · Server: Y`
+- Vytvorený `data/onboarding/template.md` — prázdna šablóna profilu na serveri
+
+---
+
+## 26.04.11 — 2026-04-12
+
+### Zmenené
+- Skill: Krok 0 — bez profilu v Project Instructions sa služby neposkytujú, len setup
+- Plugin a Claude Code SKILL.md zjednotené
+
+---
+
 ## 26.04.10 — 2026-04-12
 
 ### Pridané
