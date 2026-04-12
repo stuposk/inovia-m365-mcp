@@ -15,11 +15,10 @@ import { runSetupIfNeeded } from "./setup.js";
 import { registerCalendarTool } from "./tools/calendar.js";
 import { registerMailTool } from "./tools/mail.js";
 import { registerUserTools } from "./tools/users.js";
-import { registerMarketingTool } from "./tools/marketing.js";
 import { registerCapabilitiesTool } from "./tools/capabilities.js";
 import { registerSkillContextTool } from "./tools/skill-context.js";
 
-const VERSION = "26.04.13";
+const VERSION = "26.04.14";
 const REPO_URL = "https://github.com/stuposk/inovia-m365-mcp";
 
 async function loadEnv(): Promise<void> {
@@ -64,7 +63,6 @@ function createMcpServer(email: string): McpServer {
   registerCalendarTool(server, email);
   registerMailTool(server, email);
   registerUserTools(server);
-  registerMarketingTool(server);
   return server;
 }
 

@@ -5,11 +5,11 @@ import { fileURLToPath } from "url";
 
 function marketingGuideExists(): boolean {
   const __dirname = dirname(fileURLToPath(import.meta.url));
-  return existsSync(resolve(__dirname, "../../data/marketing/guide.md"));
+  return existsSync(resolve(__dirname, "../../data/skills/marketing/guide.md"));
 }
 
-const SERVER_VERSION = "26.04.13";
-const PLUGIN_VERSION = "26.04.13";
+const SERVER_VERSION = "26.04.14";
+const PLUGIN_VERSION = "26.04.14";
 
 export function registerCapabilitiesTool(server: McpServer, email: string): void {
   server.tool(
@@ -48,7 +48,8 @@ export function registerCapabilitiesTool(server: McpServer, email: string): void
           id: "marketing",
           name: "Marketing a komunikácia",
           description: "Tvorba obsahu, LinkedIn posty, emaily, tone of voice — podľa komunikačného manuálu INOVIA",
-          prompt: "Zavolaj get_marketing_guide a prečítaj obsah. Riaď sa pravidlami z manuálu (tone of voice, blacklist slov, štruktúra podľa kanála). Ak je požiadavka vágna, opýtaj sa: pre koho, aký kanál, aký cieľ.",
+          prompt: "Zavolaj get_skill_context('marketing') pre detailné inštrukcie a postupuj podľa nich.",
+          hasContext: true,
         }] : []),
       ];
 

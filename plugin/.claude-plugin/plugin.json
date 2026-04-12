@@ -1,6 +1,6 @@
 {
   "name": "inovia",
-  "version": "26.04.13",
+  "version": "26.04.14",
   "description": "INOVIA workplace assistant — firemné nástroje pre zamestnancov priamo v Claude Cowork",
   "author": {
     "name": "INOVIA · Unite"
@@ -8,5 +8,11 @@
   "homepage": "https://github.com/stuposk/inovia-m365-mcp",
   "skills": [
     "skills/inovia"
-  ]
+  ],
+  "mcpServers": {
+    "inovia-m365": {
+      "type": "http",
+      "url": "https://inovia-m365-mcp-521967815165.europe-west1.run.app/mcp"
+    }
+  }
 }

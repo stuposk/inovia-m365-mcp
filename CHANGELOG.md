@@ -1,5 +1,15 @@
 # Changelog
 
+## 26.04.14 — 2026-04-12
+
+### Zmenené
+- Marketing capability zjednotená s ostatnými — používa `get_skill_context('marketing')` namiesto samostatného `get_marketing_guide` toolu
+- `data/marketing/guide.md` presunutý do `data/skills/marketing/guide.md`
+- Zrušený `get_marketing_guide` tool a `src/tools/marketing.ts`
+- SKILL.md: odstránený `get_marketing_guide` z tools zoznamu
+
+---
+
 ## 26.04.13 — 2026-04-12
 
 ### Zmenené
