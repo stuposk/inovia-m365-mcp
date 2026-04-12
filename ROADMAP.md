@@ -63,6 +63,8 @@ Prehľad plánovaných funkcií zoskupených podľa oblasti. Aktuálne implement
 | `/send-reply` | Odošle pripravenú odpoveď na konkrétny mail | Mail.Send |
 | `/schedule-meeting` | Naplánuje stretnutie s kolegom (skontroluje free/busy) | free/busy, vytvorenie udalosti |
 | `/weekly-prep` | Prehľad týždňa — stretnutia + nevybavené maily | týždenný kalendár |
+| `/mapping` | Mapovanie firmy — research, zápis zo stretnutia, formulár ZSK | Context (PDF/PPTX), webový research |
+| `/zsk-review` | Hodnotenie inovačného projektu — analýza prezentácie, vyplnenie formulára | Context (PDF/PPTX) |
 
 ---
 
@@ -95,5 +97,34 @@ Na základe záznamu zo stretnutia:
 
 - [ ] Šablóna záznamu zo stretnutia pre Mapovanie (`data/skills/mapovanie-zapis/guide.md`)
 - [ ] Hodnotiaci formulár ZSK ako referenčný súbor (otázky a typy polí)
-- [ ] Skill `/mapovanie` — orchestruje celý postup (research → zápis → formulár)
+- [ ] Skill `/mapping` — orchestruje celý postup (research → zápis → formulár)
+- [ ] Podpora čítania PDF/PPTX súborov z priečinka Inovia (cez Context)
+
+---
+
+## Posúdenie inovačných projektov (ZSK)
+
+Hodnotiaci workflow pre prezentácie firiem v rámci ZSK výziev.
+
+### Fázy
+
+1. **Príjem prezentácie firmy**
+   - Nahranie materiálov (PDF / PPTX) do priečinka Inovia
+   - Research o firme — web, LinkedIn, verejné zdroje
+   - Extrahovanie kľúčových údajov: produkt, tím, trh, trakcia, financovanie
+
+2. **Hodnotenie**
+   - Identifikácia silných stránok, rizík, inovačného potenciálu
+   - Štruktúrovaný zápis podľa šablóny INOVIA
+
+3. **Vyplnenie formulára ZSK**
+   - Načítanie hodnotiaceho formulára (nahrať ako súbor do Inovia)
+   - Mapovanie údajov z hodnotenia na otázky formulára
+   - Návrh odpovedí s možnosťou úpravy pred potvrdením
+
+### Čo je potrebné pripraviť
+
+- [ ] Šablóna hodnotenia (`data/skills/zsk-review/guide.md`)
+- [ ] Hodnotiaci formulár ZSK ako referenčný súbor
+- [ ] Skill `/zsk-review` — orchestruje celý postup (príjem → hodnotenie → formulár)
 - [ ] Podpora čítania PDF/PPTX súborov z priečinka Inovia (cez Context)
