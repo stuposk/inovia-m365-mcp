@@ -66,30 +66,34 @@ Prehľad plánovaných funkcií zoskupených podľa oblasti. Aktuálne implement
 
 ---
 
-## Posúdenie inovačných projektov (ZSK)
+## Mapovanie — workflow pre ZSK
 
-Pracovný postup pre spracovanie prezentácií firiem a vyplnenie hodnotiacich formulárov.
+Tím Mapovania sa stretáva s firmami v rámci ZSK procesu. Asistent má podporiť celý cyklus od prípravy po odovzdanie formulára.
 
-### Fázy
+### Fáza 1 — Príprava a research firmy
 
-1. **Príjem a prieskum firmy**
-   - Nahranie prezentácie firmy (PDF / PPTX) do priečinka Inovia
-   - Research o firme — web, LinkedIn, verejné zdroje
-   - Extrahovanie kľúčových údajov: produkt, tím, trh, trakcia, financovanie
+Pred stretnutím alebo po získaní prezentácie:
+- Nahranie materiálov firmy (PDF / PPTX) do priečinka Inovia
+- Research o firme — web, LinkedIn, verejné zdroje
+- Extrahovanie kľúčových údajov: produkt, tím, trh, trakcia, financovanie
 
-2. **Spracovanie záznamu**
-   - Štruktúrovaný zápis zo stretnutia / prezentácie podľa šablóny INOVIA
-   - Identifikácia silných stránok, rizík, inovačného potenciálu
-   - Porovnanie s predchádzajúcimi projektmi (ak sú k dispozícii)
+### Fáza 2 — Zápis zo stretnutia s firmou
 
-3. **Vyplnenie formulára**
-   - Načítanie otázok z hodnotiaceho formulára ZSK (nahrať ako súbor)
-   - Automatické mapovanie údajov z záznamu na jednotlivé otázky formulára
-   - Návrh odpovedí s možnosťou úpravy pred potvrdením
+Po rozhovore s firmou:
+- Štruktúrovaný zápis podľa šablóny INOVIA / Mapovania
+- Identifikácia silných stránok, rizík, inovačného potenciálu
+- Porovnanie s predchádzajúcimi firmami (ak sú záznamy k dispozícii)
+
+### Fáza 3 — Vyplnenie hodnotiaceho formulára ZSK
+
+Na základe záznamu zo stretnutia:
+- Načítanie otázok z hodnotiaceho formulára ZSK (nahrať ako súbor do Inovia)
+- Automatické mapovanie údajov zo záznamu na jednotlivé otázky formulára
+- Návrh odpovedí s možnosťou úpravy pred potvrdením
 
 ### Čo je potrebné pripraviť
 
-- [ ] Šablóna záznamu zo stretnutia (`data/skills/zsk-review/guide.md`)
+- [ ] Šablóna záznamu zo stretnutia pre Mapovanie (`data/skills/mapovanie-zapis/guide.md`)
 - [ ] Hodnotiaci formulár ZSK ako referenčný súbor (otázky a typy polí)
-- [ ] Skill `/zsk-review` — orchestruje celý postup (príjem → research → zápis → formulár)
+- [ ] Skill `/mapovanie` — orchestruje celý postup (research → zápis → formulár)
 - [ ] Podpora čítania PDF/PPTX súborov z priečinka Inovia (cez Context)
