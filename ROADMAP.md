@@ -65,6 +65,7 @@ Prehľad plánovaných funkcií zoskupených podľa oblasti. Aktuálne implement
 | `/weekly-prep` | Prehľad týždňa — stretnutia + nevybavené maily | týždenný kalendár |
 | `/mapping` | Mapovanie firmy — research, zápis zo stretnutia, formulár ZSK | Context (PDF/PPTX), webový research |
 | `/zsk-review` | Hodnotenie inovačného projektu — analýza prezentácie, vyplnenie formulára | Context (PDF/PPTX) |
+| `/agenda` | Sprievodca agendou OJ — výkazy, cestovné, kľúčové súbory, termíny | `data/skills/agenda/<oj>/guide.md` |
 
 ---
 
@@ -99,6 +100,34 @@ Na základe záznamu zo stretnutia:
 - [ ] Hodnotiaci formulár ZSK ako referenčný súbor (otázky a typy polí)
 - [ ] Skill `/mapping` — orchestruje celý postup (research → zápis → formulár)
 - [ ] Podpora čítania PDF/PPTX súborov z priečinka Inovia (cez Context)
+
+---
+
+## Agenda — sprievodca pre každú OJ
+
+Každá organizačná jednotka má svoje vlastné procesy, formuláre a termíny. Asistent poskytne odpovede na otázky typu:
+- „Kde nájdem výkaz práce?"
+- „Ako vyplniť cestovný príkaz?"
+- „Kedy máme prodary v RC Žilina?"
+- „Kde sú kľúčové súbory pre naše oddelenie?"
+
+### Prístup — rovnaký ako marketing
+
+Každá OJ dostane vlastný súbor `data/skills/agenda/<oj>/guide.md` s:
+- Odkazmi na formuláre a šablóny (výkazy, cestovné, reporty)
+- Termínmi a opakujúcimi sa udalosťami (prodary, deadliny, meetingy)
+- Odkazmi na kľúčové SharePoint/Teams priečinky
+
+Asistent sa riadi podľa OJ z profilu používateľa (`Organizačná jednotka` z Project Instructions).
+
+### Čo je potrebné pripraviť
+
+- [ ] `data/skills/agenda/rcpie/guide.md` — Regionálne centrá (prodary, výkazy, kľúčové súbory)
+- [ ] `data/skills/agenda/ris/guide.md` — RIS (výkazy, reporty, termíny)
+- [ ] `data/skills/agenda/huby/guide.md` — HUBY
+- [ ] `data/skills/agenda/platformy/guide.md` — Platformy
+- [ ] `data/skills/agenda/mapovanie/guide.md` — Mapovanie
+- [ ] Capability `/agenda` v `get_capabilities` — detekuje OJ z profilu, načíta správny guide
 
 ---
 
