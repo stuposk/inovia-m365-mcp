@@ -1,5 +1,12 @@
 # Changelog
 
+## 26.04.16 — 2026-04-12
+
+### Zmenené
+- Onboarding: výstupný profil obsahuje pokyn používať `/inovia` skill
+
+---
+
 ## 26.04.15 — 2026-04-12
 
 ### Zmenené
