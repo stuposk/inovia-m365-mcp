@@ -8,13 +8,20 @@ function marketingGuideExists(): boolean {
   return existsSync(resolve(__dirname, "../../data/marketing/guide.md"));
 }
 
-export function registerCapabilitiesTool(server: McpServer): void {
+export function registerCapabilitiesTool(server: McpServer, email: string): void {
   server.tool(
     "get_capabilities",
-    "Returns the list of available inovia workplace assistant capabilities. Always call this first when the user invokes /inovia or asks what the assistant can do.",
+    "Returns the list of available inovia workplace assistant capabilities and current user context. Always call this first when the user invokes /inovia or asks what the assistant can do.",
     {},
     async () => {
       const capabilities = [
+        {
+          id: "setup",
+          name: "Nastavenie profilu",
+          description: "Vyplň svoj profil — meno, pozícia, oddelenie, skratka. Výstup uložíš do Cowork Project Instructions.",
+          prompt: "Zavolaj get_skill_context('setup') pre detailné inštrukcie a postupuj podľa nich.",
+          hasContext: true,
+        },
         {
           id: "daily-briefing",
           name: "Ranný prehľad",
@@ -26,7 +33,7 @@ export function registerCapabilitiesTool(server: McpServer): void {
           id: "find-colleague",
           name: "Hľadanie kolegu",
           description: "Kontakt, oddelenie, manažér alebo tím pre ľubovoľného kolegu z inovia.sk — podľa mena, emailu alebo oddelenia",
-          prompt: "Použi find_colleague(query) na vyhľadanie osoby podľa mena alebo emailu. Ak chce zoznam oddelenia, zavolaj get_department_members(department). Ak chce hierarchiu (manažér / podriadení), zavolaj get_org_chart(email). Kombinuj podľa potreby — napr. najprv find_colleague, potom get_org_chart s emailom z výsledku.",
+          prompt: "Použi find_colleague(query) na vyhľadanie osoby podľa mena alebo emailu. Ak chce zoznam oddelenia, zavolaj get_department_members(department). Ak chce hierarchiu (manažér / podriadení), zavolaj get_org_chart(email). Kombinuj podľa potreby.",
         },
         {
           id: "calendar-range",
@@ -45,7 +52,10 @@ export function registerCapabilitiesTool(server: McpServer): void {
       return {
         content: [{
           type: "text",
-          text: JSON.stringify({ capabilities }),
+          text: JSON.stringify({
+            currentUser: { email },
+            capabilities,
+          }),
         }],
       };
     }

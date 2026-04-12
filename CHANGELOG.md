@@ -1,5 +1,14 @@
 # Changelog
 
+## 26.04.10 — 2026-04-12
+
+### Pridané
+- `setup` capability — onboarding profilu používateľa (meno, OJ, pozícia, lokalita, skratka)
+- `data/skills/setup/guide.md` — zoznam OJ a pozícií, generovanie skratky (MiSt), výstup pre Cowork Project Instructions
+- `get_capabilities` vracia `currentUser.email` — email predvyplnený pri onboardingu
+
+---
+
 ## 26.04.09 — 2026-04-12
 
 ### Zmenené
