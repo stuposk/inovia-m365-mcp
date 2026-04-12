@@ -7,3 +7,5 @@ dist/
 inovia.zip
 inovia-m365.zip
 data/marketing/*.pdf
+.DS_Store
+**/.DS_Store
