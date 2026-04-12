@@ -81,6 +81,8 @@ Lokalita: [lokalita]
 
 Tento profil používaj na personalizáciu odpovedí. Oslovuj ma krstným menom.
 
+Pre pracovné úlohy (kalendár, maily, kolegovia, marketing...) vždy použi skill /inovia.
+
 ## Osobné preferencie
 
 - [preferencia 1]
