@@ -63,3 +63,33 @@ Prehľad plánovaných funkcií zoskupených podľa oblasti. Aktuálne implement
 | `/send-reply` | Odošle pripravenú odpoveď na konkrétny mail | Mail.Send |
 | `/schedule-meeting` | Naplánuje stretnutie s kolegom (skontroluje free/busy) | free/busy, vytvorenie udalosti |
 | `/weekly-prep` | Prehľad týždňa — stretnutia + nevybavené maily | týždenný kalendár |
+
+---
+
+## Posúdenie inovačných projektov (ZSK)
+
+Pracovný postup pre spracovanie prezentácií firiem a vyplnenie hodnotiacich formulárov.
+
+### Fázy
+
+1. **Príjem a prieskum firmy**
+   - Nahranie prezentácie firmy (PDF / PPTX) do priečinka Inovia
+   - Research o firme — web, LinkedIn, verejné zdroje
+   - Extrahovanie kľúčových údajov: produkt, tím, trh, trakcia, financovanie
+
+2. **Spracovanie záznamu**
+   - Štruktúrovaný zápis zo stretnutia / prezentácie podľa šablóny INOVIA
+   - Identifikácia silných stránok, rizík, inovačného potenciálu
+   - Porovnanie s predchádzajúcimi projektmi (ak sú k dispozícii)
+
+3. **Vyplnenie formulára**
+   - Načítanie otázok z hodnotiaceho formulára ZSK (nahrať ako súbor)
+   - Automatické mapovanie údajov z záznamu na jednotlivé otázky formulára
+   - Návrh odpovedí s možnosťou úpravy pred potvrdením
+
+### Čo je potrebné pripraviť
+
+- [ ] Šablóna záznamu zo stretnutia (`data/skills/zsk-review/guide.md`)
+- [ ] Hodnotiaci formulár ZSK ako referenčný súbor (otázky a typy polí)
+- [ ] Skill `/zsk-review` — orchestruje celý postup (príjem → research → zápis → formulár)
+- [ ] Podpora čítania PDF/PPTX súborov z priečinka Inovia (cez Context)
