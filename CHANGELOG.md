@@ -1,5 +1,14 @@
 # Changelog
 
+## 26.04.15 — 2026-04-12
+
+### Zmenené
+- CLAUDE.md: pravidlo — názvy nástrojov a endpointov vždy po anglicky
+- Roadmap: /mapping + /zsk-review ako samostatné skilly
+- gitignore: .DS_Store
+
+---
+
 ## 26.04.14 — 2026-04-12
 
 ### Zmenené
