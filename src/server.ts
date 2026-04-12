@@ -108,6 +108,159 @@ function createOnboardingServer(): McpServer {
   return server;
 }
 
+function landingHtml(): string {
+  return `<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>INOVIA M365 Assistant</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f0f4f8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      color: #1a1a2e;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 10px 40px rgba(0,0,0,0.08);
+      padding: 44px 48px;
+      width: 100%;
+      max-width: 640px;
+    }
+    .logo-row { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .logo-icon {
+      width: 48px; height: 48px; background: #0078d4; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .logo-icon svg { width: 28px; height: 28px; }
+    .logo-text h1 { font-size: 1.4rem; font-weight: 700; color: #111827; letter-spacing: -0.3px; }
+    .logo-text p { font-size: 0.85rem; color: #6b7280; margin-top: 2px; }
+    .tagline {
+      font-size: 1rem; color: #374151; line-height: 1.7; margin-bottom: 32px;
+      padding-bottom: 28px; border-bottom: 1px solid #f1f5f9;
+    }
+    .features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .feature { display: flex; align-items: flex-start; gap: 12px; }
+    .feature-dot {
+      width: 8px; height: 8px; background: #0078d4; border-radius: 50%;
+      flex-shrink: 0; margin-top: 7px;
+    }
+    .feature-text { font-size: 0.92rem; color: #374151; line-height: 1.6; }
+    .feature-text strong { color: #111827; }
+    .login-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: #0078d4; color: #fff; text-decoration: none;
+      border-radius: 10px; padding: 14px 28px; font-size: 1rem; font-weight: 600;
+      font-family: inherit; width: 100%; transition: background 0.15s ease;
+      margin-bottom: 28px;
+    }
+    .login-btn:hover { background: #005ea2; }
+    .soon-box {
+      background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .soon-label {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #9ca3af; margin-bottom: 10px;
+    }
+    .soon-items { display: flex; flex-direction: column; gap: 8px; }
+    .soon-item { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: #6b7280; }
+    .soon-badge {
+      flex-shrink: 0; background: #eff6ff; color: #0078d4; border: 1px solid #bfdbfe;
+      font-size: 0.68rem; font-weight: 700; border-radius: 20px; padding: 2px 8px;
+      white-space: nowrap;
+    }
+    footer { margin-top: 24px; text-align: center; font-size: 0.78rem; color: #9ca3af; line-height: 1.8; }
+    footer a { color: #9ca3af; text-decoration: none; }
+    footer a:hover { color: #6b7280; text-decoration: underline; }
+    @media (max-width: 520px) {
+      .card { padding: 28px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo-row">
+      <div class="logo-icon">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 8C4 5.79 5.79 4 8 4h12c2.21 0 4 1.79 4 4v12c0 2.21-1.79 4-4 4H8c-2.21 0-4-1.79-4-4V8z" fill="white" fill-opacity="0.15"/>
+          <rect x="8" y="8" width="5" height="12" rx="1.5" fill="white"/>
+          <rect x="15" y="8" width="5" height="7" rx="1.5" fill="white"/>
+          <rect x="15" y="17" width="5" height="3" rx="1.5" fill="white" fill-opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <h1>INOVIA M365 Assistant</h1>
+        <p>Firemné nástroje pre inovia.sk priamo v Claude</p>
+      </div>
+    </div>
+
+    <p class="tagline">
+      Prepojenie Microsoft 365 s Claude AI — kalendár, inbox, firemný adresár a ďalšie nástroje dostupné priamo počas práce.
+    </p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text"><strong>Ranný prehľad</strong> — dnešné stretnutia a neprečítané emaily z Outlooku</div>
+      </div>
+      <div class="feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text"><strong>Firemný adresár</strong> — vyhľadávanie kolegov, org chart, kontakty</div>
+      </div>
+      <div class="feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text"><strong>Marketing</strong> — tvorba obsahu podľa komunikačného manuálu INOVIA</div>
+      </div>
+      <div class="feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text"><strong>Kalendár</strong> — prehľad stretnutí pre ľubovoľné obdobie</div>
+      </div>
+    </div>
+
+    <a href="/auth/login" class="login-btn">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M3 10a7 7 0 1 1 14 0A7 7 0 0 1 3 10zm7-3a1 1 0 0 0-1 1v2H7a1 1 0 1 0 0 2h2v2a1 1 0 1 0 2 0v-2h2a1 1 0 1 0 0-2h-2V8a1 1 0 0 0-1-1z" fill="white"/>
+      </svg>
+      Prihlásiť sa cez Microsoft @inovia.sk
+    </a>
+
+    <div class="soon-box">
+      <div class="soon-label">Čoskoro</div>
+      <div class="soon-items">
+        <div class="soon-item">
+          <span class="soon-badge">ZSK</span>
+          Nahrávanie a hodnotenie prezentácií firiem pre inováciu ZSK
+        </div>
+        <div class="soon-item">
+          <span class="soon-badge">Mapovanie</span>
+          Zápisy zo stretnutí s firmami a vyplnenie hodnotiacich formulárov
+        </div>
+        <div class="soon-item">
+          <span class="soon-badge">Agenda</span>
+          Sprievodca procesmi, formulármi a termínmi pre každú OJ
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    v${VERSION} &middot; <a href="${REPO_URL}" target="_blank" rel="noopener">github.com/stuposk/inovia-m365-mcp</a><br>
+    Powered by <a href="https://unite.sk" target="_blank" rel="noopener">Unite</a>
+  </footer>
+</body>
+</html>`;
+}
+
 function authErrorHtml(reason: string): string {
   return `<!DOCTYPE html>
 <html lang="sk">
@@ -347,10 +500,10 @@ async function startHttp(port: number): Promise<void> {
     const url = new URL(req.url ?? "/", base);
     const pathname = url.pathname;
 
-    // GET / → redirect to login
+    // GET / → landing page
     if (req.method === "GET" && pathname === "/") {
-      res.writeHead(302, { Location: "/auth/login" });
-      res.end();
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      res.end(landingHtml());
       return;
     }
 
