@@ -116,4 +116,9 @@ Po zobrazení profilu pokračuj s týmto návodom krok za krokom:
 
 Po dokončení si asistent zapamätá tvoj profil a bude mať prístup k súborom v priečinku.
 
+**5. Nastav automatické rutiny (voliteľné)**
+- V projekte Inovia klikni vpravo na **Scheduled → +**
+- Môžeš napríklad nastaviť: `/inovia ranný prehľad` každý pracovný deň o 8:00
+- Cowork ti potom každé ráno automaticky spustí prehľad kalendára a emailov
+
 Tón: priateľský, nie formálny.
