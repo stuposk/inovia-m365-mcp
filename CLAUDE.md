@@ -64,7 +64,10 @@ Príklad: `26.04.01` = prvý release v apríli 2026, `26.04.02` = druhý release
 Pri každom release aktualizuj:
 - `package.json` — `version` a `releaseDate`
 - `src/server.ts` — `VERSION` konštanta
-- `plugin/.claude-plugin/plugin.json` — `version` + `skills` zoznam
+- `src/tools/capabilities.ts` — `SERVER_VERSION` a `PLUGIN_VERSION` konštanty
+- `plugin/.claude-plugin/plugin.json` — `version` + `description` (obsahuje verziu) + `skills` zoznam
+- `plugin/skills/inovia/SKILL.md` — verzia v Pravidle 4 (Plugin: X.X.XX)
+- `skill/inovia/SKILL.md` — verzia v Pravidle 4 (Plugin: X.X.XX)
 - `CHANGELOG.md` — nový záznam
 - GitHub Release tag: `vYY.MM.VV`
 
