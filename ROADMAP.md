@@ -218,31 +218,67 @@ Na základe záznamu zo stretnutia:
 
 ---
 
-## Agenda — sprievodca pre každú OJ
+## Agenda — interný helpdesk pre každú OJ
 
-Každá organizačná jednotka má svoje vlastné procesy, formuláre a termíny. Asistent poskytne odpovede na otázky typu:
-- „Kde nájdem výkaz práce?"
-- „Ako vyplniť cestovný príkaz?"
-- „Kedy máme porady v RC Žilina?"
-- „Kde sú kľúčové súbory pre naše oddelenie?"
+Každá organizačná jednotka má svoje vlastné procesy, formuláre, kontakty a termíny. `/agenda` funguje ako **interný helpdesk** — používateľ sa opýta a asistent odpovie priamo, personalizovane podľa OJ z profilu.
 
-### Prístup — rovnaký ako marketing
+### Princíp — najprv odpovedz, až potom odporúčaj kontakt
 
-Každá OJ dostane vlastný súbor `data/skills/agenda/<oj>/guide.md` s:
-- Odkazmi na formuláre a šablóny (výkazy, cestovné, reporty)
-- Termínmi a opakujúcimi sa udalosťami (porady, deadliny, meetingy)
-- Odkazmi na kľúčové SharePoint/Teams priečinky
+Asistent sa **najprv pokúsi odpovedať sám** na základe znalostí o OJ. Až ak nevie, odporučí konkrétnu osobu. Toto je kľúčový rozdiel oproti klasickému "spýtaj sa kolegu X".
 
-Asistent sa riadi podľa OJ z profilu používateľa (`Organizačná jednotka` z Project Instructions).
+Príklady:
+
+| Otázka | Zlá odpoveď | Dobrá odpoveď |
+|---|---|---|
+| „Kde je výkaz práce?" | „Kontaktuj finančného managera." | „Výkaz práce nájdeš tu: [link na SharePoint]. Vypĺňa sa mesačne do 5. dňa nasledujúceho mesiaca." |
+| „Koho kontaktovať kvôli cesťáku?" | „Spýtaj sa Jany Kováčovej." | „Cestovný príkaz vyplníš cez [link]. Ak máš otázky k schvaľovaniu, rieši to Jana Kováčová (financny.manager@inovia.sk)." |
+| „Kedy máme porady?" | „Pozri si kalendár." | „RC Žilina má porady každý utorok o 9:00. Zápisnica sa ukladá do [Teams priečinok]." |
+
+### Štruktúra skill súborov
+
+Každá OJ dostane vlastný súbor `data/skills/agenda/<oj>/skill.md` so sekciami:
+
+**1. FAQ — najčastejšie otázky s priamymi odpoveďami**
+- Výkazy práce — kde, kedy, ako
+- Cestovné príkazy — postup, schvaľovanie, linky
+- Dovolenky — ako nahlásiť, komu
+- IT problémy — koho kontaktovať, self-service linky
+
+**2. Kontakty — kto rieši čo**
+- Meno, email, oblasť zodpovednosti
+- Nie len mená — aj kedy kontaktovať (napr. "len ak self-service nefunguje")
+
+**3. Kľúčové súbory a priečinky**
+- SharePoint / Teams linky na zdieľané dokumenty
+- Šablóny (výkazy, reporty, zápisnice)
+- Interné nástroje a systémy
+
+**4. Pravidelné udalosti**
+- Porady — deň, čas, miesto/link
+- Deadliny — mesačné reporty, uzávierky
+- Opakujúce sa aktivity (napr. team review každý piatok)
+
+### Ako to funguje technicky
+
+1. Používateľ sa opýta (napr. "kde nájdem výkaz práce?")
+2. `get_capabilities` → asistent vyberie `/agenda` capability (`hasContext: true`)
+3. `get_skill_context('agenda')` → server prečíta **OJ z profilu** a vráti správny skill súbor
+4. Asistent odpovie na základe obsahu — priamo, bez zbytočného odkazovania na kolegov
+
+**Poznámka:** `get_skill_context` bude musieť vedieť OJ používateľa. Možnosti:
+- a) Odovzdať OJ ako parameter (`get_skill_context('agenda', { oj: 'rcpie' })`) — vyžaduje zmenu tool schémy
+- b) Asistent si prečíta profil z kontextu a zavolá `get_skill_context('agenda-rcpie')` — bez zmeny na serveri
+- c) Server pozná OJ z emailu (lookup cez Graph API) — bez závislosti na profile
 
 ### Čo je potrebné pripraviť
 
-- [ ] `data/skills/agenda/rcpie/guide.md` — Regionálne centrá (porady, výkazy, kľúčové súbory)
-- [ ] `data/skills/agenda/ris/guide.md` — RIS (výkazy, reporty, termíny)
-- [ ] `data/skills/agenda/huby/guide.md` — HUBY
-- [ ] `data/skills/agenda/platformy/guide.md` — Platformy
-- [ ] `data/skills/agenda/mapovanie/guide.md` — Mapovanie
-- [ ] Capability `/agenda` v `get_capabilities` — detekuje OJ z profilu, načíta správny guide
+- [ ] `data/skills/agenda/rcpie/skill.md` — Regionálne centrá (porady, výkazy, kľúčové súbory)
+- [ ] `data/skills/agenda/ris/skill.md` — RIS (výkazy, reporty, termíny)
+- [ ] `data/skills/agenda/huby/skill.md` — HUBY
+- [ ] `data/skills/agenda/platformy/skill.md` — Platformy
+- [ ] `data/skills/agenda/mapovanie/skill.md` — Mapovanie
+- [ ] Capability `/agenda` v `get_capabilities` — `hasContext: true`, detekuje OJ z profilu
+- [ ] Obsah skill súborov — **treba získať od vedúcich jednotlivých OJ** (FAQ, kontakty, linky, termíny)
 
 ---
 
