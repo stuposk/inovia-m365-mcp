@@ -66,11 +66,13 @@ export async function getEvents(email: string, from?: string, to?: string): Prom
     })
     .get();
 
+  // Graph API with outlook.timezone returns local times WITHOUT offset.
+  // We must NOT let Node parse them as UTC — pass raw strings to formatters.
   const events: CalendarEvent[] = (response.value ?? []).map((e: any) => ({
     id: e.id,
     subject: e.subject ?? "(bez názvu)",
-    start: e.start?.dateTime ?? "",
-    end: e.end?.dateTime ?? "",
+    start: e.start?.dateTime ? e.start.dateTime.replace(/\.0+$/, "") : "",
+    end: e.end?.dateTime ? e.end.dateTime.replace(/\.0+$/, "") : "",
     organizer: e.organizer?.emailAddress?.name ?? "",
     location: e.location?.displayName ?? "",
     isOnlineMeeting: !!e.isOnlineMeeting,

@@ -51,28 +51,27 @@ export function registerCalendarTool(server: McpServer, email: string): void {
   );
 }
 
-function formatDateTime(isoString: string, includeDate: boolean): string {
-  if (!isoString) return "";
-  const date = new Date(isoString);
+// Graph API returns dateTime already in Europe/Bratislava (via Prefer header).
+// Parse HH:MM directly from the string — do NOT use new Date() which would
+// re-interpret the offset-less string as UTC.
+
+function formatDateTime(localDateTime: string, includeDate: boolean): string {
+  if (!localDateTime) return "";
   if (includeDate) {
-    return date.toLocaleDateString("sk-SK", {
-      weekday: "short",
-      month: "numeric",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "Europe/Bratislava",
-    });
+    // localDateTime is e.g. "2026-04-13T08:30:00"
+    const [datePart] = localDateTime.split("T");
+    const date = new Date(datePart + "T12:00:00Z"); // noon UTC to avoid day shift
+    const weekday = date.toLocaleDateString("sk-SK", { weekday: "short", timeZone: "UTC" });
+    const day = date.toLocaleDateString("sk-SK", { day: "numeric", month: "numeric", timeZone: "UTC" });
+    return `${weekday} ${day} ${formatTime(localDateTime)}`;
   }
-  return formatTime(isoString);
+  return formatTime(localDateTime);
 }
 
-function formatTime(isoString: string): string {
-  if (!isoString) return "";
-  const date = new Date(isoString);
-  return date.toLocaleTimeString("sk-SK", {
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "Europe/Bratislava",
-  });
+function formatTime(localDateTime: string): string {
+  if (!localDateTime) return "";
+  const timePart = localDateTime.split("T")[1];
+  if (!timePart) return "";
+  const [h, m] = timePart.split(":");
+  return `${h}:${m}`;
 }
