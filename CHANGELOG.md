@@ -1,5 +1,12 @@
 # Changelog
 
+## 26.04.20 — 2026-04-13
+
+### Zmenené
+- SKILL.md: posilnený prompt — obmedzenie na `mcp__inovia-m365__*` nástroje hneď na prvom riadku, `get_capabilities` ako povinná prvá akcia, onboarding kontrola profilu pred čímkoľvek iným
+
+---
+
 ## 26.04.19 — 2026-04-13
 
 ### Pridané
@@ -7,9 +14,6 @@
 - `get_capabilities` vracia `_skillInstallHint` — Claude automaticky vytvorí `~/.claude/skills/inovia/SKILL.md` ak neexistuje
 - Nový skill-context `skill-install` s obsahom SKILL.md a inštrukciami na inštaláciu
 - Onboarding guide: automatická inštalácia `/inovia` slash commandu na konci onboardingu
-
-### Zmenené
-- SKILL.md: posilnený prompt — obmedzenie na `mcp__inovia-m365__*` nástroje hneď na prvom riadku, `get_capabilities` ako povinná prvá akcia, onboarding kontrola profilu pred čímkoľvek iným
 
 ---
 
