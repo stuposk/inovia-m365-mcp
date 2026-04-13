@@ -6,6 +6,8 @@
 
 ## Pred každým buildom a deployom
 
+**Každý build na server = nová verzia.** Nikdy nerob build bez bumpu verzie. Aj keď je zmena malá (fix textu, 1 riadok), verzia ide +1.
+
 Vždy pred deployom najprv obnov plugin ZIP (musí byť `.zip`):
 
 ```bash
