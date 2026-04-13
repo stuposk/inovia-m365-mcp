@@ -18,7 +18,7 @@ import { registerUserTools } from "./tools/users.js";
 import { registerCapabilitiesTool } from "./tools/capabilities.js";
 import { registerSkillContextTool } from "./tools/skill-context.js";
 
-const VERSION = "26.04.17";
+const VERSION = "26.04.18";
 const REPO_URL = "https://github.com/stuposk/inovia-m365-mcp";
 
 async function loadEnv(): Promise<void> {
@@ -48,14 +48,19 @@ async function loadEnv(): Promise<void> {
 function createMcpServer(email: string): McpServer {
   const serviceUrl = process.env.SERVICE_URL ?? "";
   const server = new McpServer(
-    { name: "inovia-m365", version: "26.04.01" },
+    { name: "inovia-m365", version: VERSION },
     {
       instructions:
-        `Tools for inovia.sk Microsoft 365 workspace — calendar, inbox, and company directory for ${email}. ` +
-        "Use get_today_events to fetch calendar events, get_new_messages to fetch unread emails, " +
-        "find_colleague to search the company directory, get_department_members to list a team, " +
-        "get_org_chart to show manager and direct reports for any colleague. " +
-        `If tools stop working, the session token may have expired — visit ${serviceUrl}/auth/login to renew.`,
+        `INOVIA workplace assistant — firemné nástroje pre ${email}.\n\n` +
+        "VŽDY začni volaním get_capabilities — vráti aktuálny zoznam funkcií, verziu servera a pluginu.\n\n" +
+        "Ak v kontexte (Project Instructions) neexistuje blok '## Môj profil — INOVIA', " +
+        "neposkytuj služby — najprv spusti onboarding cez get_capabilities.\n\n" +
+        "Ak má capability hasContext: true, zavolaj get_skill_context(id) pre detailné inštrukcie.\n\n" +
+        "Pravidlá:\n" +
+        "- Používaj výlučne nástroje inovia-m365. Nikdy nepoužívaj Google Kalendár, Gmail ani iné externé nástroje.\n" +
+        "- Pred zápisom (udalosť, email, správa) sa vždy opýtaj používateľa na potvrdenie.\n" +
+        "- Každú odpoveď ukonči: Plugin: [pluginVersion] · Server: [serverVersion] (z get_capabilities).\n" +
+        `- Ak nástroje prestanú fungovať, token mohol expirovať — použi ${serviceUrl}/auth/login na obnovu.`,
     }
   );
   registerCapabilitiesTool(server, email);
@@ -72,7 +77,7 @@ function createOnboardingServer(): McpServer {
   const loginUrl = `${serviceUrl}/auth/login`;
 
   const server = new McpServer(
-    { name: "inovia-m365", version: "26.04.01" },
+    { name: "inovia-m365", version: VERSION },
     {
       instructions:
         "The user has not yet authenticated their Microsoft 365 account. " +
