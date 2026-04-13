@@ -10,6 +10,121 @@ Prehľad plánovaných funkcií zoskupených podľa oblasti. Aktuálne implement
 - ✅ Per-user JWT session tokeny (30 dní)
 - ✅ Onboarding flow — Claude prevedie novým používateľom prihlásením
 - ✅ Claude Cowork plugin (`inovia.zip`)
+- [ ] **MCP OAuth 2.1 — natívna autentifikácia cez Cowork** (viď sekciu nižšie)
+- [ ] Logging a štatistiky do Firestore (aktívni používatelia, počet volaní per user/deň)
+
+---
+
+## MCP OAuth 2.1 — migrácia z JWT na natívny OAuth
+
+### Prečo
+
+Teraz: každý používateľ musí ísť na `/auth/login`, skopírovať osobnú URL s JWT tokenom a ručne ju vložiť do custom connectora. Cowork ale podporuje natívny OAuth — používateľ len klikne "Install" a prihlási sa. Žiadne kopírovanie URL.
+
+### Ako to funguje — MCP Authorization spec
+
+MCP špecifikácia definuje OAuth 2.1 flow pre HTTP transport:
+- Spec: https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization
+- Založené na [OAuth 2.1 IETF DRAFT](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-12)
+- Metadata discovery: [RFC 8414](https://datatracker.ietf.org/doc/html/rfc8414)
+- Dynamic client registration: [RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591)
+
+### Flow — Third-Party Authorization (náš prípad)
+
+Náš server = OAuth authorization server + resource server.
+Microsoft = third-party auth provider.
+
+```
+1. Cowork → POST /mcp → server vráti 401 Unauthorized
+2. Cowork → GET /.well-known/oauth-authorization-server → metadata s endpointmi
+3. Cowork → otvorí prehliadač na /authorize?code_challenge=...&redirect_uri=...
+4. Server → presmeruje na Microsoft OAuth (login.microsoftonline.com)
+5. Používateľ sa prihlási cez @inovia.sk účet
+6. Microsoft → callback na server s auth code
+7. Server → vymení code za MS access token
+8. Server → vygeneruje vlastný MCP access token (viazaný na MS session)
+9. Server → presmeruje prehliadač späť na Cowork callback s MCP auth code
+10. Cowork → POST /token s auth code + code_verifier (PKCE)
+11. Server → vráti MCP access token (+ refresh token)
+12. Cowork → odteraz posiela Authorization: Bearer <token> v každom requeste
+```
+
+### Čo musíme implementovať na serveri
+
+| Endpoint | Metóda | Čo robí |
+|---|---|---|
+| `/.well-known/oauth-authorization-server` | GET | Metadata — zoznam OAuth endpointov, supported grant types, PKCE |
+| `/authorize` | GET | Spustí OAuth flow — validuje parametre, presmeruje na Microsoft |
+| `/token` | POST | Vymení auth code za access token, podporuje refresh_token grant |
+| `/register` | POST | (voliteľné) Dynamic client registration ([RFC 7591](https://datatracker.ietf.org/doc/html/rfc7591)) |
+
+### Metadata response (`/.well-known/oauth-authorization-server`)
+
+```json
+{
+  "issuer": "https://inovia-m365-mcp-521967815165.europe-west1.run.app",
+  "authorization_endpoint": "https://inovia-m365-mcp-521967815165.europe-west1.run.app/authorize",
+  "token_endpoint": "https://inovia-m365-mcp-521967815165.europe-west1.run.app/token",
+  "registration_endpoint": "https://inovia-m365-mcp-521967815165.europe-west1.run.app/register",
+  "response_types_supported": ["code"],
+  "grant_types_supported": ["authorization_code", "refresh_token"],
+  "code_challenge_methods_supported": ["S256"],
+  "token_endpoint_auth_methods_supported": ["client_secret_post", "none"]
+}
+```
+
+### Zmeny na serveri
+
+1. **`/mcp` endpoint** — ak request nemá `Authorization: Bearer` header a ani `?token=` query param → vrátiť **401 Unauthorized**
+2. **Nové OAuth endpointy** — `/.well-known`, `/authorize`, `/token`
+3. **Token storage** — mapovanie MCP token → Microsoft token → email (Firestore alebo in-memory)
+4. **PKCE validácia** — code_challenge/code_verifier podľa [OAuth 2.1 Section 4.1](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-12#section-4.1)
+5. **Bearer token handling** — čítať `Authorization: Bearer <token>` z HTTP headeru, validovať, získať email
+
+### Zmeny v Azure App Registration
+
+- Pridať redirect URI pre náš `/callback` endpoint (server-to-server, nie Cowork)
+- Existujúci redirect URI (`/auth/callback`) zostáva — pre spätnú kompatibilitu
+
+### Zmeny v plugin.json
+
+```json
+{
+  "mcpServers": {
+    "inovia-m365": {
+      "url": "https://inovia-m365-mcp-521967815165.europe-west1.run.app/mcp"
+    }
+  }
+}
+```
+
+Jedna URL pre všetkých — žiadne osobné tokeny. Cowork vie OAuth Client ID + Secret z Advanced Settings (alebo cez Dynamic Registration).
+
+### Migračný plán
+
+1. **Fáza 1 — Duálny mode** — server akceptuje aj starý JWT (`?token=`) aj nový Bearer token. Existujúci používatelia fungujú ďalej.
+2. **Fáza 2 — Nový plugin** — plugin.json s `mcpServers` URL bez tokenu. Noví používatelia idú cez OAuth.
+3. **Fáza 3 — Deprecation** — po tom čo všetci migrujú, zrušiť JWT flow a `/auth/login` stránku.
+
+### Čo sa zmení pre používateľov
+
+| | Teraz | Po migrácii |
+|---|---|---|
+| Connector URL | Osobná s tokenom | Jedna spoločná |
+| Prihlásenie | Manuálne — `/auth/login` → kopírovanie URL | Automatické — Cowork OAuth popup |
+| Token obnova | Manuálne po 30 dňoch | Automatické (refresh token) |
+| Inštalácia | Stiahnuť ZIP + pridať connector ručne | Stiahnuť ZIP → funguje |
+
+### Referencie
+
+- MCP Authorization spec: https://modelcontextprotocol.io/specification/2025-03-26/basic/authorization
+- MCP Transports spec: https://modelcontextprotocol.io/specification/2025-03-26/basic/transports
+- OAuth 2.1 IETF Draft: https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-12
+- RFC 8414 — OAuth 2.0 Authorization Server Metadata: https://datatracker.ietf.org/doc/html/rfc8414
+- RFC 7591 — OAuth 2.0 Dynamic Client Registration: https://datatracker.ietf.org/doc/html/rfc7591
+- Cowork connectors docs: https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities
+- Custom integrations docs: https://support.claude.com/en/articles/11175166-about-custom-integrations-using-remote-mcp
+- Known bug — VM network allowlist: https://github.com/anthropics/claude-code/issues/28067
 
 ---
 
