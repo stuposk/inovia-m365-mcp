@@ -18,7 +18,7 @@ import { registerUserTools } from "./tools/users.js";
 import { registerCapabilitiesTool } from "./tools/capabilities.js";
 import { registerSkillContextTool } from "./tools/skill-context.js";
 
-const VERSION = "26.04.20";
+const VERSION = "26.04.21";
 const REPO_URL = "https://github.com/stuposk/inovia-m365-mcp";
 
 async function loadEnv(): Promise<void> {

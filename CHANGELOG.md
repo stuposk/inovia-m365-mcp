@@ -1,6 +1,9 @@
 # Changelog
 
-## 26.04.20 — 2026-04-13
+## 26.04.21 — 2026-04-13
+
+### Opravené
+- plugin.json: odstránené `version` a `skills` polia — Cowork registruje skills automaticky podľa adresárovej štruktúry (rovnako ako oficiálne pluginy)
 
 ### Zmenené
 - SKILL.md: posilnený prompt — obmedzenie na `mcp__inovia-m365__*` nástroje hneď na prvom riadku, `get_capabilities` ako povinná prvá akcia, onboarding kontrola profilu pred čímkoľvek iným
