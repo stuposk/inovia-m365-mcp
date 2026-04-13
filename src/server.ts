@@ -164,6 +164,19 @@ function landingHtml(): string {
       margin-bottom: 28px;
     }
     .login-btn:hover { background: #005ea2; }
+    .req-box {
+      background: #fefce8; border: 1.5px solid #fde68a; border-radius: 10px;
+      padding: 18px 20px; margin-bottom: 20px;
+    }
+    .req-label {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #92400e; margin-bottom: 10px;
+    }
+    .req-items { display: flex; flex-direction: column; gap: 6px; }
+    .req-item { font-size: 0.88rem; color: #78350f; line-height: 1.5; padding-left: 16px; position: relative; }
+    .req-item::before { content: "→"; position: absolute; left: 0; color: #d97706; }
+    .req-item a { color: #92400e; }
+    .req-item a:hover { text-decoration: underline; }
     .soon-box {
       background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px;
       padding: 18px 20px;
@@ -215,15 +228,29 @@ function landingHtml(): string {
       </div>
       <div class="feature">
         <div class="feature-dot"></div>
+        <div class="feature-text"><strong>Emaily</strong> — prehľad neprečítaných správ z Outlook inboxu</div>
+      </div>
+      <div class="feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text"><strong>Kalendár</strong> — prehľad stretnutí pre ľubovoľné obdobie</div>
+      </div>
+      <div class="feature">
+        <div class="feature-dot"></div>
         <div class="feature-text"><strong>Firemný adresár</strong> — vyhľadávanie kolegov, org chart, kontakty</div>
       </div>
       <div class="feature">
         <div class="feature-dot"></div>
         <div class="feature-text"><strong>Marketing</strong> — tvorba obsahu podľa komunikačného manuálu INOVIA</div>
       </div>
-      <div class="feature">
-        <div class="feature-dot"></div>
-        <div class="feature-text"><strong>Kalendár</strong> — prehľad stretnutí pre ľubovoľné obdobie</div>
+    </div>
+
+    <div class="req-box">
+      <div class="req-label">Požiadavky</div>
+      <div class="req-items">
+        <div class="req-item">Aplikácia <a href="https://claude.ai/download" target="_blank" rel="noopener"><strong>Claude</strong></a> (desktop alebo web)</div>
+        <div class="req-item">Predplatné <strong>Claude Pro</strong> alebo vyššie</div>
+        <div class="req-item">Používať sekciu <strong>Cowork</strong> (nie Chat)</div>
+        <div class="req-item">Účet <strong>@inovia.sk</strong> v Microsoft 365</div>
       </div>
     </div>
 
