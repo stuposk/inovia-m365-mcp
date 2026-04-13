@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 const __rootdir = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 function marketingGuideExists(): boolean {
-  return existsSync(resolve(__rootdir, "data/skills/marketing/guide.md"));
+  return existsSync(resolve(__rootdir, "data/skills/marketing/skill.md"));
 }
 
 function readVersion(): string {

@@ -55,7 +55,7 @@ Kedykoľvek pridáme nový MCP nástroj (endpoint), **vždy** musia byť súčas
 **Dôležité:** `skill/inovia/SKILL.md` a `plugin/skills/inovia/SKILL.md` musia byť vždy identické — okrem `tools:` frontmatter riadku ktorý je len v plugin verzii. Ak zmeníš jedno, zmeň aj druhé.
 
 Ak pridáš capability s `hasContext: true`:
-- Vytvor `data/skills/<id>/guide.md` s detailnými inštrukciami
+- Vytvor `data/skills/<id>/skill.md` s detailnými inštrukciami
 - Pridaj `get_skill_context` do `tools:` zoznamu v `plugin/skills/inovia/SKILL.md` (ak tam ešte nie je)
 
 Po dokončení: build → deploy → rebuild `inovia.zip` → upload na GitHub Release.
