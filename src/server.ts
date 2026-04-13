@@ -247,7 +247,7 @@ function landingHtml(): string {
     <div class="req-box">
       <div class="req-label">Požiadavky</div>
       <div class="req-items">
-        <div class="req-item">Aplikácia <a href="https://claude.ai/download" target="_blank" rel="noopener"><strong>Claude</strong></a> (desktop alebo web)</div>
+        <div class="req-item"><a href="https://claude.ai/download" target="_blank" rel="noopener"><strong>Claude desktop aplikácia</strong></a> (Cowork nie je dostupný na webe)</div>
         <div class="req-item">Predplatné <strong>Claude Pro</strong> alebo vyššie</div>
         <div class="req-item">Používať sekciu <strong>Cowork</strong> (nie Chat)</div>
         <div class="req-item">Účet <strong>@inovia.sk</strong> v Microsoft 365</div>
