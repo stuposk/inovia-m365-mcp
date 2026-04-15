@@ -53,7 +53,14 @@ Po sumarizácii sa opýtaj: **„V akom formáte chceš výstup?"**
 - **Excel** (.xlsx) — tabuľkový formát (otázka + odpoveď + status)
 - **PDF** — finálna verzia na archiváciu
 
-Vygeneruj súbor do priečinka Inovia. Názov: `[Názov firmy] — mapovací dotazník [dátum].{formát}`
+Vždy generuj **dva súbory**:
+
+1. **Pracovný** — s ✅/⚠️/❌ statusmi, zdrojmi, poznámkami na konzultáciu
+   - Názov: `[Firma] — mapovanie PRACOVNÝ [dátum].{formát}`
+2. **Čistý (na import/archív)** — len číslo otázky + odpoveď, bez statusov, bez poznámok, stručný
+   - Názov: `[Firma] — mapovanie ČISTÝ [dátum].{formát}`
+
+Oba súbory ulož do priečinka Inovia.
 
 ### Fáza 5 — Follow-up mail
 
