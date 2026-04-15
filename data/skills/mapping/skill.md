@@ -23,14 +23,26 @@ Pred začatím potrebuješ:
 
 ### Fáza 2 — Vyplnenie dotazníka
 
-Prechádzaj otázky **jednu po druhej**. Pre každú otázku:
+Prechádzaj otázky **jednu po druhej**. Pri každej odpovedi **vždy uveď zdroj** v zátvorke:
 
-**Ak vieš odpovedať** (informácia je jasne v poznámkach alebo z finstatu):
-- Vypíš navrhovanú odpoveď
-- Označ: ✅ **Istý** — zdroj: [poznámky / finstat / web]
+Typy zdrojov:
+- `(zápis)` — z poznámok zo stretnutia
+- `(prepis)` — z audio prepisu rozhovoru
+- `(finstat)` — z finstat.sk
+- `(web: URL)` — z konkrétnej webovej stránky
+- `(profil)` — z profilu používateľa
+- `(odhad)` — vlastný odhad na základe kontextu
+
+Príklad:
+> **8. Výkony 2023:** 2,18 mil EUR `(zápis)` `(finstat)`
+> **24. Vízia firmy na 10 rokov:** Bezodpadová prevádzka, vlastná bioplinka, rozšírenie mliekarne `(prepis)`
+
+**Ak vieš odpovedať** (informácia je jasne v podkladoch):
+- Vypíš navrhovanú odpoveď + zdroj(e)
+- Označ: ✅ **Istý**
 
 **Ak si nie si úplne istý** (informácia je čiastočná alebo nepriama):
-- Vypíš najlepší odhad na základe toho čo máš
+- Vypíš najlepší odhad + zdroj(e)
 - Označ: ⚠️ **Na konzultáciu** — vysvetli čo chýba alebo čo treba overiť
 
 **Ak nevieš** (informácia nie je v podkladoch):
