@@ -15,11 +15,37 @@ Pred začatím potrebuješ:
 
 ## Postup — krok po kroku
 
-### Fáza 1 — Príprava
+Workflow má dva režimy:
+- **Pred stretnutím** — Fáza 0 (research) → predvyplnený dotazník ako príprava
+- **Po stretnutí** — Fáza 1 (spracovanie poznámok) → Fáza 2 (vyplnenie) → Fáza 3–5
+
+Opýtaj sa používateľa: **„Ideš sa pripravovať na stretnutie, alebo už máš poznámky?"**
+
+### Fáza 0 — Research pred stretnutím
+
+Používateľ zadá jednu alebo viac firiem (IČO, názov, alebo oboje). Pre každú firmu:
+
+1. **Finstat** — vyhľadaj na finstat.sk: tržby/výkony, počet zamestnancov, rok založenia, SK NACE, sídlo
+2. **Web firmy** — nájdi webstránku, zisti: produkty/služby, trhy, zákazníci, tím
+3. **LinkedIn** — profil firmy, počet zamestnancov, posledné príspevky/aktivity
+4. **Médiá** — zmienky v médiách, tlačové správy, ocenenia
+
+Na základe nájdených informácií **predvyplň dotazník** — čo sa dá. Každú odpoveď označ zdrojom. Otázky bez odpovede označ ❌ — tieto sú **témy na stretnutie**.
+
+Na konci výstupu pridaj sekciu:
+
+**Odporúčané otázky na stretnutie:**
+- Zoznam otázok kde informácia chýba alebo je neúplná
+- Usporiadané podľa priority (najdôležitejšie prvé)
+- Pri každej otázke krátky kontext prečo sa pýtať a čo hľadáme
+
+Výstup ulož ako: `[Firma] — príprava na stretnutie [dátum].md`
+
+### Fáza 1 — Spracovanie poznámok (po stretnutí)
 
 1. Prečítaj poznámky/prepis zo stretnutia
-2. Ak máš IČO, vyhľadaj firmu na finstat.sk — výkony, zamestnanci, rok založenia
-3. Ak máš názov firmy, urob stručný web research — čo firma robí, produkty, trhy
+2. Ak máš IČO, doplň finančné údaje z finstat.sk
+3. Ak máš predvyplnený dotazník z Fázy 0, použi ho ako základ a doplň nové informácie
 
 ### Fáza 2 — Vyplnenie dotazníka
 
