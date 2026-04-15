@@ -247,6 +247,10 @@ function landingHtml(): string {
         <div class="feature-dot"></div>
         <div class="feature-text"><strong>Marketing</strong> — tvorba obsahu podľa komunikačného manuálu INOVIA</div>
       </div>
+      <div class="feature">
+        <div class="feature-dot"></div>
+        <div class="feature-text"><strong>Mapovanie firiem</strong> — research, zápis zo stretnutia, vyplnenie dotazníka, follow-up mail</div>
+      </div>
     </div>
 
     <div class="req-box">

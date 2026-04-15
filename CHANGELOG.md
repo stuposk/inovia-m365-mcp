@@ -1,5 +1,20 @@
 # Changelog
 
+## 26.04.25 — 2026-04-15
+
+### Pridané
+- `/mapping` capability — mapovanie firiem (research, dotazník 66 otázok, follow-up mail)
+- 3-úrovňová istota odpovedí: ✅ Istý / ⚠️ Na konzultáciu / ❌ Chýba
+- Dva výstupy: pracovný (so statusmi) + čistý (na import/archív)
+- Export formáty: MD, Word, Excel, PDF
+- Follow-up mail generátor (formálny/neformálny)
+
+### Opravené
+- Fix: kalendár zobrazoval časy +2h (UTC namiesto Europe/Bratislava)
+- Rename guide.md → skill.md konvencia
+
+---
+
 ## 26.04.21 — 2026-04-13
 
 ### Opravené

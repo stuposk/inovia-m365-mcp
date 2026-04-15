@@ -60,6 +60,15 @@ Ak pridáš capability s `hasContext: true`:
 
 Po dokončení: build → deploy → rebuild `inovia.zip` → upload na GitHub Release.
 
+## Pravidlo: pri každom novom feature aktualizuj VŠETKY docs
+
+Každý nový skill alebo zmena existujúceho musí aktualizovať:
+- `README.md` — tabuľka skillov, popis funkcií
+- `CHANGELOG.md` — nový záznam
+- `ROADMAP.md` — označiť ako ✅ hotové (ak bolo plánované)
+- `src/server.ts` → `landingHtml()` — features sekcia na landing page
+- `plugin/README.md` — ak existuje
+
 ---
 
 ## Verzionovanie

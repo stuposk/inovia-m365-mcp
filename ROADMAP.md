@@ -176,7 +176,7 @@ Jedna URL pre všetkých — žiadne osobné tokeny. Cowork vie OAuth Client ID 
 | `/find-colleague` | Mapa organizácie — vyhľadanie kolegu, org chart, kontakty | MiSt | ✅ hotové |
 | `/marketing` | Komunikačný manuál — tvorba obsahu podľa tone of voice INOVIA | SiMi / MiSt | ✅ hotové |
 | `/tomorrow-briefing` | Briefing programu na zajtra | MiZa | nové |
-| `/mapping` | Mapovanie firiem — research, zápis zo stretnutia, formulár | MiSt | plánované |
+| `/mapping` | Mapovanie firiem — research, zápis zo stretnutia, formulár | MiSt | ✅ hotové |
 | `/zsk-review` | Hodnotenie prezentácií IŽK — pravidlá, pitch deck, kategórie | VlKo / MiSt | plánované |
 | `/municipality-innovation` | Budovanie inovácií v samospráve | MiZa | plánované |
 | `/mip-tuner` | Ladič formulácií pre MIP projekty | MiZa | plánované |
