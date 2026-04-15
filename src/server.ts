@@ -119,7 +119,7 @@ function landingHtml(): string {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>INOVIA M365 Assistant</title>
+  <title>INOVIA Assistant</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -217,7 +217,7 @@ function landingHtml(): string {
         </svg>
       </div>
       <div class="logo-text">
-        <h1>INOVIA M365 Assistant</h1>
+        <h1>INOVIA Assistant</h1>
         <p>Firemné nástroje pre inovia.sk priamo v Claude</p>
       </div>
     </div>
@@ -276,10 +276,6 @@ function landingHtml(): string {
         <div class="soon-item">
           <span class="soon-badge">ZSK</span>
           Nahrávanie a hodnotenie prezentácií firiem pre inováciu ZSK
-        </div>
-        <div class="soon-item">
-          <span class="soon-badge">Mapovanie</span>
-          Zápisy zo stretnutí s firmami a vyplnenie hodnotiacich formulárov
         </div>
         <div class="soon-item">
           <span class="soon-badge">Agenda</span>
