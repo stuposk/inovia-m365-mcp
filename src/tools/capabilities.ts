@@ -53,6 +53,13 @@ export function registerCapabilitiesTool(server: McpServer, email: string): void
           description: "Stretnutia pre konkrétny deň, týždeň alebo ľubovoľné obdobie",
           prompt: "Zavolaj get_today_events s parametrami from a to (formát YYYY-MM-DD). Dnešný dátum použi ako základ ak nie je inak špecifikované. Vypíš stretnutia s časom a miestom.",
         },
+        {
+          id: "mapping",
+          name: "Mapovanie firmy",
+          description: "Research firmy, spracovanie poznámok zo stretnutia, vyplnenie mapovacieho dotazníka (66 otázok)",
+          prompt: "Zavolaj get_skill_context('mapping') pre detailné inštrukcie a postupuj podľa nich.",
+          hasContext: true,
+        },
         ...(marketingGuideExists() ? [{
           id: "marketing",
           name: "Marketing a komunikácia",
