@@ -217,11 +217,13 @@ Na základe záznamu zo stretnutia:
 
 ### Čo je potrebné pripraviť
 
-- [ ] `data/skills/mapping/skill.md` — inštrukcie pre celý workflow (research → zápis → formulár)
-- [ ] Šablóna záznamu zo stretnutia pre Mapovanie
-- [ ] Hodnotiaci formulár ako referenčný súbor (otázky a typy polí)
-- [ ] Skill `/mapping` v `get_capabilities` — orchestruje celý postup
-- [ ] Podpora čítania PDF/PPTX súborov z priečinka Inovia (cez Context)
+- [x] `data/skills/mapping/skill.md` — inštrukcie pre celý workflow (research → zápis → formulár)
+- [x] Šablóna záznamu zo stretnutia pre Mapovanie (66 otázok v skill.md)
+- [x] Hodnotiaci formulár ako referenčný súbor (66 otázok priamo v skill.md)
+- [x] Skill `/mapping` v `get_capabilities` — orchestruje celý postup
+- [x] Podpora čítania PDF/PPTX súborov z priečinka Inovia (cez Context)
+- [ ] Finstat API integrácia (čakáme na API kľúč)
+- [ ] Porovnanie s predchádzajúcimi firmami (databáza záznamov)
 
 ---
 
