@@ -177,7 +177,7 @@ Jedna URL pre všetkých — žiadne osobné tokeny. Cowork vie OAuth Client ID 
 | `/marketing` | Komunikačný manuál — tvorba obsahu podľa tone of voice INOVIA | SiMi / MiSt | ✅ hotové |
 | `/tomorrow-briefing` | Briefing programu na zajtra | MiZa | nové |
 | `/mapping` | Mapovanie firiem — research, zápis zo stretnutia, formulár | MiSt | ✅ hotové |
-| `/zsk-review` | Hodnotenie prezentácií IŽK — pravidlá, pitch deck, kategórie | VlKo / MiSt | plánované |
+| `/zsk-review` | Hodnotenie prezentácií IŽK — pravidlá, pitch deck, kategórie | VlKo / MiSt | ✅ hotové |
 | `/municipality-innovation` | Budovanie inovácií v samospráve | MiZa | plánované |
 | `/mip-tuner` | Ladič formulácií pre MIP projekty | MiZa | plánované |
 | `/agenda` | Agenda oblasti + interný helpdesk per OJ | MiSt | plánované |
@@ -330,6 +330,8 @@ Kontextová znalostná báza o súťaži. Používa ju `/mapping` pri práci s f
 
 ### Čo je potrebné pripraviť
 
-- [ ] `data/skills/zsk-review/skill.md` — pravidlá, kategórie, pitch deck štruktúra, harmonogram
-- [ ] Prevziať pitch deck štruktúru z https://www.inovaciazk.sk/co-je-to-pitch-deck
-- [ ] Skill `/zsk-review` v `get_capabilities` — `hasContext: true`, vracia znalostný kontext
+- [x] `data/skills/zsk-review/skill.md` — pravidlá, kategórie, pitch deck štruktúra, harmonogram, hodnotenie
+- [x] Pitch deck štruktúra — odporúčaná 8–12 slidov (web ju nemal, vytvorili sme vlastnú)
+- [x] Skill `/zsk-review` v `get_capabilities` — `hasContext: true`
+- [x] Hodnotenie prezentácií — 5 kritérií (inovácia, trh, tím, realizovateľnosť, regionálny dopad)
+- [x] Porovnanie s finalistami 2024

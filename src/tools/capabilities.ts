@@ -60,6 +60,13 @@ export function registerCapabilitiesTool(server: McpServer, email: string): void
           prompt: "Zavolaj get_skill_context('mapping') pre detailné inštrukcie a postupuj podľa nich.",
           hasContext: true,
         },
+        {
+          id: "zsk-review",
+          name: "Inovácia Žilinského kraja",
+          description: "Hodnotenie prezentácií, info o súťaži IŽK, pomoc s pitch deckom, pravidlá a kategórie",
+          prompt: "Zavolaj get_skill_context('zsk-review') pre detailné inštrukcie a postupuj podľa nich.",
+          hasContext: true,
+        },
         ...(marketingGuideExists() ? [{
           id: "marketing",
           name: "Marketing a komunikácia",
