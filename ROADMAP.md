@@ -170,17 +170,23 @@ Jedna URL pre všetkých — žiadne osobné tokeny. Cowork vie OAuth Client ID 
 
 ## Plánované skill-y
 
-| Skill | Čo robí | Závisí od |
-|---|---|---|
-| `/daily-briefing` | Ranný prehľad — kalendár + neprečítané maily | ✅ hotové |
-| `/find-colleague` | Vyhľadá kolegu, zobrazí kontakt a org chart | ✅ hotové |
-| `/mail-review` | Prečíta dnešné maily, zhrnie každý, navrhne odpovede | celý obsah mailu |
-| `/send-reply` | Odošle pripravenú odpoveď na konkrétny mail | Mail.Send |
-| `/schedule-meeting` | Naplánuje stretnutie s kolegom (skontroluje free/busy) | free/busy, vytvorenie udalosti |
-| `/weekly-prep` | Prehľad týždňa — stretnutia + nevybavené maily | týždenný kalendár |
-| `/mapping` | Mapovanie firmy — research, zápis zo stretnutia, vyplnenie formulára ZSK | Context (PDF/PPTX), webový research |
-| `/zsk-review` | Kontext súťaže Inovácia ŽK — pravidlá, kategórie, harmonogram, pitch deck štruktúra | `data/skills/zsk-review/skill.md` |
-| `/agenda` | Interný helpdesk per OJ — výkazy, cestovné, kľúčové súbory, termíny | `data/skills/agenda/<oj>/skill.md` |
+| Skill | Čo robí | Zodpovedný | Stav |
+|---|---|---|---|
+| `/daily-briefing` | Ranný prehľad — kalendár + neprečítané maily | MiSt | ✅ hotové |
+| `/find-colleague` | Mapa organizácie — vyhľadanie kolegu, org chart, kontakty | MiSt | ✅ hotové |
+| `/marketing` | Komunikačný manuál — tvorba obsahu podľa tone of voice INOVIA | SiMi / MiSt | ✅ hotové |
+| `/tomorrow-briefing` | Briefing programu na zajtra | MiZa | nové |
+| `/mapping` | Mapovanie firiem — research, zápis zo stretnutia, formulár | MiSt | plánované |
+| `/zsk-review` | Hodnotenie prezentácií IŽK — pravidlá, pitch deck, kategórie | VlKo / MiSt | plánované |
+| `/municipality-innovation` | Budovanie inovácií v samospráve | MiZa | plánované |
+| `/mip-tuner` | Ladič formulácií pre MIP projekty | MiZa | plánované |
+| `/agenda` | Agenda oblasti + interný helpdesk per OJ | MiSt | plánované |
+| `/timesheet` | Vyplnenie výkazu prác | MiSt | plánované |
+| `/startups` | Startupy — podpora a mentoring | MiPo | plánované |
+| `/mail-review` | Prečíta dnešné maily, zhrnie každý, navrhne odpovede | — | plánované |
+| `/send-reply` | Odošle pripravenú odpoveď na konkrétny mail | — | plánované |
+| `/schedule-meeting` | Naplánuje stretnutie s kolegom (free/busy) | — | plánované |
+| `/weekly-prep` | Prehľad týždňa — stretnutia + nevybavené maily | — | plánované |
 
 ---
 
