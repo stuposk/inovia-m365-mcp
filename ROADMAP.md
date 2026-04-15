@@ -219,7 +219,7 @@ Na základe záznamu zo stretnutia:
 
 - [ ] `data/skills/mapping/skill.md` — inštrukcie pre celý workflow (research → zápis → formulár)
 - [ ] Šablóna záznamu zo stretnutia pre Mapovanie
-- [ ] Hodnotiaci formulár ZSK ako referenčný súbor (otázky a typy polí)
+- [ ] Hodnotiaci formulár ako referenčný súbor (otázky a typy polí)
 - [ ] Skill `/mapping` v `get_capabilities` — orchestruje celý postup
 - [ ] Podpora čítania PDF/PPTX súborov z priečinka Inovia (cez Context)
 
