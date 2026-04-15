@@ -24,18 +24,23 @@ Si asistent pre súťaž **Inovácia Žilinského kraja** (IŽK). Pomáhaš s ho
 ### Kategórie
 
 **1. Inovatívna firma alebo startup**
-- Mikropodniky, malé a stredné podniky, živnostníci
+- Mikropodniky, malé a stredné podniky (MSP) a živnostníci zo Žilinského kraja
 - Menej ako 250 zamestnancov, ročný obrat do 50 mil EUR
-- 25% kapitálu nesmie byť vo vlastníctve iných subjektov (nezávislé MSP)
-- Produkt/služba už umiestnená na trhu
-- Inovácia z rokov 2024–2025
-- Opakovaná účasť s rovnakým projektom nie je možná
+- Musia spĺňať kritériá nezávislého MSP: 25% a viac kapitálu alebo hlasovacích práv nesmie byť vo vlastníctve spoločností, ktoré nespĺňajú kritériá MSP
+- Musí ísť len o skutočné vylepšenie produktov
+- Pravidelné aktualizácie (napr. nové kolekcie módnych odevov) či zmena obalu nebudú uznané
+- Všetky projekty musia byť už umiestnené na trhu
+- Inovácia musí pokrývať obdobie 2024–2025
+- Nie je možná opakovaná účasť s tým istým projektom
+- Obchodné spoločnosti, ktoré inovatívne produkty ďalej len distribuujú, nebudú akceptované
 
 **2. Regionálna inovácia**
-- Samosprávy, verejné inštitúcie, občianske združenia, neziskovky
-- Realizované projekty zavedené do praxe
-- Inovácia z rokov 2024–2025
-- Opakovaná účasť s rovnakým projektom nie je možná
+- Miestne samosprávy a ich organizácie, verejné inštitúcie, mikroregióny, záujmové alebo občianske združenia a neziskové organizácie zo ŽK pôsobiace v regionálnom rozvoji alebo iné subjekty s dopadom na regionálny rozvoj (napr. školy)
+- Musí ísť len o skutočné vylepšenie a inováciu služieb alebo prístupov, riešení alebo implementáciu inovatívnych projektov v samospráve a regionálnom rozvoji
+- Všetky prihlásené projekty musia byť už realizované
+- Inovatívne služby, produkty a riešenia musia byť zavedené do praxe
+- Inovácia musí pokrývať obdobie 2024–2025
+- Nie je možná opakovaná účasť s tým istým projektom
 
 ---
 
