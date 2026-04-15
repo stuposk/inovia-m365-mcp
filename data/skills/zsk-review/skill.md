@@ -54,32 +54,63 @@ Používateľ nahrá prezentáciu firmy (PDF/PPTX) do priečinka Inovia. Ja:
 
 1. **Prečítam prezentáciu** — extrahujem kľúčové údaje
 2. **Urobím research** — finstat.sk, web firmy, LinkedIn
-3. **Zhodnotím podľa kritérií:**
-   - Inovačný potenciál — novosť riešenia, miera inovácie
-   - Trhový potenciál — veľkosť trhu, trakcia, zákazníci
-   - Tím — skúsenosti, kompetencie, kapacita
-   - Realizovateľnosť — je to reálne? Je to už na trhu?
-   - Regionálny dopad — prínos pre Žilinský kraj
+3. **Zhodnotím podľa oficiálnych kritérií:**
+
+   **Inovatívna firma alebo startup:**
+   - Stupeň inovácie
+   - Ekonomické prínosy inovácie
+   - Trhové šance
+   - Sociálno-ekonomický dopad na región Žilinského samosprávneho kraja
+
+   **Regionálna inovácia:**
+   - Stupeň inovácie
+   - Prínosy inovácie pre región, mikroregión, príp. obyvateľstvo v riešenom území
+   - Sociálno-ekonomický dopad na región, príp. cieľovú skupinu projektu alebo užívateľov služieb
+   - Udržateľnosť projektu, zabezpečenie aktualizácie riešenia alebo udržateľnosti poskytovania služby
 4. **Vypíšem silné stránky a slabiny**
 5. **Navrhnem skóre** (1–5 pre každé kritérium) s odôvodnením
 
 ### 3. Pomoc s pitch deckom
-Ak firma pripravuje prezentáciu na prihlásenie, poradím:
 
-**Odporúčaná štruktúra pitch decku (8–12 slidov):**
+Pitch Deck je zhrnutie, ktoré poskytuje celkový prehľad o projekte vrátane jeho poslania, hodnotovej ponuky, cieľového trhu, konkurenčnej výhody alebo biznis modelu, prípadne jeho dopad na región. Na základe Pitch Decku sa rozhodne o účasti vo finále.
 
-1. **Titulka** — názov firmy, logo, kontakt, kategória
-2. **Problém** — aký problém riešite? Pre koho?
-3. **Riešenie** — váš produkt/služba, čím je inovatívny
-4. **Produkt** — demo, screenshoty, funkcie
-5. **Trh** — veľkosť, cieľová skupina, trendy
-6. **Trakcia** — čísla, zákazníci, tržby, rast
-7. **Biznis model** — ako zarábate, cenník
-8. **Konkurencia** — porovnanie, vaša výhoda
-9. **Tím** — kľúčoví ľudia, kompetencie
-10. **Regionálny dopad** — prínos pre ŽK, pracovné miesta, spolupráce
-11. **Plány** — kam smerujete, míľniky
-12. **Kontakt** — ako vás osloviť
+**Technické požiadavky:**
+- Formát: **PDF**
+- Rozsah: maximálne **15 strán/slajdov**
+- Veľkosť: maximálne **20 MB**
+- Názov súboru: `Nazov-sutazneho-projektu.pdf` (bez diakritiky)
+
+**Štruktúra — Inovatívna firma alebo startup:**
+1. Intro — názov firmy a názov produktu
+2. Predstavenie firmy
+3. Popis problému resp. príležitosti
+4. Stručný popis riešenia
+5. V čom spočíva inovatívnosť riešenia (konkurenčná výhoda voči existujúcim alternatívam)
+6. Prípadne porovnanie s konkurenciou
+7. Popis cieľového zákazníka
+8. Aké benefity inovácia zákazníkovi prináša
+9. Veľkosť trhu
+10. Biznis model a biznis potenciál
+11. Aktuálny stav zavádzania inovácie u zákazníkov
+12. Ďalší plánovaný rozvoj produktu — roadmapa
+13. Prínos inovácie pre región (nové pracovné miesta, uľahčenie života...)
+14. Záverečné zhrnutie
+
+**Štruktúra — Regionálna inovácia:**
+1. Intro — názov organizácie a názov projektu
+2. Predstavenie organizácie
+3. Popis riešeného problému resp. príležitosti
+4. Stručný popis riešenia
+5. V čom spočíva inovatívnosť riešenia (konkurenčná výhoda voči existujúcim alternatívam)
+6. Porovnanie s predchádzajúcim stavom a prípadnou konkurenčnou alternatívou
+7. Popis cieľového zákazníka/používateľa
+8. Aké benefity inovácia zákazníkovi/používateľovi prináša
+9. Na akú veľkú cieľovú skupinu má inovácia zásah
+10. Udržateľnosť — finančné zabezpečenie inovácie na začiatku a počas jej životnosti
+11. Aktuálny stav zavádzania inovácie do života
+12. Ďalší plánovaný rozvoj — roadmapa
+13. Prínos inovácie pre región (nové pracovné miesta, uľahčenie života...)
+14. Záverečné zhrnutie
 
 ### 4. Porovnanie s minulými ročníkmi
 
