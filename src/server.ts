@@ -263,6 +263,13 @@ function landingHtml(): string {
       </div>
     </div>
 
+    <a href="https://youtu.be/lt0uypYGedM" target="_blank" rel="noopener" class="login-btn" style="background: #374151; margin-bottom: 12px;">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M8 5.5v9l7-4.5-7-4.5z" fill="white"/>
+      </svg>
+      Video návod
+    </a>
+
     <a href="/auth/login" class="login-btn">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path d="M3 10a7 7 0 1 1 14 0A7 7 0 0 1 3 10zm7-3a1 1 0 0 0-1 1v2H7a1 1 0 1 0 0 2h2v2a1 1 0 1 0 2 0v-2h2a1 1 0 1 0 0-2h-2V8a1 1 0 0 0-1-1z" fill="white"/>
@@ -489,6 +496,7 @@ function authCallbackHtml(email: string, personalUrl: string): string {
     <hr class="divider">
 
     <p class="steps-title">Ako nastaviť connector</p>
+    <p style="margin-bottom: 16px; font-size: 0.88rem;"><a href="https://youtu.be/lt0uypYGedM" target="_blank" rel="noopener" style="color: #0078d4; font-weight: 600;">▶ Video návod</a></p>
     <ol class="steps">
       <li class="step">
         <span class="step-num">1</span>
