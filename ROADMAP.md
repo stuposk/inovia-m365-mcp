@@ -178,15 +178,15 @@ Jedna URL pre všetkých — žiadne osobné tokeny. Cowork vie OAuth Client ID 
 | `/send-reply` | Odošle pripravenú odpoveď na konkrétny mail | Mail.Send |
 | `/schedule-meeting` | Naplánuje stretnutie s kolegom (skontroluje free/busy) | free/busy, vytvorenie udalosti |
 | `/weekly-prep` | Prehľad týždňa — stretnutia + nevybavené maily | týždenný kalendár |
-| `/mapping` | Mapovanie firmy — research, zápis zo stretnutia, formulár ZSK | Context (PDF/PPTX), webový research |
-| `/zsk-review` | Hodnotenie inovačného projektu — analýza prezentácie, vyplnenie formulára | Context (PDF/PPTX) |
-| `/agenda` | Sprievodca agendou OJ — výkazy, cestovné, kľúčové súbory, termíny | `data/skills/agenda/<oj>/guide.md` |
+| `/mapping` | Mapovanie firmy — research, zápis zo stretnutia, vyplnenie formulára ZSK | Context (PDF/PPTX), webový research |
+| `/zsk-review` | Kontext súťaže Inovácia ŽK — pravidlá, kategórie, harmonogram, pitch deck štruktúra | `data/skills/zsk-review/skill.md` |
+| `/agenda` | Interný helpdesk per OJ — výkazy, cestovné, kľúčové súbory, termíny | `data/skills/agenda/<oj>/skill.md` |
 
 ---
 
-## Mapovanie — workflow pre ZSK
+## Mapovanie — `/mapping`
 
-Tím Mapovania sa stretáva s firmami v rámci ZSK procesu. Asistent má podporiť celý cyklus od prípravy po odovzdanie formulára.
+Tím Mapovania sa stretáva s firmami (v rámci ZSK aj mimo neho). Asistent podporuje celý cyklus od prípravy po vyplnenie formulára.
 
 ### Fáza 1 — Príprava a research firmy
 
@@ -202,18 +202,19 @@ Po rozhovore s firmou:
 - Identifikácia silných stránok, rizík, inovačného potenciálu
 - Porovnanie s predchádzajúcimi firmami (ak sú záznamy k dispozícii)
 
-### Fáza 3 — Vyplnenie hodnotiaceho formulára ZSK
+### Fáza 3 — Vyplnenie hodnotiaceho formulára
 
 Na základe záznamu zo stretnutia:
-- Načítanie otázok z hodnotiaceho formulára ZSK (nahrať ako súbor do Inovia)
+- Načítanie otázok z hodnotiaceho formulára (napr. ZSK — nahrať ako súbor do Inovia)
 - Automatické mapovanie údajov zo záznamu na jednotlivé otázky formulára
 - Návrh odpovedí s možnosťou úpravy pred potvrdením
 
 ### Čo je potrebné pripraviť
 
-- [ ] Šablóna záznamu zo stretnutia pre Mapovanie (`data/skills/mapovanie-zapis/guide.md`)
+- [ ] `data/skills/mapping/skill.md` — inštrukcie pre celý workflow (research → zápis → formulár)
+- [ ] Šablóna záznamu zo stretnutia pre Mapovanie
 - [ ] Hodnotiaci formulár ZSK ako referenčný súbor (otázky a typy polí)
-- [ ] Skill `/mapping` — orchestruje celý postup (research → zápis → formulár)
+- [ ] Skill `/mapping` v `get_capabilities` — orchestruje celý postup
 - [ ] Podpora čítania PDF/PPTX súborov z priečinka Inovia (cez Context)
 
 ---
@@ -284,12 +285,12 @@ Každá OJ dostane vlastný súbor `data/skills/agenda/<oj>/skill.md` so sekciam
 
 ## Inovácia Žilinského kraja — `/zsk-review`
 
-Súťaž **Inovácia Žilinského kraja** (18. ročník, 2026) oceňuje podnikavých a inovatívnych ľudí, projekty, firmy a organizácie zo Žilinského kraja. INOVIA sa podieľa na hodnotení prihlásených projektov.
+Kontextová znalostná báza o súťaži. Používa ju `/mapping` pri práci s firmami prihlásenými do ZSK, ale aj samostatne — napr. keď sa niekto opýta "aké sú kategórie?" alebo "kedy je uzávierka?".
 
 - Web: https://www.inovaciazk.sk/
 - Pitch deck guide: https://www.inovaciazk.sk/co-je-to-pitch-deck
 
-### Harmonogram 2026
+### Harmonogram 2026 (18. ročník)
 
 | Dátum | Udalosť |
 |---|---|
@@ -308,37 +309,19 @@ Súťaž **Inovácia Žilinského kraja** (18. ročník, 2026) oceňuje podnikav
 - Samosprávy, verejné inštitúcie, občianske združenia, neziskovky
 - Realizované projekty zavedené do praxe
 
-### Čo robí INOVIA — mapovanie a hodnotenie
+### Čo obsahuje `data/skills/zsk-review/skill.md`
 
-Tím Mapovania sa stretáva s firmami, posudzuje prihlásené projekty a pripravuje hodnotenie.
+- Pravidlá a kritériá súťaže
+- Štruktúra pitch decku (prevzatá z https://www.inovaciazk.sk/co-je-to-pitch-deck)
+- Harmonogram a deadliny
+- Kategórie a podmienky účasti
 
-#### Fáza 1 — Príprava a research firmy
+### Prepojenie s `/mapping`
 
-Pred stretnutím alebo po získaní prezentácie (pitch deck):
-- Nahranie materiálov firmy (PDF / PPTX) do priečinka Inovia
-- Research o firme — web, LinkedIn, verejné zdroje
-- Extrahovanie kľúčových údajov: produkt, tím, trh, trakcia, financovanie
-- Analýza pitch decku podľa štruktúry z https://www.inovaciazk.sk/co-je-to-pitch-deck
-
-#### Fáza 2 — Zápis zo stretnutia s firmou
-
-Po rozhovore s firmou:
-- Štruktúrovaný zápis podľa šablóny INOVIA / Mapovania
-- Identifikácia silných stránok, rizík, inovačného potenciálu
-- Porovnanie s predchádzajúcimi firmami (ak sú záznamy k dispozícii)
-
-#### Fáza 3 — Vyplnenie hodnotiaceho formulára ZSK
-
-Na základe záznamu zo stretnutia:
-- Načítanie otázok z hodnotiaceho formulára ZSK (nahrať ako súbor do Inovia)
-- Automatické mapovanie údajov zo záznamu na jednotlivé otázky formulára
-- Návrh odpovedí s možnosťou úpravy pred potvrdením
+`/mapping` je workflow (research → zápis → formulár). `/zsk-review` je kontext — keď `/mapping` spracováva firmu prihlásenú do ZSK, načíta si aj ZSK pravidlá a pitch deck štruktúru.
 
 ### Čo je potrebné pripraviť
 
-- [ ] `data/skills/zsk-review/skill.md` — inštrukcie pre celý workflow (research → zápis → formulár)
-- [ ] Štruktúra pitch decku — prevziať z https://www.inovaciazk.sk/co-je-to-pitch-deck (otázky, kritériá)
-- [ ] Hodnotiaci formulár ZSK ako referenčný súbor (otázky a typy polí)
-- [ ] Šablóna záznamu zo stretnutia pre Mapovanie
-- [ ] Skill `/zsk-review` v `get_capabilities` — orchestruje celý postup
-- [ ] Podpora čítania PDF/PPTX súborov z priečinka Inovia (cez Context)
+- [ ] `data/skills/zsk-review/skill.md` — pravidlá, kategórie, pitch deck štruktúra, harmonogram
+- [ ] Prevziať pitch deck štruktúru z https://www.inovaciazk.sk/co-je-to-pitch-deck
+- [ ] Skill `/zsk-review` v `get_capabilities` — `hasContext: true`, vracia znalostný kontext
