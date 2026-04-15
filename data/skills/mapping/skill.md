@@ -44,6 +44,47 @@ Po prejdení všetkých otázok zobraz súhrn:
 - Zoznam otázok na konzultáciu (⚠️)
 - Zoznam chýbajúcich informácií (❌)
 
+### Fáza 4 — Výstup
+
+Po sumarizácii sa opýtaj: **„V akom formáte chceš výstup?"**
+
+- **Markdown** (.md) — štandardný, ľahko editovateľný
+- **Word** (.docx) — pre zdieľanie s kolegami
+- **Excel** (.xlsx) — tabuľkový formát (otázka + odpoveď + status)
+- **PDF** — finálna verzia na archiváciu
+
+Vygeneruj súbor do priečinka Inovia. Názov: `[Názov firmy] — mapovací dotazník [dátum].{formát}`
+
+### Fáza 5 — Follow-up mail
+
+Po exporte sa opýtaj: **„Chceš vygenerovať follow-up mail pre firmu?"**
+
+Ak áno, opýtaj sa: **„Formálne alebo neformálne?"**
+
+Follow-up mail obsahuje:
+- Poďakovanie za stretnutie
+- Sumár dohodnutých krokov a ponúknutých služieb (body zo sekcie 60–66 dotazníka)
+- Konkrétne next steps s menami zodpovedných osôb
+- Ponuka ďalšej spolupráce / pozvánka na podujatia
+- Kontakt na mapovača
+
+Príklad štruktúry (neformálne):
+```
+Ahojte,
+
+Posielam sumár toho, čo sme sa dohodli na stretku.
+
+[Bod 1 — konkrétna služba/akcia — kto sa ozve]
+[Bod 2 — ...]
+[Bod 3 — ...]
+
+Samozrejme vás budeme prizývať na podujatia alebo networkingové aktivity u nás.
+
+Ak máte otázky, som k dispozícii.
+```
+
+Body generuj **výlučne z toho čo bolo dohodnuté** — nevymýšľaj služby ktoré sa nespomenuli.
+
 ---
 
 ## Finančné údaje
