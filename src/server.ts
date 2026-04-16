@@ -18,8 +18,30 @@ import { registerUserTools } from "./tools/users.js";
 import { registerCapabilitiesTool } from "./tools/capabilities.js";
 import { registerSkillContextTool } from "./tools/skill-context.js";
 
-const VERSION = "26.04.31";
+const VERSION = "26.04.32";
 const REPO_URL = "https://github.com/stuposk/inovia-m365-mcp";
+const ADMIN_EMAILS = ["stupak@inovia.sk"];
+
+// In-memory usage stats (resets on deploy/restart)
+interface UserStats {
+  email: string;
+  calls: number;
+  firstSeen: string;
+  lastSeen: string;
+}
+const usageStats = new Map<string, UserStats>();
+const serverStartedAt = new Date().toISOString();
+
+function trackUsage(email: string): void {
+  const now = new Date().toISOString();
+  const existing = usageStats.get(email);
+  if (existing) {
+    existing.calls++;
+    existing.lastSeen = now;
+  } else {
+    usageStats.set(email, { email, calls: 1, firstSeen: now, lastSeen: now });
+  }
+}
 
 async function loadEnv(): Promise<void> {
   try {
@@ -111,6 +133,87 @@ function createOnboardingServer(): McpServer {
   );
 
   return server;
+}
+
+function adminHtml(): string {
+  const stats = Array.from(usageStats.values()).sort((a, b) => b.calls - a.calls);
+  const totalCalls = stats.reduce((sum, s) => sum + s.calls, 0);
+  const rows = stats.map(s => `
+    <tr>
+      <td>${s.email}</td>
+      <td style="text-align:right;font-weight:600">${s.calls}</td>
+      <td>${new Date(s.firstSeen).toLocaleString("sk-SK", { timeZone: "Europe/Bratislava" })}</td>
+      <td>${new Date(s.lastSeen).toLocaleString("sk-SK", { timeZone: "Europe/Bratislava" })}</td>
+    </tr>`).join("");
+
+  return `<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>INOVIA Admin</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0f4f8; min-height: 100vh; padding: 32px 16px; color: #1a1a2e;
+    }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+    .meta { font-size: 0.82rem; color: #6b7280; margin-bottom: 24px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+    .card {
+      background: #fff; border-radius: 12px; padding: 20px; text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+    .card-num { font-size: 2rem; font-weight: 700; color: #0078d4; }
+    .card-label { font-size: 0.78rem; color: #6b7280; margin-top: 4px; }
+    table {
+      width: 100%; background: #fff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04); border-collapse: collapse;
+    }
+    th { background: #f8fafc; text-align: left; padding: 12px 16px; font-size: 0.78rem;
+         font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; }
+    td { padding: 12px 16px; font-size: 0.88rem; border-top: 1px solid #f1f5f9; }
+    tr:hover td { background: #f8fafc; }
+    footer { margin-top: 24px; text-align: center; font-size: 0.78rem; color: #9ca3af; }
+    @media (max-width: 520px) { .cards { grid-template-columns: 1fr; } }
+  </style>
+  <meta http-equiv="refresh" content="30">
+</head>
+<body>
+  <div class="container">
+    <h1>INOVIA Admin Dashboard</h1>
+    <p class="meta">Server v${VERSION} · Beží od ${new Date(serverStartedAt).toLocaleString("sk-SK", { timeZone: "Europe/Bratislava" })} · Auto-refresh 30s</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-num">${stats.length}</div>
+        <div class="card-label">Aktívni používatelia</div>
+      </div>
+      <div class="card">
+        <div class="card-num">${totalCalls}</div>
+        <div class="card-label">Celkové volania</div>
+      </div>
+      <div class="card">
+        <div class="card-num">${VERSION}</div>
+        <div class="card-label">Verzia servera</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Používateľ</th><th style="text-align:right">Volania</th><th>Prvé volanie</th><th>Posledné volanie</th></tr>
+      </thead>
+      <tbody>
+        ${rows || '<tr><td colspan="4" style="text-align:center;color:#9ca3af;padding:24px">Zatiaľ žiadne volania od posledného reštartu</td></tr>'}
+      </tbody>
+    </table>
+
+    <footer>Dáta od posledného reštartu servera. Pre historické dáta pozri Cloud Run logy.</footer>
+  </div>
+</body>
+</html>`;
 }
 
 function landingHtml(): string {
@@ -622,6 +725,7 @@ async function startHttp(port: number): Promise<void> {
           return;
         }
 
+        trackUsage(email);
         mcpServer = createMcpServer(email);
       }
 
@@ -636,6 +740,27 @@ async function startHttp(port: number): Promise<void> {
           res.writeHead(500, { "Content-Type": "application/json" });
           res.end(JSON.stringify({ error: err.message }));
         }
+      }
+      return;
+    }
+
+    // GET /admin → usage dashboard (JWT-protected, admin only)
+    if (req.method === "GET" && pathname === "/admin") {
+      const token = url.searchParams.get("token");
+      if (!token) {
+        res.writeHead(401, { "Content-Type": "text/plain" }).end("Token required");
+        return;
+      }
+      try {
+        const { email } = await verifyUserJwt(token);
+        if (!ADMIN_EMAILS.includes(email)) {
+          res.writeHead(403, { "Content-Type": "text/plain" }).end("Not authorized");
+          return;
+        }
+        res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+        res.end(adminHtml());
+      } catch {
+        res.writeHead(401, { "Content-Type": "text/plain" }).end("Invalid token");
       }
       return;
     }
