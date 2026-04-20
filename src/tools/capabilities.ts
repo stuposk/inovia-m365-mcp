@@ -2,6 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { existsSync, readFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
+import { logToolCall } from "../log.js";
 
 const __rootdir = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -26,6 +27,7 @@ export function registerCapabilitiesTool(server: McpServer, email: string): void
     "Returns the list of available inovia workplace assistant capabilities and current user context. Always call this first when the user invokes /inovia or asks what the assistant can do.",
     {},
     async () => {
+      logToolCall(email, "get_capabilities");
       const capabilities = [
         {
           id: "onboarding",

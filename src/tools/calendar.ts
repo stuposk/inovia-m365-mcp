@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { getEvents } from "../graph.js";
+import { logToolCall } from "../log.js";
 
 export function registerCalendarTool(server: McpServer, email: string): void {
   server.tool(
@@ -14,6 +15,7 @@ export function registerCalendarTool(server: McpServer, email: string): void {
       to: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional().describe("End date (YYYY-MM-DD), default: today"),
     },
     async ({ from, to }) => {
+      logToolCall(email, "get_today_events");
       const events = await getEvents(email, from, to);
 
       if (events.length === 0) {

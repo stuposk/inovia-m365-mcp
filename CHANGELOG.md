@@ -1,5 +1,14 @@
 # Changelog
 
+## 26.04.33 — 2026-04-20
+
+### Pridané
+- Per-tool structured logging do Cloud Logging — každé volanie nástroja emituje JSON (`type: tool_call`, `email`, `tool`, `ts`) na stdout, Cloud Logging parsuje do `jsonPayload`. Umožňuje dotazy typu "koľkokrát sa volal `find_colleague` tento týždeň" cez Cloud Logging alebo BigQuery export.
+- Pri `get_skill_context` sa loguje aj konkrétne `id` skillu (napr. `get_skill_context:daily-briefing`).
+- Admin dashboard — nový stĺpec **Top tools** per user (top 3 najpoužívanejšie nástroje daným používateľom), nová kartička **Tool volania** (celkový počet invokácií) a globálna tabuľka **Tools — prehľad** so zoradením podľa frekvencie. HTML escape pre emaily a tool názvy.
+
+---
+
 ## 26.04.25 — 2026-04-15
 
 ### Pridané

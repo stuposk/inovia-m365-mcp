@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { getNewMessages } from "../graph.js";
+import { logToolCall } from "../log.js";
 
 export function registerMailTool(server: McpServer, email: string): void {
   server.tool(
@@ -18,6 +19,7 @@ export function registerMailTool(server: McpServer, email: string): void {
         .describe("Number of unread messages to fetch (1–50)"),
     },
     async ({ limit }) => {
+      logToolCall(email, "get_new_messages");
       const messages = await getNewMessages(email, limit);
 
       if (messages.length === 0) {

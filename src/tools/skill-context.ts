@@ -3,6 +3,7 @@ import { z } from "zod";
 import { readFileSync, existsSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
+import { logToolCall } from "../log.js";
 
 function getSkillContextPath(id: string): string {
   const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -11,7 +12,7 @@ function getSkillContextPath(id: string): string {
   return resolve(__dirname, `../../data/skills/${safeId}/skill.md`);
 }
 
-export function registerSkillContextTool(server: McpServer): void {
+export function registerSkillContextTool(server: McpServer, email: string): void {
   server.tool(
     "get_skill_context",
     "Returns detailed instructions for a specific capability. Call this after get_capabilities when you need full instructions for executing a capability that has hasContext: true.",
@@ -19,6 +20,7 @@ export function registerSkillContextTool(server: McpServer): void {
       id: z.string().describe("Capability id (e.g. 'daily-briefing')"),
     },
     async ({ id }) => {
+      logToolCall(email, `get_skill_context:${id.replace(/[^a-z0-9-]/gi, "")}`);
       const path = getSkillContextPath(id);
 
       if (!existsSync(path)) {

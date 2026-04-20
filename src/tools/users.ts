@@ -1,8 +1,9 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { findUsers, getUsersByDepartment, getUserOrgChart } from "../graph.js";
+import { logToolCall } from "../log.js";
 
-export function registerUserTools(server: McpServer): void {
+export function registerUserTools(server: McpServer, email: string): void {
   server.tool(
     "find_colleague",
     "Search for colleagues in the inovia.sk directory by name, email, or department. " +
@@ -11,6 +12,7 @@ export function registerUserTools(server: McpServer): void {
       query: z.string().describe("Name, email, or department to search for"),
     },
     async ({ query }) => {
+      logToolCall(email, "find_colleague");
       const users = await findUsers(query);
 
       if (users.length === 0) {
@@ -32,6 +34,7 @@ export function registerUserTools(server: McpServer): void {
       department: z.string().describe("Exact department name (e.g. 'Marketing', 'IT', 'Finance')"),
     },
     async ({ department }) => {
+      logToolCall(email, "get_department_members");
       const users = await getUsersByDepartment(department);
 
       if (users.length === 0) {
@@ -53,8 +56,9 @@ export function registerUserTools(server: McpServer): void {
     {
       email: z.string().email().describe("Email address of the colleague (e.g. jan.novak@inovia.sk)"),
     },
-    async ({ email }) => {
-      const { user, manager, directReports } = await getUserOrgChart(email);
+    async ({ email: target }) => {
+      logToolCall(email, "get_org_chart");
+      const { user, manager, directReports } = await getUserOrgChart(target);
 
       return {
         content: [{

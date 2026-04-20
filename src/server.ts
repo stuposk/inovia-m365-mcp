@@ -17,31 +17,11 @@ import { registerMailTool } from "./tools/mail.js";
 import { registerUserTools } from "./tools/users.js";
 import { registerCapabilitiesTool } from "./tools/capabilities.js";
 import { registerSkillContextTool } from "./tools/skill-context.js";
+import { trackUsage, getUsageStats, getServerStartedAt } from "./log.js";
 
-const VERSION = "26.04.32";
+const VERSION = "26.04.33";
 const REPO_URL = "https://github.com/stuposk/inovia-m365-mcp";
 const ADMIN_EMAILS = ["stupak@inovia.sk"];
-
-// In-memory usage stats (resets on deploy/restart)
-interface UserStats {
-  email: string;
-  calls: number;
-  firstSeen: string;
-  lastSeen: string;
-}
-const usageStats = new Map<string, UserStats>();
-const serverStartedAt = new Date().toISOString();
-
-function trackUsage(email: string): void {
-  const now = new Date().toISOString();
-  const existing = usageStats.get(email);
-  if (existing) {
-    existing.calls++;
-    existing.lastSeen = now;
-  } else {
-    usageStats.set(email, { email, calls: 1, firstSeen: now, lastSeen: now });
-  }
-}
 
 async function loadEnv(): Promise<void> {
   try {
@@ -86,10 +66,10 @@ function createMcpServer(email: string): McpServer {
     }
   );
   registerCapabilitiesTool(server, email);
-  registerSkillContextTool(server);
+  registerSkillContextTool(server, email);
   registerCalendarTool(server, email);
   registerMailTool(server, email);
-  registerUserTools(server);
+  registerUserTools(server, email);
   return server;
 }
 
@@ -135,15 +115,45 @@ function createOnboardingServer(): McpServer {
   return server;
 }
 
+function escapeHtml(s: string): string {
+  return s.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
+}
+
+function topToolsHtml(toolCounts: Record<string, number>): string {
+  const entries = Object.entries(toolCounts).sort((a, b) => b[1] - a[1]).slice(0, 3);
+  if (entries.length === 0) return '<span style="color:#9ca3af">—</span>';
+  return entries
+    .map(([tool, n]) => `<span style="display:inline-block;background:#eef2ff;color:#4338ca;border-radius:6px;padding:2px 8px;margin:2px 4px 2px 0;font-size:0.78rem;font-family:monospace">${escapeHtml(tool)} ×${n}</span>`)
+    .join("");
+}
+
 function adminHtml(): string {
-  const stats = Array.from(usageStats.values()).sort((a, b) => b.calls - a.calls);
+  const serverStartedAt = getServerStartedAt();
+  const stats = getUsageStats().sort((a, b) => b.calls - a.calls);
   const totalCalls = stats.reduce((sum, s) => sum + s.calls, 0);
+  const totalToolCalls = stats.reduce((sum, s) => sum + Object.values(s.toolCounts).reduce((a, b) => a + b, 0), 0);
+
+  // Aggregate tool counts across all users
+  const globalToolCounts: Record<string, number> = {};
+  for (const s of stats) {
+    for (const [tool, n] of Object.entries(s.toolCounts)) {
+      globalToolCounts[tool] = (globalToolCounts[tool] ?? 0) + n;
+    }
+  }
+  const globalTopTools = Object.entries(globalToolCounts).sort((a, b) => b[1] - a[1]);
+  const globalToolRows = globalTopTools.map(([tool, n]) => `
+    <tr>
+      <td style="font-family:monospace;font-size:0.85rem">${escapeHtml(tool)}</td>
+      <td style="text-align:right;font-weight:600">${n}</td>
+    </tr>`).join("");
+
   const rows = stats.map(s => `
     <tr>
-      <td>${s.email}</td>
+      <td>${escapeHtml(s.email)}</td>
       <td style="text-align:right;font-weight:600">${s.calls}</td>
-      <td>${new Date(s.firstSeen).toLocaleString("sk-SK", { timeZone: "Europe/Bratislava" })}</td>
-      <td>${new Date(s.lastSeen).toLocaleString("sk-SK", { timeZone: "Europe/Bratislava" })}</td>
+      <td>${topToolsHtml(s.toolCounts)}</td>
+      <td style="white-space:nowrap">${new Date(s.firstSeen).toLocaleString("sk-SK", { timeZone: "Europe/Bratislava" })}</td>
+      <td style="white-space:nowrap">${new Date(s.lastSeen).toLocaleString("sk-SK", { timeZone: "Europe/Bratislava" })}</td>
     </tr>`).join("");
 
   return `<!DOCTYPE html>
@@ -158,7 +168,8 @@ function adminHtml(): string {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: #f0f4f8; min-height: 100vh; padding: 32px 16px; color: #1a1a2e;
     }
-    .container { max-width: 800px; margin: 0 auto; }
+    .container { max-width: 960px; margin: 0 auto; }
+    h2 { font-size: 1rem; font-weight: 600; margin: 28px 0 12px; color: #374151; }
     h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
     .meta { font-size: 0.82rem; color: #6b7280; margin-bottom: 24px; }
     .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
@@ -193,24 +204,41 @@ function adminHtml(): string {
       </div>
       <div class="card">
         <div class="card-num">${totalCalls}</div>
-        <div class="card-label">Celkové volania</div>
+        <div class="card-label">HTTP volania (sessions)</div>
       </div>
       <div class="card">
-        <div class="card-num">${VERSION}</div>
-        <div class="card-label">Verzia servera</div>
+        <div class="card-num">${totalToolCalls}</div>
+        <div class="card-label">Tool volania</div>
       </div>
     </div>
 
+    <h2>Používatelia</h2>
     <table>
       <thead>
-        <tr><th>Používateľ</th><th style="text-align:right">Volania</th><th>Prvé volanie</th><th>Posledné volanie</th></tr>
+        <tr>
+          <th>Používateľ</th>
+          <th style="text-align:right">Sessions</th>
+          <th>Top tools</th>
+          <th>Prvé volanie</th>
+          <th>Posledné volanie</th>
+        </tr>
       </thead>
       <tbody>
-        ${rows || '<tr><td colspan="4" style="text-align:center;color:#9ca3af;padding:24px">Zatiaľ žiadne volania od posledného reštartu</td></tr>'}
+        ${rows || '<tr><td colspan="5" style="text-align:center;color:#9ca3af;padding:24px">Zatiaľ žiadne volania od posledného reštartu</td></tr>'}
       </tbody>
     </table>
 
-    <footer>Dáta od posledného reštartu servera. Pre historické dáta pozri Cloud Run logy.</footer>
+    <h2>Tools — prehľad (všetci používatelia)</h2>
+    <table>
+      <thead>
+        <tr><th>Tool</th><th style="text-align:right">Volania</th></tr>
+      </thead>
+      <tbody>
+        ${globalToolRows || '<tr><td colspan="2" style="text-align:center;color:#9ca3af;padding:24px">Zatiaľ žiadne tool volania</td></tr>'}
+      </tbody>
+    </table>
+
+    <footer>Server v${VERSION} · Dáta od posledného reštartu (cold start). Pre historické dáta pozri Cloud Logging (<code>jsonPayload.type="tool_call"</code>).</footer>
   </div>
 </body>
 </html>`;
